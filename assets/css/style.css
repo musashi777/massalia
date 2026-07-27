@@ -1,0 +1,260 @@
+/* ==========================================================================
+   MASSALIA — Design system "Strates"
+   Palette : calcaire, basalte, terre cuite, patine bronze, or votif
+   ========================================================================== */
+
+:root {
+  --color-bg: #EDE7D9;
+  --color-bg-raised: #F5F1E6;
+  --color-ink: #1C2B33;
+  --color-ink-soft: #3D4C54;
+  --color-terracotta: #B5652C;
+  --color-terracotta-dark: #8F4C1F;
+  --color-teal: #3D6E77;
+  --color-gold: #B8912A;
+  --color-line: #C9BFA8;
+
+  --font-display: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-body: "Source Serif 4", ui-serif, Georgia, serif;
+  --font-utility: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  --measure: 62ch;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: var(--color-terracotta-dark);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--color-terracotta); }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  background: var(--color-ink);
+  color: #fff;
+  padding: var(--space-1) var(--space-2);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: var(--space-2);
+  top: var(--space-2);
+}
+
+/* ---------- Layout shell ---------- */
+.site-header {
+  border-bottom: 1px solid var(--color-line);
+  padding: var(--space-2) var(--space-3);
+}
+.site-header__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.site-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0;
+}
+.site-title a { color: var(--color-ink); text-decoration: none; }
+.site-tagline {
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  color: var(--color-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, var(--measure)) 220px;
+  gap: var(--space-5);
+  align-items: start;
+  padding: var(--space-4) 0;
+}
+@media (max-width: 860px) {
+  .page-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+/* ---------- Strate indicator (signature element) ---------- */
+.strate {
+  position: sticky;
+  top: var(--space-3);
+  border-left: 3px solid var(--color-line);
+  padding-left: var(--space-2);
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+}
+.strate__band {
+  padding: var(--space-1) 0 var(--space-1) var(--space-2);
+  margin-left: -3px;
+  border-left: 3px solid transparent;
+}
+.strate__band--active {
+  border-left-color: var(--color-terracotta);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.strate__label { display: block; text-transform: uppercase; letter-spacing: 0.06em; }
+.strate__epoque { display: block; color: var(--color-ink-soft); font-style: italic; margin-top: 2px; }
+
+/* ---------- Hero (Mère) ---------- */
+.hero {
+  padding: var(--space-5) 0 var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+.hero__eyebrow {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--color-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  max-width: 16ch;
+  margin: var(--space-2) 0;
+}
+.hero p { max-width: var(--measure); font-size: 1.2rem; color: var(--color-ink-soft); }
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-3);
+}
+.breadcrumb a { color: var(--color-ink-soft); }
+.breadcrumb .current { color: var(--color-ink); }
+
+/* ---------- Article content ---------- */
+.article-body { max-width: var(--measure); }
+.article-body p { margin: 0 0 1.4em; }
+.article-body h2 { font-size: 1.5rem; margin-top: var(--space-4); }
+
+.page-title {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  margin: 0 0 var(--space-2);
+}
+.page-lede {
+  font-size: 1.15rem;
+  color: var(--color-ink-soft);
+  max-width: var(--measure);
+}
+
+/* ---------- Cocoon cards (couches) ---------- */
+.couches {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  padding: var(--space-4) 0;
+}
+.couche-card {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-line);
+  padding: var(--space-3);
+  position: relative;
+}
+.couche-card__index {
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  color: var(--color-terracotta-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.couche-card h3 { font-size: 1.3rem; margin: var(--space-1) 0; }
+.couche-card p { color: var(--color-ink-soft); font-size: 1rem; margin-bottom: var(--space-2); }
+.couche-card a.card-link {
+  font-family: var(--font-utility);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-terracotta);
+}
+
+/* ---------- Sibling nav (Sœur <-> Sœur) ---------- */
+.siblings {
+  border-top: 1px solid var(--color-line);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+}
+.siblings h2 {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-teal);
+  margin-bottom: var(--space-2);
+}
+.siblings ul { list-style: none; padding: 0; margin: 0; }
+.siblings li { padding: var(--space-1) 0; border-bottom: 1px dotted var(--color-line); }
+
+/* ---------- Back to parent ---------- */
+.back-link {
+  display: inline-block;
+  margin-top: var(--space-3);
+  font-family: var(--font-utility);
+  font-size: 0.85rem;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding: var(--space-3);
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  color: var(--color-ink-soft);
+  text-align: center;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{metaTitle}}</title>
+<meta name="description" content="{{metaDescription}}">
+<link rel="canonical" href="{{canonicalUrl}}">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{metaTitle}}">
+<meta property="og:description" content="{{metaDescription}}">
+<meta property="og:url" content="{{canonicalUrl}}">
+<meta property="og:image" content="{{ogImage}}">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="{{twitterHandle}}">
+<meta name="twitter:title" content="{{metaTitle}}">
+<meta name="twitter:description" content="{{metaDescription}}">
+<meta name="twitter:image" content="{{ogImage}}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<script type="application/ld+json">
+{{schemaJson}}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <p class="site-title"><a href="/">Massalia</a></p>
+    <p class="site-tagline">Histoire &amp; Monuments de Marseille</p>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap page-grid">
+    <article>
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="{{parentUrl}}">{{parentTitle}}</a> / <span class="current">{{title}}</span>
+      </nav>
+
+      <h1 class="page-title">{{title}}</h1>
+      <p class="page-lede">{{lede}}</p>
+
+      <div class="article-body">
+        {{contentHtml}}
+      </div>
+
+      <a class="back-link" href="{{parentUrl}}">&larr; Retour à la catégorie {{parentTitle}}</a>
+
+      <section class="siblings">
+        <h2>Poursuivre dans cette strate</h2>
+        <ul>
+          {{siblingLinks}}
+        </ul>
+      </section>
+    </article>
+
+    <aside class="strate" aria-label="Position dans le cocon">
+      {{strateIndicator}}
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>Massalia — Dossier indépendant sur l'histoire et le patrimoine de Marseille.</p>
+</footer>
+</body>
+</html>

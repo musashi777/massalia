@@ -1,0 +1,9 @@
+L'entrée du Vieux-Port de Marseille est commandée depuis le Moyen Âge par un dispositif défensif renforcé au fil des siècles. Le site du Fort Saint-Jean accueillait une commanderie des Hospitaliers de Saint-Jean de Jérusalem dès la fin du XIIᵉ siècle ; le fort actuel est largement construit au XVIIᵉ siècle, sur ordre de Louis XIV. À partir de 1668, il participe à un système destiné à défendre le port mais aussi à affirmer l'autorité royale sur une ville récemment soumise.
+
+En vis-à-vis, sur la rive sud, le Fort Saint-Nicolas est édifié entre 1660 et 1664 sur ordre de Louis XIV. Avec son plan bastionné, il complète le contrôle de la passe du port et répond à une double préoccupation : protéger la rade et surveiller une ville dont le pouvoir royal redoute les rébellions.
+
+Au large, sur un îlot rocheux, le Château d'If est décidé par François Iᵉʳ en 1516 et achevé en 1531 pour garder l'entrée occidentale du royaume et de la rade. Sa fonction militaire laisse rapidement place à un usage carcéral ponctuel : la forteresse devient une prison d'État, notamment pour des opposants politiques et des protestants. Alexandre Dumas l'immortalise au XIXᵉ siècle comme cadre de l'évasion fictive d'Edmond Dantès dans *Le Comte de Monte-Cristo*, ancrant durablement l'îlot dans l'imaginaire collectif.
+
+Cette strate militaire raconte aussi l'histoire navale de Marseille, port d'attache de l'arsenal des galères royales, et conserve des traces plus insolites, notamment les nombreux graffiti laissés par des prisonniers, des gardiens, des soldats et des visiteurs au Château d'If.
+
+Deux dossiers approfondissent cette période : le lien établi entre le rhinocéros de 1515 et le Château d'If, ainsi que l'histoire de l'arsenal des galères qui a fait de Marseille une base navale de premier plan sous l'Ancien Régime.
