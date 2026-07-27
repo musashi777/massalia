@@ -1,0 +1,40 @@
+name: Validate and deploy Massalia
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: massalia-production
+  cancel-in-progress: true
+
+jobs:
+  validate-and-deploy:
+    name: Build, validate and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Retrieve source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build and validate semantic mesh
+        run: node build.js && node scripts/validate-mesh.js
+
+      - name: Deploy to Vercel production
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: --prod
+          working-directory: ./

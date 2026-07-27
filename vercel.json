@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "buildCommand": "node build.js && node scripts/validate-mesh.js",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "trailingSlash": false
+}

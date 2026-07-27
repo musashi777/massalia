@@ -1,0 +1,180 @@
+{
+  "site": {
+    "name": "Massalia — Histoire et Monuments de Marseille",
+    "baseUrl": "https://marseille-histoire.example",
+    "defaultOgImage": "/assets/img/og-default.jpg",
+    "twitterHandle": "@massalia_histoire"
+  },
+  "pages": {
+    "mere-histoire-marseille": {
+      "type": "mere",
+      "slug": "index",
+      "title": "Histoire et Patrimoine de Marseille",
+      "metaTitle": "Histoire et Patrimoine de Marseille | Massalia, cité phocéenne",
+      "metaDescription": "Le dossier de référence sur l'histoire de Marseille : fondations antiques, fortifications militaires et édifices religieux, des origines phocéennes à nos jours.",
+      "contentFile": "content/mere-histoire-marseille.md",
+      "schemaType": "CollectionPage",
+      "children": ["fille-antiquite", "fille-fortifications", "fille-religieux"],
+      "strate": {
+        "niveau": 0,
+        "label": "Niveau 0 — Surface",
+        "epoque": "Vue d'ensemble, du VIIᵉ siècle av. J.-C. à aujourd'hui"
+      }
+    },
+
+    "fille-antiquite": {
+      "type": "fille",
+      "slug": "antiquite-et-fondations",
+      "title": "Antiquité et Fondations",
+      "metaTitle": "Massalia grecque et romaine | Antiquité et Fondations de Marseille",
+      "metaDescription": "Comment les Phocéens ont fondé Massalia et développé un port majeur de la Méditerranée occidentale, entre mythe de fondation et vestiges antiques.",
+      "contentFile": "content/fille-antiquite.md",
+      "schemaType": "CollectionPage",
+      "parent": "mere-histoire-marseille",
+      "anchorToParent": "Histoire et Patrimoine de Marseille",
+      "children": ["soeur-port-antique", "soeur-jardin-vestiges"],
+      "strate": {
+        "niveau": 1,
+        "label": "Niveau I — Couche antique",
+        "epoque": "VIIᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C."
+      }
+    },
+    "fille-fortifications": {
+      "type": "fille",
+      "slug": "fortifications-et-architecture-militaire",
+      "title": "Fortifications et Architecture Militaire",
+      "metaTitle": "Fort Saint-Jean, Fort Saint-Nicolas, Château d'If | Fortifications de Marseille",
+      "metaDescription": "L'architecture militaire de Marseille : de la commanderie médiévale de Saint-Jean aux forteresses royales du Château d'If et du Fort Saint-Nicolas.",
+      "contentFile": "content/fille-fortifications.md",
+      "schemaType": "CollectionPage",
+      "parent": "mere-histoire-marseille",
+      "anchorToParent": "Histoire et Patrimoine de Marseille",
+      "children": ["soeur-rhinoceros-if", "soeur-arsenal-galeres"],
+      "strate": {
+        "niveau": 1,
+        "label": "Niveau I — Couche militaire",
+        "epoque": "XIIᵉ siècle — XVIIᵉ siècle"
+      }
+    },
+    "fille-religieux": {
+      "type": "fille",
+      "slug": "edifices-religieux-et-symboles",
+      "title": "Édifices Religieux et Symboles",
+      "metaTitle": "Notre-Dame de la Garde, Abbaye Saint-Victor | Édifices Religieux de Marseille",
+      "metaDescription": "Les monuments sacrés de Marseille : la basilique Notre-Dame de la Garde et l'abbaye Saint-Victor, entre foi, crypte et ex-voto.",
+      "contentFile": "content/fille-religieux.md",
+      "schemaType": "CollectionPage",
+      "parent": "mere-histoire-marseille",
+      "anchorToParent": "Histoire et Patrimoine de Marseille",
+      "children": ["soeur-crypte-saint-victor", "soeur-bonne-mere-exvoto"],
+      "strate": {
+        "niveau": 1,
+        "label": "Niveau I — Couche spirituelle",
+        "epoque": "Vᵉ siècle — XIXᵉ siècle"
+      }
+    },
+
+    "soeur-port-antique": {
+      "type": "soeur",
+      "slug": "fouilles-port-antique",
+      "title": "Les fouilles du Port Antique",
+      "metaTitle": "Le Port Antique de Marseille | Fouilles archéologiques",
+      "metaDescription": "Découverte des vestiges du port antique de Massalia, mis au jour lors des fouilles de la Bourse au XXᵉ siècle.",
+      "contentFile": "content/soeur-port-antique.md",
+      "schemaType": "HistoricSite",
+      "parent": "fille-antiquite",
+      "anchorToParent": "Antiquité et Fondations",
+      "siblings": ["soeur-jardin-vestiges"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate profonde",
+        "epoque": "Vers 600 av. J.-C."
+      }
+    },
+    "soeur-jardin-vestiges": {
+      "type": "soeur",
+      "slug": "jardin-des-vestiges",
+      "title": "Le Jardin des Vestiges",
+      "metaTitle": "Le Jardin des Vestiges | Port Antique de Marseille",
+      "metaDescription": "Le Jardin des Vestiges, site archéologique à ciel ouvert présentant les fortifications et quartiers portuaires de la Marseille antique.",
+      "contentFile": "content/soeur-jardin-vestiges.md",
+      "schemaType": "HistoricSite",
+      "parent": "fille-antiquite",
+      "anchorToParent": "Antiquité et Fondations",
+      "siblings": ["soeur-port-antique"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate profonde",
+        "epoque": "IVᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C."
+      }
+    },
+    "soeur-rhinoceros-if": {
+      "type": "soeur",
+      "slug": "legende-rhinoceros-chateau-if",
+      "title": "La légende du Rhinocéros du Château d'If",
+      "metaTitle": "Le Rhinocéros du Château d'If | Légende et fondation du château",
+      "metaDescription": "L'histoire du rhinocéros de Manuel Ier de Portugal, de son transit par l'île d'If en 1515 et du lien avec la création du château.",
+      "contentFile": "content/soeur-rhinoceros-if.md",
+      "schemaType": "HistoricSite",
+      "parent": "fille-fortifications",
+      "anchorToParent": "Fortifications et Architecture Militaire",
+      "siblings": ["soeur-arsenal-galeres"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate profonde",
+        "epoque": "1515 — 1531 : rhinocéros, décision et achèvement du château"
+      }
+    },
+    "soeur-arsenal-galeres": {
+      "type": "soeur",
+      "slug": "arsenal-des-galeres",
+      "title": "L'arsenal des Galères",
+      "metaTitle": "L'Arsenal des Galères de Marseille | Histoire navale royale",
+      "metaDescription": "L'arsenal des galères royales de Marseille, cœur de la puissance navale du royaume de France aux XVIIᵉ et XVIIIᵉ siècles.",
+      "contentFile": "content/soeur-arsenal-galeres.md",
+      "schemaType": "HistoricSite",
+      "parent": "fille-fortifications",
+      "anchorToParent": "Fortifications et Architecture Militaire",
+      "siblings": ["soeur-rhinoceros-if"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate profonde",
+        "epoque": "1666 — 1748"
+      }
+    },
+    "soeur-crypte-saint-victor": {
+      "type": "soeur",
+      "slug": "crypte-abbaye-saint-victor",
+      "title": "La crypte de Saint-Victor",
+      "metaTitle": "La Crypte de l'Abbaye Saint-Victor | Marseille souterraine",
+      "metaDescription": "Les vestiges paléochrétiens de l'abbaye Saint-Victor, entre ancienne carrière, nécropole et basilique de l'Antiquité tardive.",
+      "contentFile": "content/soeur-crypte-saint-victor.md",
+      "schemaType": "HistoricSite",
+      "parent": "fille-religieux",
+      "anchorToParent": "Édifices Religieux et Symboles",
+      "siblings": ["soeur-bonne-mere-exvoto"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate profonde",
+        "epoque": "Vᵉ siècle"
+      }
+    },
+    "soeur-bonne-mere-exvoto": {
+      "type": "soeur",
+      "slug": "statue-bonne-mere-ex-voto",
+      "title": "La statue de la Bonne Mère et ses ex-voto",
+      "metaTitle": "La Bonne Mère et ses Ex-Voto | Notre-Dame de la Garde",
+      "metaDescription": "La statue dorée de la Vierge veillant sur Marseille et la collection d'ex-voto marins de Notre-Dame de la Garde.",
+      "contentFile": "content/soeur-bonne-mere-exvoto.md",
+      "schemaType": "HistoricSite",
+      "parent": "fille-religieux",
+      "anchorToParent": "Édifices Religieux et Symboles",
+      "siblings": ["soeur-crypte-saint-victor"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate profonde",
+        "epoque": "XIXᵉ siècle"
+      }
+    }
+  }
+}
