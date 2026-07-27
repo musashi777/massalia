@@ -44,12 +44,44 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: 1.125rem;
+  /* Typographie fluide : échelle modulaire continue en O(1) sans points de rupture */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; display: block; height: auto; }
+
+/* Prévention CLS : Ratio fluide pour les images */
+figure {
+  margin: var(--space-3) 0;
+  padding: 0;
+}
+figure img {
+  border-radius: 4px;
+  /* Prévention du Cumulative Layout Shift via aspectRatio intrinsèque O(1) */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+  background-color: var(--color-line);
+}
+figcaption {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+  margin-top: var(--space-1);
+  text-align: center;
+  font-style: italic;
+}
+
+blockquote {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-2);
+  border-left: 3px solid var(--color-terracotta);
+  font-style: italic;
+  color: var(--color-ink-soft);
+  font-size: 1.1em;
+}
 
 a {
   color: var(--color-terracotta-dark);
@@ -242,6 +274,18 @@ h1, h2, h3 {
   font-size: 1.15rem;
   color: var(--color-ink-soft);
   max-width: var(--measure);
+  margin-bottom: var(--space-3);
+}
+
+.hero__image, .hero__image--fille, .hero__image--soeur {
+  margin: var(--space-3) 0 var(--space-4);
+}
+.hero__image img {
+  /* Dimensions d'image hero pour les différents types de pages (CLS sécurisé) */
+  aspect-ratio: 21 / 9;
+}
+.hero__image--fille img {
+  aspect-ratio: 16 / 7;
 }
 
 /* ---------- Cocoon cards (couches) ---------- */

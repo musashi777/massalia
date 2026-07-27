@@ -49,6 +49,8 @@ function escapeHTML(str) {
 function inline(text) {
   // Remplacement sans backtracking exponentiel (ReDoS safe)
   return text
+    // Images: ![alt](url) -> Transformées en structures sémantiques natives O(N)
+    .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, '<figure><img src="$2" alt="$1" loading="lazy" decoding="async"><figcaption>$1</figcaption></figure>')
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1<em>$2</em>");
 }
@@ -59,11 +61,19 @@ function markdownToHtml(md) {
   return blocks
     .map((block) => {
       const lines = block.split(/\r?\n/).map((l) => l.trim());
+
       const isList = lines.every((l) => l.startsWith("- "));
       if (isList) {
         const items = lines.map((l) => `<li>${inline(escapeHTML(l.slice(2)))}</li>`).join("\n    ");
         return `<ul>\n    ${items}\n  </ul>`;
       }
+
+      const isBlockquote = lines.every((l) => l.startsWith("> "));
+      if (isBlockquote) {
+        const content = lines.map((l) => inline(escapeHTML(l.slice(2)))).join("<br>");
+        return `<blockquote>${content}</blockquote>`;
+      }
+
       return `<p>${inline(escapeHTML(lines.join(" ")))}</p>`;
     })
     .join("\n\n  ");
