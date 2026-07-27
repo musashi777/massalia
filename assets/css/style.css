@@ -149,36 +149,6 @@ h1, h2, h3 {
   padding: 0 var(--space-3);
 }
 
-.page-grid {
-  display: grid;
-  /* Approche O(1) : grille fluide sans Media Query.
-     On utilise auto-fit avec une taille minimale garantissant que si la largeur
-     disponible est insuffisante pour deux colonnes, elles passent en pile (1fr).
-     La première colonne a une base proportionnelle mais grandira pour remplir l'espace
-     si la seconde (220px) passe à la ligne.
-
-     Technique mathématique "holy albatross" via minmax et min() pour éviter
-     les sauts de Media Query induisant un reflow complet. */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: clamp(var(--space-3), 5vw, var(--space-5));
-  align-items: start;
-  padding: var(--space-4) 0;
-}
-
-/* Le contenu principal prend 2/3 de l'espace si disponible, sinon 100%. */
-.page-grid > main {
-  grid-column: 1 / -1;
-}
-
-@supports (grid-template-columns: minmax(0, 1fr)) {
-  .page-grid {
-    grid-template-columns: minmax(0, var(--measure)) minmax(220px, 1fr);
-  }
-
-  .page-grid > main {
-    grid-column: auto;
-  }
-}
 
 /* Utilisation exclusive de Flexbox pour une fluidité O(1) exacte via calcul du point de bascule mathématique (Holy Albatross) */
 .page-grid {
