@@ -239,12 +239,19 @@ async function buildSite() {
   const results = await Promise.all(pagePromises);
   built = results.length;
 
-  // Copie des assets statiques
+  // Copie des assets statiques (CSS)
   await fsPromises.mkdir(path.join(DIST_DIR, "assets", "css"), { recursive: true });
   await fsPromises.copyFile(
     path.join(ROOT, "assets", "css", "style.css"),
     path.join(DIST_DIR, "assets", "css", "style.css")
   );
+
+  // Copie des assets statiques (Images)
+  const imgDir = path.join(ROOT, "assets", "img");
+  if (fs.existsSync(imgDir)) {
+    // E/S Asynchrone native Node 16.7+ : cp (copie récursive d'arborescence)
+    await fsPromises.cp(imgDir, path.join(DIST_DIR, "assets", "img"), { recursive: true });
+  }
 
   // Fichiers SEO
   const sitemapUrls = Object.entries(pages)
