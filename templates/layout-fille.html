@@ -24,6 +24,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <script type="application/ld+json">
 {{schemaJson}}
 </script>
@@ -33,8 +41,11 @@
 
 <header class="site-header">
   <div class="site-header__inner">
-    <p class="site-title"><a href="/">Massalia</a></p>
-    <p class="site-tagline">Histoire &amp; Monuments de Marseille</p>
+    <div>
+      <p class="site-title"><a href="/">Massalia</a></p>
+      <p class="site-tagline">Histoire &amp; Monuments de Marseille</p>
+    </div>
+    <button id="theme-toggle" aria-label="Basculer le thème" style="background:none; border:none; cursor:pointer; font-size:1.5rem;">🌓</button>
   </div>
 </header>
 
@@ -73,5 +84,6 @@
 <footer class="site-footer">
   <p>Massalia — Dossier indépendant sur l'histoire et le patrimoine de Marseille.</p>
 </footer>
+<script src="/assets/js/main.js" defer></script>
 </body>
 </html>

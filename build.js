@@ -254,6 +254,12 @@ async function buildSite() {
     await fsPromises.cp(imgDir, path.join(DIST_DIR, "assets", "img"), { recursive: true });
   }
 
+  // Copie des assets statiques (JS)
+  const jsDir = path.join(ROOT, "assets", "js");
+  if (fs.existsSync(jsDir)) {
+    await fsPromises.cp(jsDir, path.join(DIST_DIR, "assets", "js"), { recursive: true });
+  }
+
   // Fichiers SEO
   const sitemapUrls = Object.entries(pages)
     .map(([pageId]) => `  <url><loc>${site.baseUrl}${urlFor(pageId, pages)}</loc></url>`)
