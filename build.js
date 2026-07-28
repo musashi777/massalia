@@ -191,7 +191,8 @@ async function buildSite() {
       metaTitle: escapeHTML(page.metaTitle),
       metaDescription: escapeHTML(page.metaDescription),
       canonicalUrl: `${site.baseUrl}${urlFor(pageId, pages)}`,
-      ogImage: `${site.baseUrl}${site.defaultOgImage}`,
+      ogImage: `${site.baseUrl}${page.heroImage || site.defaultOgImage}`,
+      heroImage: page.heroImage || site.defaultOgImage,
       twitterHandle: escapeHTML(site.twitterHandle),
       schemaJson: schemaFor(pageId, page, site), // JSON généré, pas besoin d'échappement HTML ici
       title: escapeHTML(page.title),
