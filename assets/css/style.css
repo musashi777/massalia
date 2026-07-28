@@ -265,12 +265,12 @@ h1, h2, h3 {
 .hero__image, .hero__image--fille, .hero__image--soeur {
   margin: var(--space-3) 0 var(--space-4);
 }
-.hero__image img {
+.hero__image img, .hero__image--fille img, .hero__image--soeur img {
   /* Dimensions d'image hero pour les différents types de pages (CLS sécurisé) */
-  aspect-ratio: 21 / 9;
-}
-.hero__image--fille img {
-  aspect-ratio: 16 / 7;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 8px;
 }
 
 /* ---------- Cocoon cards (couches) ---------- */
