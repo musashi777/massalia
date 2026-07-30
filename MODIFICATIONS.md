@@ -64,3 +64,4 @@ Le workflow de déploiement attend trois secrets GitHub : `VERCEL_TOKEN`, `VERCE
 ## Sources
 
 Le registre exhaustif, avec les titres, organismes, URLs et faits utilisés, est disponible dans [`content/SOURCES.md`](content/SOURCES.md). Les références numérotées de ce rapport correspondent à ce registre.
+ 
