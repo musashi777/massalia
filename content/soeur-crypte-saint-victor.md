@@ -1,6 +1,14 @@
 Sous l'église abbatiale de Saint-Victor se trouvent des espaces couramment appelés « cryptes », formés par les vestiges d'une ancienne carrière, d'une nécropole et d'une basilique funéraire de l'Antiquité tardive. Au Ve siècle, des tombes occupent les marges de la carrière abandonnée ; la basilique qui s'y développe est ensuite recouverte par l'abbatiale médiévale. La fondation de monastères à Marseille par Jean Cassien, vers 414, relève d'une tradition forte, mais l'identification précise de leurs emplacements demeure discutée par les historiens.
 
+> "Dans les profondeurs obscures de la crypte de Saint-Victor reposent les premiers marbres paléochrétiens de la Gaule méditerranéenne."
+
+## Les sarcophages et le culte de saint Victor
+
 Le site conserve une importante accumulation de sarcophages paléochrétiens, dont certains remontent aux IVᵉ et Vᵉ siècles. Il est associé au culte de saint Victor, martyr dont la tombe vénérée a favorisé le développement d'un pèlerinage ; les traditions de l'abbaye constituent une part essentielle de l'histoire religieuse du lieu.
+
+![Crypte de Saint-Victor](/assets/img/soeur-crypte-saint-victor.png "Les sarcophages paléochrétiens conservés dans la crypte de Saint-Victor.")
+
+## De l'abbatiale fortifiée aux traditions actuelles
 
 L'abbatiale médiévale est progressivement reconstruite à partir du XIᵉ siècle. Après une vaste campagne romane aux XIIᵉ et XIIIᵉ siècles, le monastère est fortifié au XIVᵉ siècle sous Urbain V, ancien abbé de Saint-Victor devenu pape, puis intégré au système défensif du port.
 

@@ -2,7 +2,7 @@
   "site": {
     "name": "Massalia — Histoire et Monuments de Marseille",
     "baseUrl": "https://marseille-histoire.example",
-    "defaultOgImage": "/assets/img/og-default.jpg",
+    "defaultOgImage": "/assets/img/og-default.png",
     "twitterHandle": "@massalia_histoire"
   },
   "pages": {
@@ -11,10 +11,12 @@
       "slug": "index",
       "title": "Histoire et Patrimoine de Marseille",
       "metaTitle": "Histoire et Patrimoine de Marseille | Massalia, cité phocéenne",
-      "metaDescription": "Le dossier de référence sur l'histoire de Marseille : fondations antiques, fortifications militaires et édifices religieux, des origines phocéennes à nos jours.",
+      "metaDescription": "Le dossier de référence sur l'histoire de Marseille : fondations antiques, fortifications militaires, édifices religieux, littoral et monde souterrain.",
       "contentFile": "content/mere-histoire-marseille.md",
+      "heroImage": "/assets/img/hero-mere.png",
+      "imageCaption": "Vue panoramique au soleil couchant sur le Vieux-Port, Notre-Dame de la Garde et les vestiges antiques de Massalia.",
       "schemaType": "CollectionPage",
-      "children": ["fille-antiquite", "fille-fortifications", "fille-religieux"],
+      "children": ["fille-antiquite", "fille-fortifications", "fille-religieux", "fille-littoral-commerce"],
       "strate": {
         "niveau": 0,
         "label": "Niveau 0 — Surface",
@@ -29,10 +31,12 @@
       "metaTitle": "Massalia grecque et romaine | Antiquité et Fondations de Marseille",
       "metaDescription": "Comment les Phocéens ont fondé Massalia et développé un port majeur de la Méditerranée occidentale, entre mythe de fondation et vestiges antiques.",
       "contentFile": "content/fille-antiquite.md",
+      "heroImage": "/assets/img/hero-antiquite.png",
+      "imageCaption": "Arrivée d'une galère phocéenne dans la calanque du Lacydon (actuel Vieux-Port) vers 600 avant notre ere.",
       "schemaType": "CollectionPage",
       "parent": "mere-histoire-marseille",
       "anchorToParent": "Histoire et Patrimoine de Marseille",
-      "children": ["soeur-port-antique", "soeur-jardin-vestiges"],
+      "children": ["soeur-port-antique", "soeur-jardin-vestiges", "soeur-caves-saint-sauveur"],
       "strate": {
         "niveau": 1,
         "label": "Niveau I — Couche antique",
@@ -46,6 +50,8 @@
       "metaTitle": "Fort Saint-Jean, Fort Saint-Nicolas, Château d'If | Fortifications de Marseille",
       "metaDescription": "L'architecture militaire de Marseille : de la commanderie médiévale de Saint-Jean aux forteresses royales du Château d'If et du Fort Saint-Nicolas.",
       "contentFile": "content/fille-fortifications.md",
+      "heroImage": "/assets/img/hero-fortifications.png",
+      "imageCaption": "Le Château d'If et les passes maritimes du Frioul sous un ciel orageux d'exception.",
       "schemaType": "CollectionPage",
       "parent": "mere-histoire-marseille",
       "anchorToParent": "Histoire et Patrimoine de Marseille",
@@ -63,6 +69,8 @@
       "metaTitle": "Notre-Dame de la Garde, Abbaye Saint-Victor | Édifices Religieux de Marseille",
       "metaDescription": "Les monuments sacrés de Marseille : la basilique Notre-Dame de la Garde et l'abbaye Saint-Victor, entre foi, crypte et ex-voto.",
       "contentFile": "content/fille-religieux.md",
+      "heroImage": "/assets/img/hero-religieux.png",
+      "imageCaption": "La basilique Notre-Dame de la Garde couronnée de sa statue dorée au coucher du soleil.",
       "schemaType": "CollectionPage",
       "parent": "mere-histoire-marseille",
       "anchorToParent": "Histoire et Patrimoine de Marseille",
@@ -81,10 +89,12 @@
       "metaTitle": "Le Port Antique de Marseille | Fouilles archéologiques",
       "metaDescription": "Découverte des vestiges du port antique de Massalia, mis au jour lors des fouilles de la Bourse au XXᵉ siècle.",
       "contentFile": "content/soeur-port-antique.md",
+      "heroImage": "/assets/img/soeur-port-antique.png",
+      "imageCaption": "Chantier d'archéologie et vestiges de la coque de bateau antique mise au jour sur le site du Port Antique.",
       "schemaType": "HistoricSite",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
-      "siblings": ["soeur-jardin-vestiges"],
+      "siblings": ["soeur-jardin-vestiges", "soeur-caves-saint-sauveur"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
@@ -98,14 +108,35 @@
       "metaTitle": "Le Jardin des Vestiges | Port Antique de Marseille",
       "metaDescription": "Le Jardin des Vestiges, site archéologique à ciel ouvert présentant les fortifications et quartiers portuaires de la Marseille antique.",
       "contentFile": "content/soeur-jardin-vestiges.md",
+      "heroImage": "/assets/img/soeur-jardin-vestiges.png",
+      "imageCaption": "Le Jardin des Vestiges à ciel ouvert avec ses remparts grecs et ses quais romains au cœur de Marseille.",
       "schemaType": "HistoricSite",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
-      "siblings": ["soeur-port-antique"],
+      "siblings": ["soeur-port-antique", "soeur-caves-saint-sauveur"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
         "epoque": "IVᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C."
+      }
+    },
+    "soeur-caves-saint-sauveur": {
+      "type": "soeur",
+      "slug": "caves-saint-sauveur-monument-souterrain",
+      "title": "Les Caves Saint-Sauveur",
+      "metaTitle": "Les Caves Saint-Sauveur | Édifice souterrain antique de Marseille",
+      "metaDescription": "Découvrez les mystérieuses caves Saint-Sauveur sous la place de Lenche : réservoirs antiques, entrepôt maritime de calcaire rose et prison légendaire de saint Lazare.",
+      "contentFile": "content/soeur-caves-saint-sauveur.md",
+      "heroImage": "/assets/img/soeur-caves-saint-sauveur.png",
+      "imageCaption": "Galeries voûtées et salles souterraines antiques bâties en blocs de calcaire rose du cap Couronne sous le Panier.",
+      "schemaType": "HistoricSite",
+      "parent": "fille-antiquite",
+      "anchorToParent": "Antiquité et Fondations",
+      "siblings": ["soeur-port-antique", "soeur-jardin-vestiges"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate souterraine antique",
+        "epoque": "150 av. J.-C. — 50 apr. J.-C."
       }
     },
     "soeur-rhinoceros-if": {
@@ -115,6 +146,8 @@
       "metaTitle": "Le Rhinocéros du Château d'If | Légende et fondation du château",
       "metaDescription": "L'histoire du rhinocéros de Manuel Ier de Portugal, de son transit par l'île d'If en 1515 et du lien avec la création du château.",
       "contentFile": "content/soeur-rhinoceros-if.md",
+      "heroImage": "/assets/img/soeur-rhinoceros-if.png",
+      "imageCaption": "Gravure d'inspiration renaissance immortalisant la halte du rhinocéros sur l'île d'If en 1515.",
       "schemaType": "HistoricSite",
       "parent": "fille-fortifications",
       "anchorToParent": "Fortifications et Architecture Militaire",
@@ -132,6 +165,8 @@
       "metaTitle": "L'Arsenal des Galères de Marseille | Histoire navale royale",
       "metaDescription": "L'arsenal des galères royales de Marseille, cœur de la puissance navale du royaume de France aux XVIIᵉ et XVIIIᵉ siècles.",
       "contentFile": "content/soeur-arsenal-galeres.md",
+      "heroImage": "/assets/img/soeur-arsenal-galeres.png",
+      "imageCaption": "Représentation historique de l'Arsenal des Galères royales au XVIIe siècle sous Louis XIV.",
       "schemaType": "HistoricSite",
       "parent": "fille-fortifications",
       "anchorToParent": "Fortifications et Architecture Militaire",
@@ -149,6 +184,8 @@
       "metaTitle": "La Crypte de l'Abbaye Saint-Victor | Marseille souterraine",
       "metaDescription": "Les vestiges paléochrétiens de l'abbaye Saint-Victor, entre ancienne carrière, nécropole et basilique de l'Antiquité tardive.",
       "contentFile": "content/soeur-crypte-saint-victor.md",
+      "heroImage": "/assets/img/soeur-crypte-saint-victor.png",
+      "imageCaption": "Les voûtes en pierre et les sarcophages de l'Antiquité tardive dans la crypte de l'abbaye Saint-Victor.",
       "schemaType": "HistoricSite",
       "parent": "fille-religieux",
       "anchorToParent": "Édifices Religieux et Symboles",
@@ -166,6 +203,8 @@
       "metaTitle": "La Bonne Mère et ses Ex-Voto | Notre-Dame de la Garde",
       "metaDescription": "La statue dorée de la Vierge veillant sur Marseille et la collection d'ex-voto marins de Notre-Dame de la Garde.",
       "contentFile": "content/soeur-bonne-mere-exvoto.md",
+      "heroImage": "/assets/img/soeur-bonne-mere-exvoto.png",
+      "imageCaption": "Collection d'ex-voto sous forme de maquettes de navires suspendues dans la basilique Notre-Dame de la Garde.",
       "schemaType": "HistoricSite",
       "parent": "fille-religieux",
       "anchorToParent": "Édifices Religieux et Symboles",
@@ -174,6 +213,83 @@
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
         "epoque": "XIXᵉ siècle"
+      }
+    },
+
+    "fille-littoral-commerce": {
+      "type": "fille",
+      "slug": "littoral-calanques-et-commerce-maritime",
+      "title": "Littoral, Calanques et Commerce Maritime",
+      "metaTitle": "Littoral et Commerce Maritime Antique | Massalia et la Méditerranée",
+      "metaDescription": "Découvrez l'histoire maritime de Massalia : des sanctuaires des calanques à la Grotte Cosquer et aux routes des amphores phocéennes.",
+      "contentFile": "content/fille-littoral-commerce.md",
+      "heroImage": "/assets/img/hero-littoral.png",
+      "imageCaption": "Les calanques de Marseille et le littoral calcaire, voies de passage et sanctuaires maritimes antiques.",
+      "schemaType": "CollectionPage",
+      "parent": "mere-histoire-marseille",
+      "anchorToParent": "Histoire et Patrimoine de Marseille",
+      "children": ["soeur-grotte-cosquer", "soeur-commerce-amphores", "soeur-grotte-monnard"],
+      "strate": {
+        "niveau": 1,
+        "label": "Niveau I — Strate maritime & souterraine",
+        "epoque": "Préhistoire, Antiquité & Époque contemporaine"
+      }
+    },
+    "soeur-grotte-cosquer": {
+      "type": "soeur",
+      "slug": "grotte-cosquer-patrimoine-englouti",
+      "title": "La Grotte Cosquer et le Patrimoine Englouti",
+      "metaTitle": "La Grotte Cosquer | Art préhistorique englouti des Calanques de Marseille",
+      "metaDescription": "Un trésor paléolithique sous les mers : l'histoire de la Grotte Cosquer dans le massif des Calanques.",
+      "contentFile": "content/soeur-grotte-cosquer.md",
+      "heroImage": "/assets/img/soeur-grotte-cosquer.png",
+      "imageCaption": "Représentation des peintures rupestres paléolithiques et empreintes de mains de la Grotte Cosquer.",
+      "schemaType": "ItemPage",
+      "parent": "fille-littoral-commerce",
+      "anchorToParent": "Littoral, Calanques et Commerce Maritime",
+      "siblings": ["soeur-commerce-amphores", "soeur-grotte-monnard"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Vestige sous-marin",
+        "epoque": "33 000 — 19 000 ans av. J.-C."
+      }
+    },
+    "soeur-commerce-amphores": {
+      "type": "soeur",
+      "slug": "commerce-amphores-routes-maritimes",
+      "title": "Le Commerce des Amphores et Routes Phocéennes",
+      "metaTitle": "Le Commerce des Amphores phocéennes | Routes maritimes de Massalia",
+      "metaDescription": "Comment le vin et l'huile de Massalia voyageaient à travers toute la Méditerranée dans les fameuses amphores phocéennes.",
+      "contentFile": "content/soeur-commerce-amphores.md",
+      "heroImage": "/assets/img/soeur-commerce-amphores.png",
+      "imageCaption": "Cargaison d'amphores antiques transportées par les navires marchands de Massalia.",
+      "schemaType": "ItemPage",
+      "parent": "fille-littoral-commerce",
+      "anchorToParent": "Littoral, Calanques et Commerce Maritime",
+      "siblings": ["soeur-grotte-cosquer", "soeur-grotte-monnard"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate navale",
+        "epoque": "VIᵉ siècle av. J.-C. — IIᵉ siècle apr. J.-C."
+      }
+    },
+    "soeur-grotte-monnard": {
+      "type": "soeur",
+      "slug": "grotte-monnard-lac-fantome",
+      "title": "La Grotte Monnard et le Lac Fantôme",
+      "metaTitle": "La Grotte Monnard | Gouffre insatiable et lac fantôme de Marseille",
+      "metaDescription": "Découvrez le mystère de la Grotte Monnard aux Trois Lucs : percement du Canal, saga des brasseries Phénix et assèchement face au climat.",
+      "contentFile": "content/soeur-grotte-monnard.md",
+      "heroImage": "/assets/img/soeur-grotte-monnard.png",
+      "imageCaption": "Exploration des galaires calcaires et des conduites industrielles oubliées sous le plateau de la Marionne.",
+      "schemaType": "HistoricSite",
+      "parent": "fille-littoral-commerce",
+      "anchorToParent": "Littoral, Calanques et Commerce Maritime",
+      "siblings": ["soeur-grotte-cosquer", "soeur-commerce-amphores"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate hydrogéologique",
+        "epoque": "1848 — XXIᵉ siècle"
       }
     }
   }

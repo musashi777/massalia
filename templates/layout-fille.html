@@ -21,7 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 
 <script type="application/ld+json">
@@ -33,8 +33,11 @@
 
 <header class="site-header">
   <div class="site-header__inner">
-    <p class="site-title"><a href="/">Massalia</a></p>
-    <p class="site-tagline">Histoire &amp; Monuments de Marseille</p>
+    <div class="brand">
+      <span class="brand__badge">Thématique</span>
+      <p class="site-title"><a href="/">Massalia</a></p>
+    </div>
+    <p class="site-tagline">Histoire &amp; Patrimoine de Marseille</p>
   </div>
 </header>
 
@@ -42,25 +45,29 @@
   <div class="wrap page-grid">
     <div>
       <nav class="breadcrumb" aria-label="Fil d'Ariane">
-        <a href="{{parentUrl}}">{{parentTitle}}</a> / <span class="current">{{title}}</span>
+        <a href="{{parentUrl}}">{{parentTitle}}</a> <span class="breadcrumb-sep">&rsaquo;</span> <span class="current">{{title}}</span>
       </nav>
 
       <h1 class="page-title">{{title}}</h1>
       <p class="page-lede">{{lede}}</p>
 
+      {{heroBlock}}
+
       <div class="article-body">
         {{contentHtml}}
       </div>
 
-      <h2 class="siblings-heading" style="font-family:var(--font-utility); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-teal); margin-top:var(--space-5);">Approfondir cette strate</h2>
-      <div class="couches">
-        {{childrenCards}}
-      </div>
+      <section class="couches-section">
+        <h2 class="siblings-heading">Approfondir cette strate</h2>
+        <div class="couches">
+          {{childrenCards}}
+        </div>
+      </section>
 
       <a class="back-link" href="{{parentUrl}}">&larr; Retour au dossier {{parentTitle}}</a>
     </div>
 
-    <aside class="strate" aria-label="Position dans le cocon">
+    <aside class="strate" aria-label="Chronologie patrimoniale">
       {{strateIndicator}}
     </aside>
   </div>

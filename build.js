@@ -35,11 +35,29 @@ const templates = {
 };
 
 /* ---------------------------------------------------------------------- *
- * Mini-parseur Markdown (paragraphes, listes, gras, italique)
+ * Mini-parseur Markdown étendu (paragraphes, listes, titres, citations, images)
  * Volontairement minimal : pas de dépendance externe (contrainte "0 €").
  * ---------------------------------------------------------------------- */
+function renderPicture(src, alt, className = "", loading = "lazy") {
+  if (!src) return "";
+  const webpSrc = src.replace(/\.png$/i, ".webp");
+  const avifSrc = src.replace(/\.png$/i, ".avif");
+  const classAttr = className ? ` class="${className}"` : "";
+  const loadingAttr = loading ? ` loading="${loading}"` : "";
+  return `<picture>
+    <source srcset="${avifSrc}" type="image/avif">
+    <source srcset="${webpSrc}" type="image/webp">
+    <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} />
+  </picture>`;
+}
+
 function inline(text) {
   return text
+    .replace(/!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g, (match, alt, src, title) => {
+      const caption = title || alt;
+      return `<figure class="article-figure">${renderPicture(src, alt, "", "lazy")}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`;
+    })
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/(^|[^*])\*(?!\*)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
 }
@@ -49,13 +67,42 @@ function markdownToHtml(md) {
   return blocks
     .map((block) => {
       const lines = block.split("\n").map((l) => l.trim());
+
+      // Image markdown autonome
+      if (lines.length === 1 && lines[0].startsWith("![")) {
+        return inline(lines[0]);
+      }
+
+      // Citations / Bloc-notes
+      if (lines.every((l) => l.startsWith(">"))) {
+        const quoteContent = lines.map((l) => inline(l.replace(/^>\s*/, ""))).join("<br>");
+        return `<blockquote class="article-quote">${quoteContent}</blockquote>`;
+      }
+
+      // Titres H1 (déjà rendu dans la structure de page)
+      if (lines[0].startsWith("# ")) {
+        return null;
+      }
+
+      // Titres H2 et H3
+      if (lines[0].startsWith("### ")) {
+        return `<h3>${inline(lines[0].slice(4))}</h3>`;
+      }
+      if (lines[0].startsWith("## ")) {
+        return `<h2>${inline(lines[0].slice(3))}</h2>`;
+      }
+
+      // Liste à puces
       const isList = lines.every((l) => l.startsWith("- "));
       if (isList) {
         const items = lines.map((l) => `<li>${inline(l.slice(2))}</li>`).join("\n    ");
         return `<ul>\n    ${items}\n  </ul>`;
       }
+
+      // Paragraphe standard
       return `<p>${inline(lines.join(" "))}</p>`;
     })
+    .filter(Boolean)
     .join("\n\n  ");
 }
 
@@ -90,11 +137,17 @@ function renderChildrenCards(page) {
     .map((childId, i) => {
       const child = pages[childId];
       const romanIndex = ["Couche I", "Couche II", "Couche III"][i] || `Couche ${i + 1}`;
+      const imgTag = child.heroImage
+        ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, child.title, "", "lazy")}</div>`
+        : "";
       return `<article class="couche-card">
-      <p class="couche-card__index">${romanIndex} — ${child.strate.epoque}</p>
-      <h3><a href="${urlFor(childId)}">${child.title}</a></h3>
-      <p>${child.metaDescription}</p>
-      <a class="card-link" href="${urlFor(childId)}">Explorer &rarr;</a>
+      ${imgTag}
+      <div class="couche-card__body">
+        <p class="couche-card__index">${romanIndex} — ${child.strate.epoque}</p>
+        <h3><a href="${urlFor(childId)}">${child.title}</a></h3>
+        <p>${child.metaDescription}</p>
+        <a class="card-link" href="${urlFor(childId)}">Explorer &rarr;</a>
+      </div>
     </article>`;
     })
     .join("\n    ");
@@ -105,7 +158,8 @@ function renderSiblingLinks(page) {
   return page.siblings
     .map((sibId) => {
       const sib = pages[sibId];
-      return `<li><a href="${urlFor(sibId)}">${sib.title}</a></li>`;
+      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, "", "sibling-thumb", "lazy")} ` : "";
+      return `<li><a href="${urlFor(sibId)}">${thumb}<span>${sib.title}</span></a></li>`;
     })
     .join("\n          ");
 }
@@ -118,6 +172,9 @@ function schemaFor(pageId, page) {
     description: page.metaDescription,
     url: `${site.baseUrl}${urlFor(pageId)}`,
   };
+  if (page.heroImage) {
+    base.image = `${site.baseUrl}${page.heroImage}`;
+  }
   if (page.schemaType === "HistoricSite") {
     base.additionalType = "https://schema.org/LandmarksOrHistoricalBuildings";
   }
@@ -132,6 +189,20 @@ function render(templateStr, vars) {
     if (!(key in vars)) throw new Error(`Placeholder manquant : ${key}`);
     return vars[key];
   });
+}
+
+function copyDirSync(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
 }
 
 /* ---------------------------------------------------------------------- *
@@ -150,16 +221,26 @@ for (const [pageId, page] of Object.entries(pages)) {
     ? firstParagraphMatch[1].replace(/<[^>]+>/g, "").split(". ").slice(0, 1).join(". ") + "."
     : "";
 
+  const heroBlock = page.heroImage
+    ? `<figure class="hero-media">
+        ${renderPicture(page.heroImage, page.title, "hero-media__img", "eager")}
+        ${page.imageCaption ? `<figcaption class="hero-media__caption">${page.imageCaption}</figcaption>` : ""}
+      </figure>`
+    : "";
+
   const commonVars = {
     metaTitle: page.metaTitle,
     metaDescription: page.metaDescription,
     canonicalUrl: `${site.baseUrl}${urlFor(pageId)}`,
-    ogImage: `${site.baseUrl}${site.defaultOgImage}`,
+    ogImage: `${site.baseUrl}${page.heroImage || site.defaultOgImage}`,
     twitterHandle: site.twitterHandle,
     schemaJson: schemaFor(pageId, page),
     title: page.title,
     lede,
     contentHtml,
+    heroBlock,
+    heroImage: page.heroImage || "",
+    imageCaption: page.imageCaption || "",
   };
 
   let html;
@@ -199,12 +280,8 @@ for (const [pageId, page] of Object.entries(pages)) {
   console.log(`✓ ${pageId} → ${path.relative(ROOT, outPath)}`);
 }
 
-// Copie des assets statiques
-fs.mkdirSync(path.join(DIST_DIR, "assets", "css"), { recursive: true });
-fs.copyFileSync(
-  path.join(ROOT, "assets", "css", "style.css"),
-  path.join(DIST_DIR, "assets", "css", "style.css")
-);
+// Copie récursive des assets statiques (CSS & Images)
+copyDirSync(path.join(ROOT, "assets"), path.join(DIST_DIR, "assets"));
 
 // Fichiers SEO générés à partir de la même source de vérité que les pages.
 const sitemapUrls = Object.entries(pages)
@@ -218,4 +295,3 @@ fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), sitemap, "utf8");
 fs.writeFileSync(path.join(DIST_DIR, "robots.txt"), robots, "utf8");
 
 console.log(`\n${built} pages générées dans /dist.`);
-console.log("✓ sitemap.xml et robots.txt générés.");
