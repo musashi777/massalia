@@ -1,0 +1,490 @@
+/* ================================================================
+   MASSALIA — Améliorations de Design (v2.0)
+   Animations, Interactions et Modernisation
+   ================================================================ */
+
+/* ---- ANIMATIONS DE BASE ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ---- HEADER AMÉLIORÉ (Sticky + Glassmorphism) ---- */
+.site-header {
+  backdrop-filter: blur(10px);
+  background: rgba(2, 21, 37, 0.85);
+  border-bottom: 1px solid rgba(230, 126, 34, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-header:hover {
+  background: rgba(2, 21, 37, 0.95);
+  border-bottom: 1px solid rgba(230, 126, 34, 0.3);
+}
+
+.site-title a {
+  position: relative;
+  display: inline-block;
+}
+
+.site-title a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-title a:hover::after {
+  width: 100%;
+}
+
+/* ---- HERO POSTER AMÉLIORÉ ---- */
+.hero-poster {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-poster::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(230, 126, 34, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.hero-poster h1 {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-grid {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+  position: relative;
+  z-index: 2;
+}
+
+/* Indicateur de défilement animé */
+.hero-poster::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 40px;
+  border: 2px solid var(--color-accent);
+  border-radius: 12px;
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+.hero-poster::after::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: var(--color-accent);
+  animation: float 1.5s ease-in-out infinite;
+}
+
+/* Image avec effet parallaxe au survol */
+.hero-img-wrap {
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-img-wrap:hover {
+  transform: translateY(-5px);
+}
+
+.hero-img-wrap img {
+  transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-img-wrap:hover img {
+  filter: grayscale(0) brightness(1.05);
+  transform: scale(1.02);
+}
+
+/* ---- PROSE SECTION AMÉLIORÉE ---- */
+.prose-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.prose-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(230, 126, 34, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.prose-inner > div {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.prose-inner > div:last-child {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+}
+
+.prose-blockquote {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-left: 4px solid var(--color-accent);
+  padding-left: var(--sp-md);
+}
+
+.prose-blockquote:hover {
+  border-left-width: 6px;
+  padding-left: calc(var(--sp-md) - 2px);
+  transform: translateX(4px);
+}
+
+/* ---- STRATES SECTION AMÉLIORÉE ---- */
+.strates-section {
+  position: relative;
+}
+
+.strates-header {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* Timeline verticale pour les strates */
+.strates-section::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-accent) 0%, transparent 100%);
+  opacity: 0.2;
+  transform: translateX(-50%);
+}
+
+/* ---- STRATE ARTICLE AMÉLIORÉ ---- */
+.strate-article {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.strate-article:hover {
+  transform: translateY(-4px);
+}
+
+.strate-article__img {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(230, 126, 34, 0.1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.strate-article__img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(230, 126, 34, 0.2) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.strate-article:hover .strate-article__img::before {
+  opacity: 1;
+}
+
+.strate-article__img img {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.strate-article:hover .strate-article__img img {
+  transform: scale(1.08);
+}
+
+/* Numéro de strate avec animation */
+.overlap-number {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.strate-article:hover .overlap-number {
+  opacity: 0.4;
+}
+
+/* ---- STRATE BLOCK AMÉLIORÉ ---- */
+.strate-article--block {
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(2, 21, 37, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.strate-article--block:hover {
+  box-shadow: 0 20px 50px rgba(2, 21, 37, 0.4);
+  transform: translateY(-6px);
+}
+
+.strate-article--block .strate-article__body {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- BOUTONS AMÉLIORÉS ---- */
+.btn-primary, .btn-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-primary::before, .btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before, .btn-secondary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary, .btn-secondary {
+  z-index: 1;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* ---- CTA SECTION AMÉLIORÉE ---- */
+.cta-section {
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(230, 126, 34, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+}
+
+.cta-section > p {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.cta-btns {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+/* ---- FOOTER AMÉLIORÉ ---- */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-surface-low) 0%, var(--color-surface-container) 100%);
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0.3;
+}
+
+.footer-nav-links a {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-nav-links a:hover::before {
+  width: 100%;
+}
+
+/* ---- SCROLL REVEAL (Intersection Observer) ---- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- RESPONSIVE IMPROVEMENTS ---- */
+@media (max-width: 768px) {
+  .prose-section::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .cta-section::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .strate-article:hover {
+    transform: translateY(-2px);
+  }
+
+  .strate-article--block:hover {
+    transform: translateY(-3px);
+  }
+
+  .btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* ---- DARK MODE SUPPORT ---- */
+@media (prefers-color-scheme: dark) {
+  .site-header {
+    background: rgba(2, 21, 37, 0.9);
+  }
+
+  .strate-article__img {
+    box-shadow: 0 20px 40px rgba(230, 126, 34, 0.15);
+  }
+
+  .strate-article--block {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ---- REDUCED MOTION ---- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-img-wrap:hover {
+    transform: none;
+  }
+
+  .strate-article:hover {
+    transform: none;
+  }
+
+  .btn-primary:hover, .btn-secondary:hover {
+    transform: none;
+  }
+}

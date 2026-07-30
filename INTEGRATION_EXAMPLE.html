@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Massalia — Exemple d'Intégration des Améliorations</title>
+  <meta name="description" content="Exemple d'intégration des améliorations de design pour le site Massalia">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Original CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- ✨ NOUVEAU : CSS des Améliorations ✨ -->
+  <link rel="stylesheet" href="/assets/css/improvements.css">
+  
+  <style>
+    /* Styles supplémentaires pour cet exemple */
+    .integration-note {
+      background: rgba(230, 126, 34, 0.1);
+      border-left: 4px solid var(--color-accent);
+      padding: var(--sp-md);
+      margin: var(--sp-lg) 0;
+      font-size: 14px;
+      color: rgba(209, 228, 251, 0.8);
+    }
+    
+    .code-block {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--color-border-hard);
+      padding: var(--sp-md);
+      overflow-x: auto;
+      margin: var(--sp-md) 0;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="site-header" role="banner">
+    <p class="site-title"><a href="/">MASSALIA</a></p>
+    <span class="site-tagline">Archives Ouvertes</span>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero Poster avec Améliorations -->
+    <section class="hero-poster" aria-label="Introduction">
+      <div class="hero-poster__inner">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow__line" aria-hidden="true"></span>
+          <span class="hero-eyebrow__label">Archives Ouvertes</span>
+        </div>
+        <h1>Améliorations<br><em>de Design</em><br>Massalia v2.0</h1>
+        <div class="hero-grid">
+          <div class="hero-img-wrap">
+            <picture>
+              <source srcset="/assets/img/hero-mere.webp" type="image/webp">
+              <source srcset="/assets/img/hero-mere.avif" type="image/avif">
+              <img src="/assets/img/hero-mere.png" alt="Vue panoramique du Vieux-Port">
+            </picture>
+          </div>
+          <div>
+            <p class="hero-quote">"Découvrez les améliorations modernes du design Massalia."</p>
+            <p class="hero-caption">Cette page démontre l'intégration complète des animations et interactions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prose Section avec Améliorations -->
+    <section class="prose-section" aria-label="Présentation">
+      <div class="prose-inner">
+        <div>
+          <h2>Animations<br>Fluides</h2>
+          <p class="prose-lead">Les améliorations incluent des animations CSS modernes et des interactions JavaScript pour une expérience utilisateur plus engageante.</p>
+        </div>
+        <div class="prose-blockquote">
+          <blockquote>"Le design moderne se mesure à la fluidité des transitions et à la clarté des interactions."</blockquote>
+          <p>Chaque élément a été pensé pour créer une progression visuelle cohérente et agréable.</p>
+        </div>
+      </div>
+      
+      <div class="integration-note">
+        <strong>✨ Améliorations Actives :</strong>
+        <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+          <li>Animations d'apparition au défilement</li>
+          <li>Effets de parallaxe sur les images</li>
+          <li>Glassmorphism du header</li>
+          <li>Transitions fluides sur tous les éléments</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Strates Section avec Améliorations -->
+    <section class="strates-section" aria-label="Les améliorations" id="strates">
+      <div class="strates-header">
+        <h2>Fonctionnalités Clés</h2>
+        <p>Découvrez les principales améliorations implémentées.</p>
+      </div>
+
+      <!-- Strate 1 -->
+      <article class="strate-article scroll-reveal">
+        <div class="strate-article__vertical">Scroll Reveal</div>
+        <div class="strate-article__img">
+          <div class="overlap-number overlap-number--tl">01</div>
+          <picture>
+            <source srcset="/assets/img/hero-antiquite.webp" type="image/webp">
+            <source srcset="/assets/img/hero-antiquite.avif" type="image/avif">
+            <img src="/assets/img/hero-antiquite.png" alt="Scroll Reveal">
+          </picture>
+        </div>
+        <div class="strate-article__body">
+          <span class="couche-card__index">Amélioration 01</span>
+          <h3>Scroll Reveal</h3>
+          <p>Les éléments apparaissent progressivement au fur et à mesure du défilement, créant une expérience plus dynamique et engageante.</p>
+          <a href="#" class="strate-link">En savoir plus</a>
+        </div>
+      </article>
+
+      <!-- Strate 2 -->
+      <article class="strate-article strate-article--reverse scroll-reveal">
+        <div class="strate-article__vertical">Parallax</div>
+        <div class="strate-article__img">
+          <div class="overlap-number overlap-number--br">02</div>
+          <picture>
+            <source srcset="/assets/img/hero-fortifications.webp" type="image/webp">
+            <source srcset="/assets/img/hero-fortifications.avif" type="image/avif">
+            <img src="/assets/img/hero-fortifications.png" alt="Parallax Effect">
+          </picture>
+        </div>
+        <div class="strate-article__body">
+          <span class="couche-card__index">Amélioration 02</span>
+          <h3>Parallax Effect</h3>
+          <p>Les images se déplacent légèrement lors du défilement, créant une impression de profondeur et de mouvement naturel.</p>
+          <a href="#" class="strate-link">En savoir plus</a>
+        </div>
+      </article>
+
+      <!-- Strate 3 -->
+      <article class="strate-article scroll-reveal">
+        <div class="strate-article__vertical">Interactions</div>
+        <div class="strate-article__img">
+          <div class="overlap-number overlap-number--tr">03</div>
+          <picture>
+            <source srcset="/assets/img/hero-religieux.webp" type="image/webp">
+            <source srcset="/assets/img/hero-religieux.avif" type="image/avif">
+            <img src="/assets/img/hero-religieux.png" alt="Hover Effects">
+          </picture>
+        </div>
+        <div class="strate-article__body">
+          <span class="couche-card__index">Amélioration 03</span>
+          <h3>Hover Effects</h3>
+          <p>Les éléments interactifs réagissent au survol avec des animations fluides et des changements visuels subtils mais perceptibles.</p>
+          <a href="#" class="strate-link">En savoir plus</a>
+        </div>
+      </article>
+
+      <!-- Strate 4 (Block) -->
+      <article class="strate-article strate-article--block scroll-reveal">
+        <div class="strate-article__img">
+          <picture>
+            <source srcset="/assets/img/hero-littoral.webp" type="image/webp">
+            <source srcset="/assets/img/hero-littoral.avif" type="image/avif">
+            <img src="/assets/img/hero-littoral.png" alt="Accessibility">
+          </picture>
+        </div>
+        <div class="strate-article__body">
+          <span class="couche-card__index">Amélioration 04</span>
+          <h3>Accessibilité & Performance</h3>
+          <p>Toutes les améliorations respectent les standards d'accessibilité (WCAG 2.1) et sont optimisées pour les performances. Support du mode sombre et des préférences de mouvement réduit inclus.</p>
+          <a href="#" class="strate-link">En savoir plus</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Code Integration Example -->
+    <section class="prose-section" style="margin-top: var(--sp-xl);">
+      <div class="prose-inner">
+        <div>
+          <h2>Intégration<br>Facile</h2>
+          <p class="prose-lead">L'intégration des améliorations est simple et ne nécessite que l'ajout de deux fichiers.</p>
+        </div>
+        <div>
+          <p style="color: rgba(2,21,37,0.7);">Suivez les étapes du guide DESIGN_IMPROVEMENTS.md pour une intégration complète et sans problèmes.</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: var(--sp-lg); background: var(--color-surface-container); color: var(--color-on-surface);">
+&lt;!-- Étape 1 : Ajouter le CSS --&gt;
+&lt;link rel="stylesheet" href="/assets/css/style.css"&gt;
+&lt;link rel="stylesheet" href="/assets/css/improvements.css"&gt;
+
+&lt;!-- Étape 2 : Ajouter le JavaScript --&gt;
+&lt;script src="/scripts/enhancements.js"&gt;&lt;/script&gt;
+
+&lt;!-- C'est tout ! Les animations s'activent automatiquement --&gt;
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" aria-label="Accès aux archives">
+      <h2>Prêt à Déployer ?</h2>
+      <p>Intégrez les améliorations dans votre projet et offrez une expérience utilisateur moderne et fluide.</p>
+      <div class="cta-btns">
+        <a class="btn-primary" href="#strates">Voir les Améliorations</a>
+        <a class="btn-secondary" href="mailto:contact@massalia.fr">Nous contacter</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <p class="footer-brand">MASSALIA</p>
+          <p class="footer-desc">Améliorations de design v2.0 — Animations fluides et interactions modernes.</p>
+        </div>
+        <div style="display:flex;gap:4rem;flex-wrap:wrap;">
+          <nav class="footer-nav-group" aria-label="Documentation">
+            <span class="footer-nav-title">Documentation</span>
+            <ul class="footer-nav-links">
+              <li><a href="#strates">Améliorations</a></li>
+              <li><a href="/">Guide d'Installation</a></li>
+              <li><a href="/">Personnalisation</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-nav-group" aria-label="Ressources">
+            <span class="footer-nav-title">Ressources</span>
+            <ul class="footer-nav-links">
+              <li><a href="/">GitHub</a></li>
+              <li><a href="/">Vercel</a></li>
+              <li><a href="/">Support</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2024 Massalia Archival Society — Design v2.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ✨ NOUVEAU : Script des Améliorations ✨ -->
+  <script src="/scripts/enhancements.js"></script>
+
+</body>
+</html>
