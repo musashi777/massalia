@@ -38,16 +38,27 @@ const templates = {
  * Mini-parseur Markdown étendu (paragraphes, listes, titres, citations, images)
  * Volontairement minimal : pas de dépendance externe (contrainte "0 €").
  * ---------------------------------------------------------------------- */
-function renderPicture(src, alt, className = "", loading = "lazy") {
+/**
+ * Génère une balise <picture> avec sources AVIF, WebP et fallback PNG.
+ * @param {string} src       - Chemin PNG de l'image (ex: /assets/img/hero.png)
+ * @param {string} alt       - Texte alternatif. Passer "" pour une image décorative.
+ * @param {string} className - Classe CSS optionnelle sur <img>.
+ * @param {string} loading   - "lazy" (défaut) ou "eager" pour le LCP.
+ * @param {number} width     - Largeur intrinsèque pour éviter le CLS (défaut 800).
+ * @param {number} height    - Hauteur intrinsèque pour éviter le CLS (défaut 500).
+ */
+function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500) {
   if (!src) return "";
   const webpSrc = src.replace(/\.png$/i, ".webp");
   const avifSrc = src.replace(/\.png$/i, ".avif");
   const classAttr = className ? ` class="${className}"` : "";
   const loadingAttr = loading ? ` loading="${loading}"` : "";
+  // decoding="async" : libère le fil principal pendant le décodage image.
+  // width + height : permettent au navigateur de réserver l'espace avant le chargement (anti-CLS).
   return `<picture>
     <source srcset="${avifSrc}" type="image/avif">
     <source srcset="${webpSrc}" type="image/webp">
-    <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} />
+    <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
   </picture>`;
 }
 
@@ -138,8 +149,9 @@ function renderChildrenCards(page) {
     .map((childId, i) => {
       const child = pages[childId];
       const romanIndex = ROMAN_NUMERALS[i] || `Couche ${i + 1}`;
+      // alt="" : image décorative. Le titre <h3> adjacent transmet déjà l'information aux lecteurs d'écran.
       const imgTag = child.heroImage
-        ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, child.title, "", "lazy")}</div>`
+        ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, "", "", "lazy", 400, 250)}</div>`
         : "";
       const labelText = child.strate && child.strate.label ? child.strate.label : `${romanIndex} — ${child.strate.epoque}`;
       return `<article class="couche-card">
@@ -160,7 +172,8 @@ function renderSiblingLinks(page) {
   return page.siblings
     .map((sibId) => {
       const sib = pages[sibId];
-      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, "", "sibling-thumb", "lazy")} ` : "";
+      // alt="" : vignette décorative, le texte <span> du lien fournit le label accessible.
+      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, "", "sibling-thumb", "lazy", 200, 125)} ` : "";
       return `<li><a href="${urlFor(sibId)}">${thumb}<span>${sib.title}</span></a></li>`;
     })
     .join("\n          ");
