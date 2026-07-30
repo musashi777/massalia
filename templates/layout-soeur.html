@@ -6,7 +6,6 @@
 <title>{{metaTitle}}</title>
 <meta name="description" content="{{metaDescription}}">
 <link rel="canonical" href="{{canonicalUrl}}">
-
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{metaTitle}}">
 <meta property="og:description" content="{{metaDescription}}">
@@ -18,12 +17,10 @@
 <meta name="twitter:title" content="{{metaTitle}}">
 <meta name="twitter:description" content="{{metaDescription}}">
 <meta name="twitter:image" content="{{ogImage}}">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
-
 <script type="application/ld+json">
 {{schemaJson}}
 </script>
@@ -31,50 +28,45 @@
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
 
-<header class="site-header">
-  <div class="site-header__inner">
-    <div class="brand">
-      <span class="brand__badge">Monument &amp; Lieu</span>
-      <p class="site-title"><a href="/">Massalia</a></p>
-    </div>
-    <p class="site-tagline">Histoire &amp; Patrimoine de Marseille</p>
-  </div>
+<header class="site-header" role="banner">
+  <p class="site-title"><a href="/">MASSALIA</a></p>
+  <span class="site-tagline">Archives Ouvertes</span>
 </header>
 
 <main id="main">
-  <div class="wrap page-grid">
-    <article>
-      <nav class="breadcrumb" aria-label="Fil d'Ariane">
-        <a href="{{parentUrl}}">{{parentTitle}}</a> <span class="breadcrumb-sep">&rsaquo;</span> <span class="current">{{title}}</span>
-      </nav>
+  <div class="article-header">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Massalia</a>
+      <span class="breadcrumb-sep" aria-hidden="true">→</span>
+      <a href="{{parentUrl}}">{{parentTitle}}</a>
+      <span class="breadcrumb-sep" aria-hidden="true">→</span>
+      <span class="current">{{title}}</span>
+    </nav>
+    <h1 class="page-title">{{title}}</h1>
+    <p class="page-lede">{{lede}}</p>
+  </div>
 
-      <h1 class="page-title">{{title}}</h1>
-      <p class="page-lede">{{lede}}</p>
+  {{heroBlock}}
 
-      {{heroBlock}}
+  <div class="article-wrap">
+    <div class="article-body">{{contentHtml}}</div>
 
-      <div class="article-body">
-        {{contentHtml}}
-      </div>
+    <nav class="siblings" aria-label="Articles associés">
+      <h2 class="siblings-heading">Dans la même strate</h2>
+      <ul class="siblings-list">{{siblingLinks}}</ul>
+    </nav>
 
-      <a class="back-link" href="{{parentUrl}}">&larr; Retour à la catégorie {{parentTitle}}</a>
-
-      <section class="siblings">
-        <h2>Poursuivre dans cette strate</h2>
-        <ul class="siblings-list">
-          {{siblingLinks}}
-        </ul>
-      </section>
-    </article>
-
-    <aside class="strate" aria-label="Chronologie patrimoniale">
-      {{strateIndicator}}
-    </aside>
+    <a class="back-link" href="{{parentUrl}}">← {{parentTitle}}</a>
   </div>
 </main>
 
-<footer class="site-footer">
-  <p>Massalia — Dossier indépendant sur l'histoire et le patrimoine de Marseille.</p>
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 Massalia Archival Society</span>
+      <a href="/" style="color:rgba(209,228,251,0.25);font-size:0.65rem;font-weight:700;letter-spacing:0.4em;text-transform:uppercase;font-family:var(--font-sans);">Accueil</a>
+    </div>
+  </div>
 </footer>
 </body>
 </html>

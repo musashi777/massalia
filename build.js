@@ -157,30 +157,61 @@ function renderStrateIndicator(page) {
   }).join("\n    ");
 }
 
+// Numéros romains pour les strates 1–4
+const STRATE_NUMERALS = ["01", "02", "03", "04"];
+
 function renderChildrenCards(page) {
   if (!page.children) return "";
   const ROMAN_NUMERALS = ["Couche I", "Couche II", "Couche III", "Couche IV"];
-  return page.children
-    .map((childId, i) => {
-      const child = pages[childId];
-      const romanIndex = ROMAN_NUMERALS[i] || `Couche ${i + 1}`;
-      // alt="" : image décorative. Le titre <h3> adjacent transmet déjà l'information aux lecteurs d'écran.
-      // sizes : la carte occupe ~100vw sur mobile et ~400px en colonne desktop.
-      const imgTag = child.heroImage
-        ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, "", "", "lazy", 400, 250, "(max-width:768px) 100vw, 400px")}</div>`
-        : "";
-      const labelText = child.strate && child.strate.label ? child.strate.label : `${romanIndex} — ${child.strate.epoque}`;
-      return `<article class="couche-card">
-      ${imgTag}
-      <div class="couche-card__body">
-        <p class="couche-card__index">${labelText}</p>
-        <h3><a href="${urlFor(childId)}">${child.title}</a></h3>
-        <p>${child.metaDescription}</p>
-        <a class="card-link" href="${urlFor(childId)}">Explorer &rarr;</a>
-      </div>
-    </article>`;
-    })
-    .join("\n    ");
+  const EPOQUE_LABELS  = ["600 AV. J.-C.", "XIIᵉ — XVIIᵉ", "Vᵉ — XIXᵉ", "Littoral"];
+
+  return page.children.map((childId, i) => {
+    const child      = pages[childId];
+    const roman      = ROMAN_NUMERALS[i]  || `Couche ${i + 1}`;
+    const num        = STRATE_NUMERALS[i] || String(i + 1).padStart(2, "0");
+    const epoque     = EPOQUE_LABELS[i]   || (child.strate ? child.strate.epoque : "");
+    const labelText  = child.strate && child.strate.label ? child.strate.label : `${roman} — ${child.strate.epoque}`;
+    const isReverse  = i % 2 === 1;
+    const isLastBlock = i === page.children.length - 1;
+
+    // sizes : la carte occupe ~100vw sur mobile et ~600px en col desktop
+    const picHtml = child.heroImage
+      ? renderPicture(child.heroImage, "", "", "lazy", 800, 600, "(max-width:768px) 100vw, 600px")
+      : "";
+
+    if (isLastBlock) {
+      // Strate 04 : bloc inversé off-white pleine largeur
+      return `<article class="strate-article strate-article--block" id="strate-${num}">
+  <div class="strate-article__img" style="position:relative;">
+    ${picHtml}
+    <span class="overlap-number overlap-number--tl" aria-hidden="true">${num}</span>
+  </div>
+  <div class="strate-article__body">
+    <h3>${child.title}</h3>
+    <p>${child.metaDescription}</p>
+    <a class="strate-link" href="${urlFor(childId)}">Explorer la Strate</a>
+  </div>
+</article>`;
+    }
+
+    const verticalClass = isReverse ? "" : "";
+    const articleClass  = isReverse ? "strate-article strate-article--reverse" : "strate-article";
+    const numPos        = isReverse ? "overlap-number--br" : "overlap-number--tl";
+
+    return `<article class="${articleClass}" id="strate-${num}">
+  <div class="strate-article__vertical" aria-hidden="true">${epoque}</div>
+  <div class="strate-article__img" style="position:relative;">
+    ${picHtml}
+    <span class="overlap-number ${numPos}" aria-hidden="true">${num}</span>
+  </div>
+  <div class="strate-article__body">
+    <p class="couche-card__index">${labelText}</p>
+    <h3>${child.title}</h3>
+    <p>${child.metaDescription}</p>
+    <a class="strate-link" href="${urlFor(childId)}">Explorer la Strate</a>
+  </div>
+</article>`;
+  }).join("\n");
 }
 
 function renderSiblingLinks(page) {

@@ -6,7 +6,6 @@
 <title>{{metaTitle}}</title>
 <meta name="description" content="{{metaDescription}}">
 <link rel="canonical" href="{{canonicalUrl}}">
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{metaTitle}}">
 <meta property="og:description" content="{{metaDescription}}">
@@ -18,12 +17,10 @@
 <meta name="twitter:title" content="{{metaTitle}}">
 <meta name="twitter:description" content="{{metaDescription}}">
 <meta name="twitter:image" content="{{ogImage}}">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
-
 <script type="application/ld+json">
 {{schemaJson}}
 </script>
@@ -31,42 +28,103 @@
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
 
-<header class="site-header">
-  <div class="site-header__inner">
-    <div class="brand">
-      <span class="brand__badge">Dossier Référence</span>
-      <p class="site-title"><a href="/">Massalia</a></p>
-    </div>
-    <p class="site-tagline">Histoire &amp; Patrimoine de Marseille</p>
-  </div>
+<header class="site-header" role="banner">
+  <p class="site-title"><a href="/">MASSALIA</a></p>
+  <span class="site-tagline">Archives Ouvertes</span>
 </header>
 
 <main id="main">
-  <section class="hero wrap">
-    <div class="hero__content">
-      <p class="hero__eyebrow">Dossier de référence</p>
-      <h1>{{title}}</h1>
-      <p class="hero__lede">{{lede}}</p>
+
+  <!-- Hero Poster -->
+  <section class="hero-poster" aria-label="Introduction">
+    <div class="hero-poster__inner">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow__line" aria-hidden="true"></span>
+        <span class="hero-eyebrow__label">Archives Ouvertes</span>
+      </div>
+      <h1>Histoire<br><em>et</em><br>Patrimoine</h1>
+      <div class="hero-grid">
+        <div class="hero-img-wrap">
+          {{heroBlock}}
+        </div>
+        <div>
+          <p class="hero-quote">"Marseille porte plus de vingt-six siècles d'histoire urbaine."</p>
+          <p class="hero-caption">Vue panoramique au soleil couchant sur le Vieux-Port, Notre-Dame de la Garde et les vestiges antiques de Massalia.</p>
+        </div>
+      </div>
     </div>
-    {{heroBlock}}
   </section>
 
-  <div class="wrap">
-    <div class="article-body">
-      {{contentHtml}}
-    </div>
-
-    <section class="couches-section">
-      <h2 class="siblings-heading">Explorer les périodes et thématiques</h2>
-      <div class="couches">
-        {{childrenCards}}
+  <!-- Prose Off-White -->
+  <section class="prose-section" aria-label="Présentation">
+    <div class="prose-inner">
+      <div>
+        <h2>La plus ancienne<br>ville de France</h2>
+        <p class="prose-lead">Fondée vers 600 avant notre ère par des marins grecs venus de Phocée, la cité antique de Massalia est un carrefour millénaire.</p>
       </div>
-    </section>
+      <div class="prose-blockquote">
+        <blockquote>"Du mariage de Protis et de Gyptis est née une cité d'alliance maritime et de commerce, porte d'entrée de la culture hellénique."</blockquote>
+        <p>Autour de son port naturel, le Lacydon s'est développée une cité tournée vers les échanges maritimes et les relations avec les populations gauloises.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Les 4 Strates éditorial -->
+  <section class="strates-section" aria-label="Les strates historiques" id="strates">
+    <div class="strates-header">
+      <h2>Les Strates</h2>
+      <p>Exploration chronologique de l'identité marseillaise.</p>
+    </div>
+    {{childrenCards}}
+  </section>
+
+  <!-- Article body -->
+  <div class="article-wrap">
+    <div class="article-body">{{contentHtml}}</div>
   </div>
+
+  <!-- CTA -->
+  <section class="cta-section" aria-label="Accès aux archives">
+    <h2>Recherches</h2>
+    <p>Consultez nos archives complètes pour une immersion totale dans le patrimoine phocéen.</p>
+    <div class="cta-btns">
+      <a class="btn-primary" href="#strates">Accéder aux Archives</a>
+      <a class="btn-secondary" href="mailto:contact@massalia.fr">Nous contacter</a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="site-footer">
-  <p>Massalia — Dossier indépendant sur l'histoire et le patrimoine de Marseille.</p>
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">MASSALIA</p>
+        <p class="footer-desc">Dossier indépendant dédié à la préservation et à la diffusion du savoir historique sur la cité de Marseille.</p>
+      </div>
+      <div style="display:flex;gap:4rem;flex-wrap:wrap;">
+        <nav class="footer-nav-group" aria-label="Archives">
+          <span class="footer-nav-title">Archives</span>
+          <ul class="footer-nav-links">
+            <li><a href="#strates">Chronologie</a></li>
+            <li><a href="/">Cartographie</a></li>
+            <li><a href="/">Photothèque</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-nav-group" aria-label="Société">
+          <span class="footer-nav-title">Société</span>
+          <ul class="footer-nav-links">
+            <li><a href="/">Légal</a></li>
+            <li><a href="/">Données</a></li>
+            <li><a href="/">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 Massalia Archival Society</span>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
