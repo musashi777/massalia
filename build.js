@@ -343,8 +343,11 @@ for (const [pageId, page] of Object.entries(pages)) {
   console.log(`✓ ${pageId} → ${path.relative(ROOT, outPath)}`);
 }
 
-// Copie récursive des assets statiques (CSS & Images)
+// Copie récursive des assets statiques (CSS, Images & Scripts)
 copyDirSync(path.join(ROOT, "assets"), path.join(DIST_DIR, "assets"));
+if (fs.existsSync(path.join(ROOT, "scripts"))) {
+  copyDirSync(path.join(ROOT, "scripts"), path.join(DIST_DIR, "scripts"));
+}
 
 // Fichiers SEO générés à partir de la même source de vérité que les pages.
 const sitemapUrls = Object.entries(pages)
