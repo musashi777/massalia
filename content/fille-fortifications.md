@@ -14,4 +14,4 @@ Au large, sur un îlot rocheux, le Château d'If est décidé par François Iᵉ
 
 Cette strate militaire raconte aussi l'histoire navale de Marseille, port d'attache de l'arsenal des galères royales, et conserve des traces plus insolites, notamment les nombreux graffiti laissés par des prisonniers, des gardiens, des soldats et des visiteurs au Château d'If.
 
-Deux dossiers approfondissent cette période : le lien établi entre le rhinocéros de 1515 et le Château d'If, ainsi que l'histoire de l'arsenal des galères qui a fait de Marseille une base navale de premier plan sous l'Ancien Régime.
+Trois dossiers approfondissent cette période : [la légende du Rhinocéros du Château d'If](/legende-rhinoceros-chateau-if.html), [l'histoire de l'Arsenal des Galères](/arsenal-des-galeres.html), ainsi que [la métamorphose du Canal de la Douane](/canal-de-la-douane-metamorphose-arsenal.html).

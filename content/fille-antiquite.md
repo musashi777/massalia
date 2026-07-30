@@ -14,4 +14,4 @@ Alliée ancienne de Rome, la cité est prise par Jules César et son légat Tré
 
 Les traces matérielles de ces périodes grecque et romaine ont resurgi au XXᵉ siècle lors de grands chantiers urbains, notamment autour du Centre Bourse, révélant fortifications, installations portuaires, nécropoles et habitats qui permettent aujourd'hui de mieux reconstituer la cité antique.
 
-Trois sites et ensembles patrimoniaux majeurs matérialisent aujourd'hui cette période fondatrice : [les fouilles du Port Antique](/fouilles-port-antique.html), le [Jardin des Vestiges](/jardin-des-vestiges.html) qui conserve en plein air les remparts grecs, et les spectaculaires [caves Saint-Sauveur](/caves-saint-sauveur-monument-souterrain.html), édifice souterrain antique sous la place de Lenche.
+Quatre sites et ensembles patrimoniaux majeurs matérialisent aujourd'hui cette période fondatrice : [les fouilles du Port Antique](/fouilles-port-antique.html), le [Jardin des Vestiges](/jardin-des-vestiges.html), les spectaculaires [caves Saint-Sauveur](/caves-saint-sauveur-monument-souterrain.html) et [le Mur de Crinas](/mur-de-crinas-systeme-defensif.html).

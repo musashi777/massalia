@@ -16,4 +16,4 @@ Cette basilique, que les Marseillais surnomment affectueusement la « Bonne Mèr
 
 Ensemble, l'abbaye Saint-Victor et Notre-Dame de la Garde illustrent deux temporalités de la foi marseillaise : l'une enracinée dans l'Antiquité tardive et les premiers lieux de culte chrétiens, l'autre tournée vers la mer et la dévotion contemporaine des Marseillais.
 
-Deux dossiers explorent ce patrimoine : les vestiges paléochrétiens de Saint-Victor et la statue de la Bonne Mère avec la tradition des ex-voto.
+Trois dossiers explorent ce patrimoine : [les vestiges de la crypte de Saint-Victor](/crypte-abbaye-saint-victor.html), [la statue de la Bonne Mère et ses ex-voto](/statue-bonne-mere-ex-voto.html), et [les sarcophages paléochrétiens de Saint-Victor](/sarcophages-paleochretiens-saint-victor.html).
