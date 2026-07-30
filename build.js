@@ -62,16 +62,14 @@ const templates = {
  */
 function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500, sizes = "100vw") {
   if (!src) return "";
-  // Chemins 1x (existants) et 2x (convention @2x, générés par pipeline image)
-  const webpSrc   = src.replace(/\.png$/i, ".webp");
-  const avifSrc   = src.replace(/\.png$/i, ".avif");
-  const webp2xSrc = src.replace(/\.png$/i, "@2x.webp");
-  const avif2xSrc = src.replace(/\.png$/i, "@2x.avif");
-  const classAttr   = className ? ` class="${className}"` : "";
-  const loadingAttr = loading   ? ` loading="${loading}"` : "";
+  const webpSrc = src.replace(/\.png$/i, ".webp");
+  const avifSrc = src.replace(/\.png$/i, ".avif");
+  const classAttr = className ? ` class="${className}"` : "";
+  const loadingAttr = loading ? ` loading="${loading}"` : "";
+  
   return `<picture>
-    <source srcset="${avifSrc} 1x, ${avif2xSrc} 2x" type="image/avif" sizes="${sizes}">
-    <source srcset="${webpSrc} 1x, ${webp2xSrc} 2x" type="image/webp" sizes="${sizes}">
+    <source srcset="${avifSrc}" type="image/avif">
+    <source srcset="${webpSrc}" type="image/webp">
     <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
   </picture>`;
 }
