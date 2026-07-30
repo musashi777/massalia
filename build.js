@@ -39,25 +39,39 @@ const templates = {
  * Volontairement minimal : pas de dépendance externe (contrainte "0 €").
  * ---------------------------------------------------------------------- */
 /**
- * Génère une balise <picture> avec sources AVIF, WebP et fallback PNG.
+ * Génère une balise <picture> responsive avec sources AVIF, WebP et fallback PNG.
+ *
+ * Responsive images :
+ *   - srcset 1x / 2x par format : le navigateur télécharge la résolution adaptée
+ *     au DPR de l'écran (écrans Retina dpr≥2 ou écrans standard dpr=1).
+ *   - sizes : indique au navigateur la largeur d'affichage attendue *avant*
+ *     de télécharger l'image, permettant une sélection optimale dans srcset.
+ *   - width + height intrinsèques : anti-CLS — le layout est réservé O(N)
+ *     sans recalcul en cascade (reflow O(N²)).
+ *
+ * Convention de nommage 2x : image@2x.avif / image@2x.webp
+ * (génération via pipeline sharp/squoosh ou Vercel Image Optimization).
+ *
  * @param {string} src       - Chemin PNG de l'image (ex: /assets/img/hero.png)
  * @param {string} alt       - Texte alternatif. Passer "" pour une image décorative.
  * @param {string} className - Classe CSS optionnelle sur <img>.
  * @param {string} loading   - "lazy" (défaut) ou "eager" pour le LCP.
- * @param {number} width     - Largeur intrinsèque pour éviter le CLS (défaut 800).
- * @param {number} height    - Hauteur intrinsèque pour éviter le CLS (défaut 500).
+ * @param {number} width     - Largeur intrinsèque 1x pour éviter le CLS (défaut 800).
+ * @param {number} height    - Hauteur intrinsèque 1x pour éviter le CLS (défaut 500).
+ * @param {string} sizes     - Hint de largeur affichée pour le srcset (défaut "100vw").
  */
-function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500) {
+function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500, sizes = "100vw") {
   if (!src) return "";
-  const webpSrc = src.replace(/\.png$/i, ".webp");
-  const avifSrc = src.replace(/\.png$/i, ".avif");
-  const classAttr = className ? ` class="${className}"` : "";
-  const loadingAttr = loading ? ` loading="${loading}"` : "";
-  // decoding="async" : libère le fil principal pendant le décodage image.
-  // width + height : permettent au navigateur de réserver l'espace avant le chargement (anti-CLS).
+  // Chemins 1x (existants) et 2x (convention @2x, générés par pipeline image)
+  const webpSrc   = src.replace(/\.png$/i, ".webp");
+  const avifSrc   = src.replace(/\.png$/i, ".avif");
+  const webp2xSrc = src.replace(/\.png$/i, "@2x.webp");
+  const avif2xSrc = src.replace(/\.png$/i, "@2x.avif");
+  const classAttr   = className ? ` class="${className}"` : "";
+  const loadingAttr = loading   ? ` loading="${loading}"` : "";
   return `<picture>
-    <source srcset="${avifSrc}" type="image/avif">
-    <source srcset="${webpSrc}" type="image/webp">
+    <source srcset="${avifSrc} 1x, ${avif2xSrc} 2x" type="image/avif" sizes="${sizes}">
+    <source srcset="${webpSrc} 1x, ${webp2xSrc} 2x" type="image/webp" sizes="${sizes}">
     <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
   </picture>`;
 }
@@ -66,7 +80,8 @@ function inline(text) {
   return text
     .replace(/!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g, (match, alt, src, title) => {
       const caption = title || alt;
-      return `<figure class="article-figure">${renderPicture(src, alt, "", "lazy")}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`;
+      // Images inline dans le contenu Markdown : pleine largeur colonne article
+      return `<figure class="article-figure">${renderPicture(src, alt, "", "lazy", 800, 500, "(max-width:768px) 100vw, 800px")}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`;
     })
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
@@ -150,8 +165,9 @@ function renderChildrenCards(page) {
       const child = pages[childId];
       const romanIndex = ROMAN_NUMERALS[i] || `Couche ${i + 1}`;
       // alt="" : image décorative. Le titre <h3> adjacent transmet déjà l'information aux lecteurs d'écran.
+      // sizes : la carte occupe ~100vw sur mobile et ~400px en colonne desktop.
       const imgTag = child.heroImage
-        ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, "", "", "lazy", 400, 250)}</div>`
+        ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, "", "", "lazy", 400, 250, "(max-width:768px) 100vw, 400px")}</div>`
         : "";
       const labelText = child.strate && child.strate.label ? child.strate.label : `${romanIndex} — ${child.strate.epoque}`;
       return `<article class="couche-card">
@@ -173,7 +189,8 @@ function renderSiblingLinks(page) {
     .map((sibId) => {
       const sib = pages[sibId];
       // alt="" : vignette décorative, le texte <span> du lien fournit le label accessible.
-      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, "", "sibling-thumb", "lazy", 200, 125)} ` : "";
+      // sizes : vignette de navigation, jamais plus de 200px.
+      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, "", "sibling-thumb", "lazy", 200, 125, "200px")} ` : "";
       return `<li><a href="${urlFor(sibId)}">${thumb}<span>${sib.title}</span></a></li>`;
     })
     .join("\n          ");
@@ -238,7 +255,7 @@ for (const [pageId, page] of Object.entries(pages)) {
 
   const heroBlock = page.heroImage
     ? `<figure class="hero-media">
-        ${renderPicture(page.heroImage, page.title, "hero-media__img", "eager")}
+        ${renderPicture(page.heroImage, page.title, "hero-media__img", "eager", 800, 500, "100vw")}
         ${page.imageCaption ? `<figcaption class="hero-media__caption">${page.imageCaption}</figcaption>` : ""}
       </figure>`
     : "";
