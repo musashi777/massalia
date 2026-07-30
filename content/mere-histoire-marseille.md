@@ -12,9 +12,9 @@ Cette histoire ne s'est pas écrite d'un seul tenant. Elle s'est déposée par c
 
 Ce dossier explore ce patrimoine à travers quatre grands ensembles thématiques, chacun correspondant à une période, un espace et une fonction distinctes de la ville :
 
-- **Antiquité et Fondations** — la naissance de Massalia, ses fouilles archéologiques et les vestiges tangibles de la cité grecque et romaine.
-- **Fortifications et Architecture Militaire** — les forts qui ont défendu, puis surveillé, l'entrée du port : Fort Saint-Jean, Fort Saint-Nicolas et le Château d'If.
-- **Édifices Religieux et Symboles** — les lieux de culte qui incarnent l'identité spirituelle marseillaise, de l'abbaye Saint-Victor à la basilique Notre-Dame de la Garde.
-- **Littoral, Calanques et Commerce Maritime** — les sanctuaires naturels et réseaux souterrains : de la Grotte Cosquer et des amphores phocéennes à l'énigme de la Grotte Monnard.
+- **Antiquité et Fondations** — la naissance de Massalia vers 600 av. J.-C., ses fouilles archéologiques et les vestiges tangibles du port antique.
+- **Fortifications et Architecture Militaire** — l'édification des citadelles de surveillance (1660) : du Fort Saint-Jean au Fort Saint-Nicolas, conçu pour dominer la cité rebelle, jusqu'au Château d'If.
+- **Édifices Religieux et Symboles** — les lieux de culte qui incarnent l'identité spirituelle marseillaise, de la crypte de l'abbaye Saint-Victor à la basilique Notre-Dame de la Garde.
+- **Littoral, Calanques et Commerce Maritime** — des sanctuaires préhistoriques (Grotte Cosquer) au patrimoine englouti des réseaux karstiques et aménagements industriels (Grotte Monnard).
 
 Chacun de ces quatre axes se déploie à son tour en dossiers approfondis, consacrés à un monument, une légende ou une découverte archéologique précise. L'ensemble compose une cartographie du patrimoine marseillais, de la fondation phocéenne aux symboles qui veillent aujourd'hui encore sur la cité phocéenne.

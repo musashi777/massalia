@@ -20,7 +20,7 @@
       "strate": {
         "niveau": 0,
         "label": "Niveau 0 — Surface",
-        "epoque": "Vue d'ensemble, du VIIᵉ siècle av. J.-C. à aujourd'hui"
+        "epoque": "Vue d'ensemble, du VIᵉ siècle av. J.-C. à aujourd'hui"
       }
     },
 
@@ -29,7 +29,7 @@
       "slug": "antiquite-et-fondations",
       "title": "Antiquité et Fondations",
       "metaTitle": "Massalia grecque et romaine | Antiquité et Fondations de Marseille",
-      "metaDescription": "Comment les Phocéens ont fondé Massalia et développé un port majeur de la Méditerranée occidentale, entre mythe de fondation et vestiges antiques.",
+      "metaDescription": "De la fondation par les Phocéens vers 600 av. J.-C. jusqu'aux vestiges urbains du port antique.",
       "contentFile": "content/fille-antiquite.md",
       "heroImage": "/assets/img/hero-antiquite.png",
       "imageCaption": "Arrivée d'une galère phocéenne dans la calanque du Lacydon (actuel Vieux-Port) vers 600 avant notre ere.",
@@ -39,8 +39,8 @@
       "children": ["soeur-port-antique", "soeur-jardin-vestiges", "soeur-caves-saint-sauveur", "soeur-mur-crinas"],
       "strate": {
         "niveau": 1,
-        "label": "Niveau I — Couche antique",
-        "epoque": "VIIᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C."
+        "label": "Couche I — VIᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C.",
+        "epoque": "<time datetime=\"-0600\">VIᵉ siècle av. J.-C.</time> — Vᵉ siècle apr. J.-C."
       }
     },
     "fille-fortifications": {
@@ -48,7 +48,7 @@
       "slug": "fortifications-et-architecture-militaire",
       "title": "Fortifications et Architecture Militaire",
       "metaTitle": "Fort Saint-Jean, Fort Saint-Nicolas, Château d'If | Fortifications de Marseille",
-      "metaDescription": "L'architecture militaire de Marseille : de la commanderie médiévale de Saint-Jean aux forteresses royales du Château d'If et du Fort Saint-Nicolas.",
+      "metaDescription": "L'édification des citadelles de surveillance (1660) : du Fort Saint-Jean au Fort Saint-Nicolas, conçu pour dominer la cité rebelle.",
       "contentFile": "content/fille-fortifications.md",
       "heroImage": "/assets/img/hero-fortifications.png",
       "imageCaption": "Le Château d'If et les passes maritimes du Frioul sous un ciel orageux d'exception.",
@@ -58,7 +58,7 @@
       "children": ["soeur-rhinoceros-if", "soeur-arsenal-galeres", "soeur-canal-douane"],
       "strate": {
         "niveau": 1,
-        "label": "Niveau I — Couche militaire",
+        "label": "Couche II — XIIᵉ siècle — XVIIᵉ siècle",
         "epoque": "XIIᵉ siècle — XVIIᵉ siècle"
       }
     },
@@ -67,7 +67,7 @@
       "slug": "edifices-religieux-et-symboles",
       "title": "Édifices Religieux et Symboles",
       "metaTitle": "Notre-Dame de la Garde, Abbaye Saint-Victor | Édifices Religieux de Marseille",
-      "metaDescription": "Les monuments sacrés de Marseille : la basilique Notre-Dame de la Garde et l'abbaye Saint-Victor, entre foi, crypte et ex-voto.",
+      "metaDescription": "Les lieux de culte qui incarnent l'identité spirituelle marseillaise, de l'abbaye Saint-Victor à la basilique Notre-Dame de la Garde.",
       "contentFile": "content/fille-religieux.md",
       "heroImage": "/assets/img/hero-religieux.png",
       "imageCaption": "La basilique Notre-Dame de la Garde couronnée de sa statue dorée au coucher du soleil.",
@@ -77,7 +77,7 @@
       "children": ["soeur-crypte-saint-victor", "soeur-bonne-mere-exvoto", "soeur-sarcophages-saint-victor"],
       "strate": {
         "niveau": 1,
-        "label": "Niveau I — Couche spirituelle",
+        "label": "Couche III — Vᵉ siècle — XIXᵉ siècle",
         "epoque": "Vᵉ siècle — XIXᵉ siècle"
       }
     },
@@ -280,7 +280,7 @@
       "slug": "littoral-calanques-et-commerce-maritime",
       "title": "Littoral, Calanques et Commerce Maritime",
       "metaTitle": "Littoral et Commerce Maritime Antique | Massalia et la Méditerranée",
-      "metaDescription": "Découvrez l'histoire maritime de Massalia : des sanctuaires des calanques à la Grotte Cosquer et aux routes des amphores phocéennes.",
+      "metaDescription": "Des sanctuaires préhistoriques (Grotte Cosquer) au patrimoine englouti des réseaux karstiques et aménagements industriels (Grotte Monnard).",
       "contentFile": "content/fille-littoral-commerce.md",
       "heroImage": "/assets/img/hero-littoral.png",
       "imageCaption": "Les calanques de Marseille et le littoral calcaire, voies de passage et sanctuaires maritimes antiques.",
@@ -290,8 +290,8 @@
       "children": ["soeur-grotte-cosquer", "soeur-commerce-amphores", "soeur-grotte-monnard"],
       "strate": {
         "niveau": 1,
-        "label": "Niveau I — Strate maritime & souterraine",
-        "epoque": "Préhistoire, Antiquité & Époque contemporaine"
+        "label": "Couche IV — Milieux naturels & Archéologie sous-marine",
+        "epoque": "Milieux naturels & Archéologie sous-marine"
       }
     },
     "soeur-grotte-cosquer": {

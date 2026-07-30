@@ -133,17 +133,19 @@ function renderStrateIndicator(page) {
 
 function renderChildrenCards(page) {
   if (!page.children) return "";
+  const ROMAN_NUMERALS = ["Couche I", "Couche II", "Couche III", "Couche IV"];
   return page.children
     .map((childId, i) => {
       const child = pages[childId];
-      const romanIndex = ["Couche I", "Couche II", "Couche III"][i] || `Couche ${i + 1}`;
+      const romanIndex = ROMAN_NUMERALS[i] || `Couche ${i + 1}`;
       const imgTag = child.heroImage
         ? `<div class="couche-card__thumb">${renderPicture(child.heroImage, child.title, "", "lazy")}</div>`
         : "";
+      const labelText = child.strate && child.strate.label ? child.strate.label : `${romanIndex} — ${child.strate.epoque}`;
       return `<article class="couche-card">
       ${imgTag}
       <div class="couche-card__body">
-        <p class="couche-card__index">${romanIndex} — ${child.strate.epoque}</p>
+        <p class="couche-card__index">${labelText}</p>
         <h3><a href="${urlFor(childId)}">${child.title}</a></h3>
         <p>${child.metaDescription}</p>
         <a class="card-link" href="${urlFor(childId)}">Explorer &rarr;</a>
