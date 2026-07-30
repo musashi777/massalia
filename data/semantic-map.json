@@ -36,7 +36,7 @@
       "schemaType": "CollectionPage",
       "parent": "mere-histoire-marseille",
       "anchorToParent": "Histoire et Patrimoine de Marseille",
-      "children": ["soeur-port-antique", "soeur-jardin-vestiges", "soeur-caves-saint-sauveur"],
+      "children": ["soeur-port-antique", "soeur-jardin-vestiges", "soeur-caves-saint-sauveur", "soeur-mur-crinas"],
       "strate": {
         "niveau": 1,
         "label": "Niveau I — Couche antique",
@@ -55,7 +55,7 @@
       "schemaType": "CollectionPage",
       "parent": "mere-histoire-marseille",
       "anchorToParent": "Histoire et Patrimoine de Marseille",
-      "children": ["soeur-rhinoceros-if", "soeur-arsenal-galeres"],
+      "children": ["soeur-rhinoceros-if", "soeur-arsenal-galeres", "soeur-canal-douane"],
       "strate": {
         "niveau": 1,
         "label": "Niveau I — Couche militaire",
@@ -74,7 +74,7 @@
       "schemaType": "CollectionPage",
       "parent": "mere-histoire-marseille",
       "anchorToParent": "Histoire et Patrimoine de Marseille",
-      "children": ["soeur-crypte-saint-victor", "soeur-bonne-mere-exvoto"],
+      "children": ["soeur-crypte-saint-victor", "soeur-bonne-mere-exvoto", "soeur-sarcophages-saint-victor"],
       "strate": {
         "niveau": 1,
         "label": "Niveau I — Couche spirituelle",
@@ -94,7 +94,7 @@
       "schemaType": "HistoricSite",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
-      "siblings": ["soeur-jardin-vestiges", "soeur-caves-saint-sauveur"],
+      "siblings": ["soeur-jardin-vestiges", "soeur-caves-saint-sauveur", "soeur-mur-crinas"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
@@ -113,7 +113,7 @@
       "schemaType": "HistoricSite",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
-      "siblings": ["soeur-port-antique", "soeur-caves-saint-sauveur"],
+      "siblings": ["soeur-port-antique", "soeur-caves-saint-sauveur", "soeur-mur-crinas"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
@@ -132,13 +132,33 @@
       "schemaType": "HistoricSite",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
-      "siblings": ["soeur-port-antique", "soeur-jardin-vestiges"],
+      "siblings": ["soeur-port-antique", "soeur-jardin-vestiges", "soeur-mur-crinas"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate souterraine antique",
         "epoque": "150 av. J.-C. — 50 apr. J.-C."
       }
     },
+    "soeur-mur-crinas": {
+      "type": "soeur",
+      "slug": "mur-de-crinas-systeme-defensif",
+      "title": "Le Mur de Crinas et les Remparts Grecs",
+      "metaTitle": "Le Mur de Crinas | Remparts grecs et fortifications de Marseille",
+      "metaDescription": "Analyse du rempart hellénistique dit mur de Crinas, constitué de blocs de calcaire rose du cap Couronne au Jardin des Vestiges.",
+      "contentFile": "content/soeur-mur-crinas.md",
+      "heroImage": "/assets/img/soeur-port-antique.png",
+      "imageCaption": "Les assises en calcaire rose du Cap Couronne composant le mur de Crinas et la Tour Carrée.",
+      "schemaType": "HistoricSite",
+      "parent": "fille-antiquite",
+      "anchorToParent": "Antiquité et Fondations",
+      "siblings": ["soeur-port-antique", "soeur-jardin-vestiges", "soeur-caves-saint-sauveur"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate militaire antique",
+        "epoque": "IIᵉ siècle av. J.-C."
+      }
+    },
+
     "soeur-rhinoceros-if": {
       "type": "soeur",
       "slug": "legende-rhinoceros-chateau-if",
@@ -151,7 +171,7 @@
       "schemaType": "HistoricSite",
       "parent": "fille-fortifications",
       "anchorToParent": "Fortifications et Architecture Militaire",
-      "siblings": ["soeur-arsenal-galeres"],
+      "siblings": ["soeur-arsenal-galeres", "soeur-canal-douane"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
@@ -170,13 +190,33 @@
       "schemaType": "HistoricSite",
       "parent": "fille-fortifications",
       "anchorToParent": "Fortifications et Architecture Militaire",
-      "siblings": ["soeur-rhinoceros-if"],
+      "siblings": ["soeur-rhinoceros-if", "soeur-canal-douane"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
         "epoque": "1666 — 1748"
       }
     },
+    "soeur-canal-douane": {
+      "type": "soeur",
+      "slug": "canal-de-la-douane-metamorphose-arsenal",
+      "title": "Le Canal de la Douane et la Place aux Huiles",
+      "metaTitle": "Le Canal de la Douane | Histoire et comblement à Marseille",
+      "metaDescription": "Histoire du Canal de la Douane reliant l'Arsenal des Galères au Vieux-Port et sa transformation en cours Honoré-d'Estienne-d'Orves.",
+      "contentFile": "content/soeur-canal-douane.md",
+      "heroImage": "/assets/img/soeur-arsenal-galeres.png",
+      "imageCaption": "Représentation historique de la rive sud du Vieux-Port et des canaux de l'Arsenal.",
+      "schemaType": "HistoricSite",
+      "parent": "fille-fortifications",
+      "anchorToParent": "Fortifications et Architecture Militaire",
+      "siblings": ["soeur-rhinoceros-if", "soeur-arsenal-galeres"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate fluviale & urbaine",
+        "epoque": "1665 — 1927"
+      }
+    },
+
     "soeur-crypte-saint-victor": {
       "type": "soeur",
       "slug": "crypte-abbaye-saint-victor",
@@ -189,7 +229,7 @@
       "schemaType": "HistoricSite",
       "parent": "fille-religieux",
       "anchorToParent": "Édifices Religieux et Symboles",
-      "siblings": ["soeur-bonne-mere-exvoto"],
+      "siblings": ["soeur-bonne-mere-exvoto", "soeur-sarcophages-saint-victor"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
@@ -208,11 +248,30 @@
       "schemaType": "HistoricSite",
       "parent": "fille-religieux",
       "anchorToParent": "Édifices Religieux et Symboles",
-      "siblings": ["soeur-crypte-saint-victor"],
+      "siblings": ["soeur-crypte-saint-victor", "soeur-sarcophages-saint-victor"],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate profonde",
         "epoque": "XIXᵉ siècle"
+      }
+    },
+    "soeur-sarcophages-saint-victor": {
+      "type": "soeur",
+      "slug": "sarcophages-paleochretiens-saint-victor",
+      "title": "Sarcophages Paléochrétiens de Saint-Victor",
+      "metaTitle": "Les Sarcophages Paléochrétiens de Saint-Victor | Marseille",
+      "metaDescription": "Découvrez la collection exceptionnelle de sarcophages en marbre de Carrare de la crypte de Saint-Victor : Traditio Legis et Jean Cassien.",
+      "contentFile": "content/soeur-sarcophages-saint-victor.md",
+      "heroImage": "/assets/img/soeur-crypte-saint-victor.png",
+      "imageCaption": "Détail de la cuve d'un sarcophage paléochrétien en marbre sculpté dans la crypte.",
+      "schemaType": "HistoricSite",
+      "parent": "fille-religieux",
+      "anchorToParent": "Édifices Religieux et Symboles",
+      "siblings": ["soeur-crypte-saint-victor", "soeur-bonne-mere-exvoto"],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate lapidaire paléochrétienne",
+        "epoque": "IVᵉ — Vᵉ siècle apr. J.-C."
       }
     },
 
