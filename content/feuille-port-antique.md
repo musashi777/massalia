@@ -2,7 +2,7 @@
 
 Découvert en 1967 lors de l'aménagement du centre commercial Bourse en plein cœur de Marseille, le site archéologique du Port Antique constitue une référence majeure de l'archéologie urbaine méditerranéenne. L'espace met en lumière l'interface entre la cité intra-muros et le bassin portuaire antique de la calanque du Lacydon.
 
-![Port Antique et Jardin des Vestiges](/assets/img/soeur-port-antique.png "Les vestiges des remparts grecs, des darses et des bassins du Port Antique de Marseille.")
+![Port Antique et Jardin des Vestiges](/assets/img/feuille-port-antique.png "Les vestiges des remparts grecs, des darses et des bassins du Port Antique de Marseille.")
 
 ## Du bassin du Lacydon aux remparts d'ingénierie grecque
 

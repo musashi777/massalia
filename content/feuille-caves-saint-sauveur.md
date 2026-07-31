@@ -8,11 +8,11 @@ Mentionnées dès le XVIIᵉ siècle par l'historien marseillais Louis Antoine d
 
 Malgré cette reconnaissance précoce, le site subit de lourdes détériorations au XXᵉ siècle, notamment lors de la destruction tragique du quartier du Panier par l'armée allemande en 1943. Aujourd'hui, aucun vestige n'est directement décelable en surface : les structures ont été remblayées et le site est aujourd'hui recouvert par les bâtiments de l'école et du collège Notre-Dame de la Major.
 
-![Les caves Saint-Sauveur](/assets/img/soeur-caves-saint-sauveur.png "Galeries et voûtes souterraines antiques sous la place de Lenche à Marseille.")
+![Les caves Saint-Sauveur](/assets/img/feuille-caves-saint-sauveur.png "Galeries et voûtes souterraines antiques sous la place de Lenche à Marseille.")
 
 ## Architecture monumentale et datation archéologique
 
-Longtemps entourées de conjectures quant à leur époque de construction, les caves ont fait l'objet de fouilles décisives en 1977 lors de travaux de canalisation. Les archéologues y ont découvert un appareillage de blocs en calcaire rose extrait des carrières du cap Couronne, rigoureusement identique à celui des remparts grecs visibles au Jardin des Vestiges. Cette découverte permet de dater l'édifice entre 150 avant J.-C. et 50 après J.-C., à la charnière des époques hellénistique et romaine.
+Longtemps entourées de conjectures quant à leur époque de construction, les caves ont fait l'objet de fouilles décisives en 1977 lors de travaux de canalisation. Les archéologues y ont découvert un appareillage de blocs en calcaire rose extrait des carrières du cap Couronne, rigoureusement identique à celui du [mur de Crinas](/mur-de-crinas-systeme-defensif.html) et des remparts grecs visibles au [Jardin des Vestiges](/jardin-des-vestiges.html). Cette découverte permet de dater l'édifice entre 150 avant J.-C. et 50 après J.-C., à la charnière des époques hellénistique et romaine.
 
 L'architecture impressionne par ses dimensions et sa rigueur géométrique :
 - Un couloir voûté monumental de 41 mètres de long sur 4,10 mètres de large enveloppe le bâtiment sur trois côtés.

@@ -6,7 +6,7 @@ L'entrée du Vieux-Port de Marseille est commandée depuis le Moyen Âge par un 
 
 En vis-à-vis, sur la rive sud, le Fort Saint-Nicolas est édifié entre 1660 et 1664 sur ordre de Louis XIV. Avec son plan bastionné, il complète le contrôle de la passe du port et répond à une double préoccupation : protéger la rade et surveiller une ville dont le pouvoir royal redoute les rébellions.
 
-![Arsenal des Galères](/assets/img/soeur-arsenal-galeres.png "Représentation de la puissance navale royale dans le bassin du port.")
+![Arsenal des Galères](/assets/img/feuille-arsenal-galeres.png "Représentation de la puissance navale royale dans le bassin du port.")
 
 ## La forteresse d'If et le mythe de Monte-Cristo
 

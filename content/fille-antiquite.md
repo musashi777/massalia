@@ -6,7 +6,7 @@ Vers 600 avant J.-C., des Grecs venus de Phocée, en Ionie, fondent une cité da
 
 La cité grecque prospère grâce aux échanges de vin, d'huile, de céramique et d'autres produits méditerranéens avec la Gaule. Ceinte de remparts et organisée autour de son port, elle est placée, selon les sources relatives à la ville antique, sous la protection d'Artémis, d'Apollon et d'Athéna. Massalia demeure une cité indépendante pendant plusieurs siècles, en relation avec les autres puissances de la Méditerranée occidentale.
 
-![Le Port Antique](/assets/img/soeur-port-antique.png "Les vestiges antiques révélés au cœur de la ville moderne.")
+![Le Port Antique](/assets/img/feuille-port-antique.png "Les vestiges antiques révélés au cœur de la ville moderne.")
 
 ## Le siège de César et l'intégration romaine
 

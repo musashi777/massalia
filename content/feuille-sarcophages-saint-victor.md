@@ -2,7 +2,7 @@
 
 La collection de sarcophages conservée dans les cryptes de l'Abbaye Saint-Victor constitue l'un des ensembles lapidaires paléochrétiens les plus précieux du monde méditerranéen, rivalisant avec les collections des musées d'Arles et du Vatican.
 
-![Sarcophages paléochrétiens de Saint-Victor](/assets/img/soeur-crypte-saint-victor.png "Détail de la cuve d'un sarcophage paléochrétien en marbre sculpté dans la crypte.")
+![Sarcophages paléochrétiens de Saint-Victor](/assets/img/feuille-crypte-saint-victor.png "Détail de la cuve d'un sarcophage paléochrétien en marbre sculpté dans la crypte.")
 
 ## La marbrerie funéraire de l'Antiquité tardive à Massalia
 

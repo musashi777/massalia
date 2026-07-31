@@ -2,7 +2,7 @@
 
 L'amphore phocéenne est la signature commerciale de Massalia dans toute la Méditerranée occidentale. Utilisée pour le transport du vin, de l'huile d'olive et de la chair de poisson, elle symbolise le rayonnement économique exceptionnel de la cité antique.
 
-![Amphores sur un navire massaliète](/assets/img/soeur-commerce-amphores.png "Cargaison d'amphores à bord d'un navire marchand grec au port de Massalia.")
+![Amphores sur un navire massaliète](/assets/img/feuille-commerce-amphores.png "Cargaison d'amphores à bord d'un navire marchand grec au port de Massalia.")
 
 ## Le vecteur économique du monde grec
 

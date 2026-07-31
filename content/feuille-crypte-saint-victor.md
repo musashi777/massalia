@@ -2,7 +2,7 @@
 
 Positionnée au sud du Vieux-Port, l'abbaye Saint-Victor s'élève sur un site de mémoire dont l'occupation s'étend sans interruption sur plus de deux millénaires, illustrant le passage de l'extraction industrielle antique au culte chrétien.
 
-![Crypte de Saint-Victor](/assets/img/soeur-crypte-saint-victor.png "Les voûtes en pierre et les sarcophages paléochrétiens conservés dans la crypte de l'abbaye Saint-Victor.")
+![Crypte de Saint-Victor](/assets/img/feuille-crypte-saint-victor.png "Les voûtes en pierre et les sarcophages paléochrétiens conservés dans la crypte de l'abbaye Saint-Victor.")
 
 ## De la carrière grecque à la Memoria paléochrétienne
 

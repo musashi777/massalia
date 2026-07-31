@@ -2,7 +2,7 @@
 
 À soixante mètres sous le bitume du quartier des Trois Lucs, au lieu-dit La Marionne, l'obscurité est absolue et le silence minéral. La grotte Monnard n'est pas une simple curiosité géologique ; c'est un carrefour improbable où l'ambition industrielle du XIXᵉ siècle a percuté de plein fouet les mystères d'un monde souterrain insondable.
 
-![Exploration souterraine de la Grotte Monnard](/assets/img/soeur-grotte-monnard.png "Exploration des galeries calcaires et des conduites industrielles oubliées sous le plateau de la Marionne.")
+![Exploration souterraine de la Grotte Monnard](/assets/img/feuille-grotte-monnard.png "Exploration des galeries calcaires et des conduites industrielles oubliées sous le plateau de la Marionne.")
 
 ## L'éventrement des collines et l'énigme du lac sans fond
 

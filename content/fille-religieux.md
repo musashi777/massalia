@@ -6,7 +6,7 @@ Deux hauteurs dominent le Vieux-Port de Marseille et portent des édifices majeu
 
 L'abbaye Saint-Victor constitue l'un des foyers monastiques les plus anciens d'Occident. Ses cryptes conservent une collection inestimable de sarcophages paléochrétiens taillés dans le marbre, témoins de la transition entre l'Antiquité romaine et le haut Moyen Âge.
 
-![La Crypte de Saint-Victor](/assets/img/soeur-crypte-saint-victor.png "Les voûtes romanes et sarcophages antiques dans la crypte de Saint-Victor.")
+![La Crypte de Saint-Victor](/assets/img/feuille-crypte-saint-victor.png "Les voûtes romanes et sarcophages antiques dans la crypte de Saint-Victor.")
 
 ## La Bonne Mère et la dévotion populaire
 
@@ -16,4 +16,4 @@ Cette basilique, que les Marseillais surnomment affectueusement la « Bonne Mèr
 
 Ensemble, l'abbaye Saint-Victor et Notre-Dame de la Garde illustrent deux temporalités de la foi marseillaise : l'une enracinée dans l'Antiquité tardive et les premiers lieux de culte chrétiens, l'autre tournée vers la mer et la dévotion contemporaine des Marseillais.
 
-Trois dossiers explorent ce patrimoine : [les vestiges de la crypte de Saint-Victor](/crypte-abbaye-saint-victor.html), [la statue de la Bonne Mère et ses ex-voto](/statue-bonne-mere-ex-voto.html), et [les sarcophages paléochrétiens de Saint-Victor](/sarcophages-paleochretiens-saint-victor.html).
+Quatre dossiers explorent ce patrimoine : [les vestiges de la crypte de Saint-Victor](/crypte-abbaye-saint-victor.html), [la statue de la Bonne Mère et ses ex-voto](/statue-bonne-mere-ex-voto.html), [les sarcophages paléochrétiens de Saint-Victor](/sarcophages-paleochretiens-saint-victor.html), ainsi que [la nécropole paléochrétienne de la rue Malaval](/necropole-rue-malaval-huile-sainte.html).

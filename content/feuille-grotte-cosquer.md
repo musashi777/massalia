@@ -2,7 +2,7 @@
 
 Découverte au cœur du massif des Calanques au cap Morgiou, la Grotte Cosquer renferme l'un des trésors artistiques paléolithiques les plus précieux au monde, aujourd'hui situé à 37 mètres sous le niveau de la mer.
 
-![Peintures rupestres de la Grotte Cosquer](/assets/img/soeur-grotte-cosquer.png "Mains négatives et représentations de la faune préhistorique dans la Grotte Cosquer.")
+![Peintures rupestres de la Grotte Cosquer](/assets/img/feuille-grotte-cosquer.png "Mains négatives et représentations de la faune préhistorique dans la Grotte Cosquer.")
 
 ## L'art pariétal englouti des Calanques
 

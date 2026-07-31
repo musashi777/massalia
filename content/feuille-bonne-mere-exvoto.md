@@ -6,7 +6,7 @@ Au sommet de la basilique Notre-Dame de la Garde, une statue monumentale de la V
 
 La basilique actuelle est construite à partir de 1853 sous la direction d'Henri-Jacques Espérandieu et consacrée en 1864. Son implantation sur la colline de la Garde, déjà occupée par une chapelle mariale dès 1214, explique l'ancienneté de son rôle de sanctuaire et de lieu de pèlerinage pour les Marseillais comme pour les gens de mer.
 
-![Ex-voto marins](/assets/img/soeur-bonne-mere-exvoto.png "Maquettes de navires suspendues en ex-voto dans la basilique Notre-Dame de la Garde.")
+![Ex-voto marins](/assets/img/feuille-bonne-mere-exvoto.png "Maquettes de navires suspendues en ex-voto dans la basilique Notre-Dame de la Garde.")
 
 ## La mémoire des marins et la collection d'ex-voto
 

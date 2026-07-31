@@ -167,6 +167,14 @@ for (const [pageId, page] of Object.entries(pages)) {
     allowed.add(homePageId);
   }
 
+  // La page mère (hub/pilier) peut lier toutes les pages du cocon — c'est son rôle
+  // de page-pilier dans l'architecture en cocon sémantique.
+  if (page.type === "mere") {
+    for (const anyPageId of Object.keys(pages)) {
+      allowed.add(anyPageId);
+    }
+  }
+
   if (page.parent) {
     addRelation(allowed, pageId, page.parent, "parent", pages, errors);
   }
@@ -218,7 +226,12 @@ for (const htmlFile of generatedFiles) {
   const allowedTargets = allowedTargetsByPage.get(pageId);
   let anchorMatch;
 
-  while ((anchorMatch = ANCHOR_HREF.exec(html)) !== null) {
+  // SEO Phase 1 : ne valider le maillage strict que dans le <main>,
+  // le <header> et le <footer> sont des navigations site-wide autorisées.
+  const mainMatch = html.match(/<main[\s>][\s\S]*?<\/main>/i);
+  const mainContent = mainMatch ? mainMatch[0] : html;
+
+  while ((anchorMatch = ANCHOR_HREF.exec(mainContent)) !== null) {
     const href = anchorMatch[1] || anchorMatch[2] || anchorMatch[3] || "";
     const target = normalizeAnchorTarget(href, htmlFile, baseUrl);
 

@@ -2,7 +2,7 @@
 
 Au cœur du Jardin des Vestiges, les imposantes assises du mur de Crinas représentent l'un des rares témoignages conservés de l'ingénierie défensive grecque hellénistique en Méditerranée occidentale. Ce rempart protégeait la porte orientale de Massalia contre les assauts des tribus celto-ligures du continent.
 
-![Mur de Crinas au Jardin des Vestiges](/assets/img/soeur-port-antique.png "Les assises en calcaire rose du Cap Couronne composant le mur de Crinas et la Tour Carrée.")
+![Mur de Crinas au Jardin des Vestiges](/assets/img/feuille-port-antique.png "Les assises en calcaire rose du Cap Couronne composant le mur de Crinas et la Tour Carrée.")
 
 ## Une attribution historique révisée par l'archéologie urbaine
 

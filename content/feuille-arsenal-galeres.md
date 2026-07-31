@@ -2,7 +2,7 @@
 
 Érigé entre 1665 et 1707 sur ordre direct de Louis XIV et sous la direction de Jean-Baptiste Colbert, l'Arsenal des Galères formait une véritable enclave militaire et industrielle au sud du Vieux-Port. Sa construction marque la soumission politique de la cité marseillaise à l'autorité royale après les frondes municipales de 1660.
 
-![Arsenal des Galères](/assets/img/soeur-arsenal-galeres.png "Vue perspective des darses de l'Arsenal des Galères au XVIIe siècle sous Louis XIV.")
+![Arsenal des Galères](/assets/img/feuille-arsenal-galeres.png "Vue perspective des darses de l'Arsenal des Galères au XVIIe siècle sous Louis XIV.")
 
 ## Colbert, Vauban et la création du complexe militaro-industriel
 

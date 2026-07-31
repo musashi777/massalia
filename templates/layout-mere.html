@@ -12,6 +12,7 @@
 <meta property="og:url" content="{{canonicalUrl}}">
 <meta property="og:image" content="{{ogImage}}">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Massalia — Archives Ouvertes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="{{twitterHandle}}">
 <meta name="twitter:title" content="{{metaTitle}}">
@@ -24,6 +25,83 @@
 <link rel="stylesheet" href="/assets/css/improvements.css">
 <script type="application/ld+json">
 {{schemaJson}}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Massalia — Archives Ouvertes",
+  "url": "{{canonicalUrl}}",
+  "description": "{{metaDescription}}",
+  "inLanguage": "fr",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Massalia Archives",
+    "url": "{{canonicalUrl}}"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "{{canonicalUrl}}"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle est la plus ancienne ville de France ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Marseille, fondée vers 600 avant J.-C. sous le nom de Massalia par des colons grecs venus de Phocée (Asie Mineure), est généralement considérée comme la plus ancienne ville de France."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qui sont Protis et Gyptis dans l'histoire de Marseille ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Protis est un marin phocéen et Gyptis la fille de Nannos, roi des Ségobriges. Selon le mythe fondateur, Gyptis choisit Protis lors d'un banquet, scellant l'alliance entre Grecs et autochtones et la fondation pacifique de Massalia vers 600 av. J.-C."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où voir les vestiges antiques à Marseille ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le Jardin des Vestiges (derrière le Centre Bourse) expose les remparts grecs et les quais du port antique. Le Musée d'Histoire de Marseille abrite une épave antique. Les Caves Saint-Sauveur et la crypte de Saint-Victor offrent des expériences souterraines uniques."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi Marseille est-elle appelée la cité phocéenne ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ce surnom fait référence à Phocée (Phôkaia), la cité d'Ionie (actuelle Turquie) dont les marins ont fondé Massalia. Le gentilé phocéen rappelle les origines helléniques de la ville."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le Lacydon à Marseille ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le Lacydon est le nom antique de la calanque naturelle qui forme aujourd'hui le Vieux-Port de Marseille. C'est dans cette anse abritée que les Phocéens ont fondé Massalia vers 600 av. J.-C."
+      }
+    }
+  ]
+}
 </script>
 </head>
 <body>
@@ -76,7 +154,7 @@
       </div>
       <div class="prose-media">
         <picture>
-          <img src="/assets/img/hero-fondation-massalia.jpg" alt="Illustration de la légende de Protis et Gyptis, marquant la fondation de Massalia" loading="lazy">
+          <img src="/assets/img/hero-fondation-massalia.jpg" alt="Illustration de la légende de Protis et Gyptis, marquant la fondation de Massalia vers 600 av. J.-C." loading="lazy">
         </picture>
       </div>
     </div>
@@ -91,10 +169,162 @@
     {{childrenCards}}
   </section>
 
+  <!-- Chronologie interactive (2.2) -->
+  <section class="chrono-section" aria-label="Chronologie de Marseille" id="chronologie">
+    <div class="chrono-inner">
+      <h2>Chronologie</h2>
+      <p class="chrono-subtitle">26 siècles en un regard</p>
+      <ol class="chrono-timeline" role="list">
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="-0600">~600 av. J.-C.</time>
+          <div class="chrono-body">
+            <h3><a href="/mythe-fondation-protis-gyptis.html">Fondation de Massalia</a></h3>
+            <p>Des marins phocéens fondent un comptoir dans la calanque du Lacydon. Le mythe de Protis et Gyptis scelle l'alliance avec les Ségobriges.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="-0540">~540 av. J.-C.</time>
+          <div class="chrono-body">
+            <h3>Bataille d'Alalia</h3>
+            <p>Massalia accueille les réfugiés phocéens après la chute de Phocée face aux Perses. La cité renforce sa position de première puissance grecque d'Occident.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="-0350">IVᵉ — IIᵉ s. av. J.-C.</time>
+          <div class="chrono-body">
+            <h3><a href="/mur-de-crinas-systeme-defensif.html">Apogée hellénistique</a></h3>
+            <p>Construction des remparts monumentaux (mur de Crinas), développement du port antique et expansion du commerce de l'étain avec les Gaulois.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="-0049">49 av. J.-C.</time>
+          <div class="chrono-body">
+            <h3>Siège de César</h3>
+            <p>Jules César assiège Massalia pour son soutien à Pompée. La cité perd son indépendance politique mais conserve son rayonnement culturel sous l'Empire romain.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="0415">Vᵉ siècle</time>
+          <div class="chrono-body">
+            <h3><a href="/crypte-abbaye-saint-victor.html">Fondation de Saint-Victor</a></h3>
+            <p>Jean Cassien fonde l'abbaye Saint-Victor. La crypte conserve des sarcophages paléochrétiens parmi les plus anciens de Gaule.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="1515">1515</time>
+          <div class="chrono-body">
+            <h3><a href="/legende-rhinoceros-chateau-if.html">Le Rhinocéros du Château d'If</a></h3>
+            <p>François Iᵉʳ visite l'île d'If où un rhinocéros offert par le roi du Portugal avait fait escale. Il ordonne la construction du château.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="1666">1666</time>
+          <div class="chrono-body">
+            <h3><a href="/arsenal-des-galeres.html">L'Arsenal des Galères</a></h3>
+            <p>Louis XIV installe l'arsenal royal des galères à Marseille, faisant du port le cœur de la puissance navale du royaume en Méditerranée.</p>
+          </div>
+        </li>
+        <li class="chrono-item">
+          <time class="chrono-date" datetime="1967">1967 — 1983</time>
+          <div class="chrono-body">
+            <h3><a href="/fouilles-port-antique.html">Fouilles du Port Antique</a></h3>
+            <p>Première grande fouille archéologique urbaine de France. Mise au jour du Jardin des Vestiges et des fondations de la Massalia grecque.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- Article body -->
   <div class="article-wrap">
     <div class="article-body">{{contentHtml}}</div>
   </div>
+
+  <!-- Cartographie Archéologique (2.3) -->
+  <section class="map-section" aria-label="Cartographie des vestiges archéologiques" id="cartographie">
+    <div class="map-inner">
+      <h2>Cartographie des Vestiges</h2>
+      <p class="map-subtitle">Localisation des sites archéologiques et monuments majeurs du bassin marseillais</p>
+      
+      <div class="map-container">
+        <svg class="map-svg" viewBox="0 0 800 500" aria-label="Carte schématique des sites archéologiques de Marseille antique et médiévale" role="img">
+          <!-- Fond Vieux-Port / Lacydon -->
+          <path d="M 0,250 C 200,240 320,220 420,260 C 500,290 550,380 600,420 C 650,450 750,480 800,500 L 800,500 L 0,500 Z" fill="#091d2e" stroke="#2c3e50" stroke-width="1.5" />
+          <path d="M 150,220 Q 300,200 450,270 Q 520,310 600,400" fill="none" stroke="#e67e22" stroke-width="1" stroke-dasharray="4,4" opacity="0.4" />
+          <text x="280" y="270" fill="rgba(209,228,251,0.3)" font-family="Inter, sans-serif" font-size="14" font-weight="700" letter-spacing="3">LACYDON (VIEUX-PORT)</text>
+          
+          <!-- Site 1: Jardin des Vestiges & Port Antique -->
+          <g class="map-point" transform="translate(480, 210)">
+            <circle r="8" fill="#e67e22" opacity="0.9" />
+            <circle r="16" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.5" />
+            <text x="22" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Port Antique &amp; Jardin des Vestiges</text>
+          </g>
+
+          <!-- Site 2: Caves Saint-Sauveur -->
+          <g class="map-point" transform="translate(360, 160)">
+            <circle r="8" fill="#ffb783" opacity="0.9" />
+            <circle r="16" fill="none" stroke="#ffb783" stroke-width="1.5" opacity="0.5" />
+            <text x="-190" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Caves Saint-Sauveur</text>
+          </g>
+
+          <!-- Site 3: Abbaye Saint-Victor -->
+          <g class="map-point" transform="translate(380, 360)">
+            <circle r="8" fill="#ffb783" opacity="0.9" />
+            <circle r="16" fill="none" stroke="#ffb783" stroke-width="1.5" opacity="0.5" />
+            <text x="22" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Abbaye Saint-Victor &amp; Crypte</text>
+          </g>
+
+          <!-- Site 4: Fort Saint-Jean / Mur de Crinas -->
+          <g class="map-point" transform="translate(240, 210)">
+            <circle r="8" fill="#e67e22" opacity="0.9" />
+            <circle r="16" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.5" />
+            <text x="-140" y="-15" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Mur de Crinas &amp; Fort Saint-Jean</text>
+          </g>
+
+          <!-- Site 5: Château d'If (Off-shore) -->
+          <g class="map-point" transform="translate(100, 380)">
+            <circle r="8" fill="#ffb783" opacity="0.9" />
+            <circle r="16" fill="none" stroke="#ffb783" stroke-width="1.5" opacity="0.5" />
+            <text x="22" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Château d'If (Archipel du Frioul)</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="map-legend">
+        <div class="legend-item"><span class="legend-dot dot-grec"></span> Vestiges Grecs &amp; Romains</div>
+        <div class="legend-item"><span class="legend-dot dot-medieval"></span> Monuments Médiévaux &amp; Modernes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (2.5) -->
+  <section class="faq-section" aria-label="Questions fréquentes" id="faq">
+    <div class="faq-inner">
+      <h2>Questions Fréquentes</h2>
+      <dl class="faq-list">
+        <div class="faq-item">
+          <dt>Quelle est la plus ancienne ville de France ?</dt>
+          <dd>Marseille, fondée vers 600 avant J.-C. sous le nom de Massalia par des colons grecs venus de Phocée (Asie Mineure), est généralement considérée comme la plus ancienne ville de France. Des vestiges attestent même d'occupations humaines antérieures dans le bassin marseillais, remontant au Paléolithique moyen (-60 000 ans) et au Néolithique.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Qui sont Protis et Gyptis dans l'histoire de Marseille ?</dt>
+          <dd>Protis est un marin phocéen et Gyptis la fille de Nannos, roi des Ségobriges (peuple celto-ligure local). Selon le mythe fondateur rapporté par Justin (d'après Trogue Pompée), Gyptis choisit Protis lors d'un banquet en lui tendant une coupe de vin, scellant ainsi l'alliance entre Grecs et autochtones. Ce récit symbolise la fondation pacifique de Massalia vers 600 av. J.-C.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Où voir les vestiges antiques à Marseille ?</dt>
+          <dd>Le principal site est le <a href="/jardin-des-vestiges.html">Jardin des Vestiges</a> (derrière le Centre Bourse), qui expose les remparts grecs et les quais du port antique. Le <a href="/fouilles-port-antique.html">Musée d'Histoire de Marseille</a> abrite une épave antique et des collections archéologiques. Les <a href="/caves-saint-sauveur-monument-souterrain.html">Caves Saint-Sauveur</a> sous la place de Lenche et la <a href="/crypte-abbaye-saint-victor.html">crypte de Saint-Victor</a> offrent des expériences souterraines uniques.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Pourquoi Marseille est-elle appelée la cité phocéenne ?</dt>
+          <dd>Ce surnom fait référence à Phocée (en grec Phôkaia), la cité d'Ionie (actuelle Turquie) dont les marins ont fondé Massalia. Le gentilé « phocéen » distingue Marseille des autres colonies grecques de Méditerranée occidentale et rappelle les origines helléniques de la ville.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Qu'est-ce que le Lacydon à Marseille ?</dt>
+          <dd>Le Lacydon est le nom antique de la calanque naturelle qui forme aujourd'hui le <a href="/evolution-lacydon-marseille.html">Vieux-Port de Marseille</a>. C'est dans cette anse abritée que les Phocéens ont fondé Massalia. Au fil des siècles, le Lacydon a été comblé, ses rives aménagées et sa morphologie profondément modifiée pour devenir le port que l'on connaît.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
 
   <!-- CTA -->
   <section class="cta-section" aria-label="Accès aux archives">
@@ -116,26 +346,27 @@
         <p class="footer-desc">Dossier indépendant dédié à la préservation et à la diffusion du savoir historique sur la cité de Marseille.</p>
       </div>
       <div style="display:flex;gap:4rem;flex-wrap:wrap;">
-        <nav class="footer-nav-group" aria-label="Archives">
-          <span class="footer-nav-title">Archives</span>
+        <nav class="footer-nav-group" aria-label="Strates historiques">
+          <span class="footer-nav-title">Strates</span>
           <ul class="footer-nav-links">
-            <li><a href="/#strates">Chronologie</a></li>
-            <li><a href="/">Cartographie</a></li>
-            <li><a href="/">Photothèque</a></li>
+            <li><a href="/antiquite-et-fondations.html">Antiquité et Fondations</a></li>
+            <li><a href="/fortifications-et-architecture-militaire.html">Fortifications</a></li>
+            <li><a href="/edifices-religieux-et-symboles.html">Édifices Religieux</a></li>
+            <li><a href="/littoral-calanques-et-commerce-maritime.html">Littoral et Commerce</a></li>
           </ul>
         </nav>
-        <nav class="footer-nav-group" aria-label="Société">
-          <span class="footer-nav-title">Société</span>
+        <nav class="footer-nav-group" aria-label="Informations">
+          <span class="footer-nav-title">Informations</span>
           <ul class="footer-nav-links">
-            <li><a href="/">Légal</a></li>
-            <li><a href="/">Données</a></li>
+            <li><a href="/#strates">Chronologie</a></li>
+            <li><a href="/">Accueil</a></li>
             <li><a href="mailto:contact@massalia.fr">Contact</a></li>
           </ul>
         </nav>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2024 Massalia Archival Society</span>
+      <span class="footer-copy">© 2026 Massalia — Archives Ouvertes</span>
     </div>
   </div>
 </footer>

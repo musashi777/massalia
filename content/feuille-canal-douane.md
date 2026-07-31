@@ -2,7 +2,7 @@
 
 Pendant plus de deux siècles, le Canal de la Douane a constitué une artère fluviale et marchande incontournable de la rive sud du Vieux-Port. Reliant les darses de l'Arsenal des Galères à la mer, son tracé a façonné la topographie moderne du centre-ville de Marseille.
 
-![Canal de la Douane et la Place aux Huiles](/assets/img/soeur-arsenal-galeres.png "Représentation historique de la rive sud du Vieux-Port et des canaux de l'Arsenal.")
+![Canal de la Douane et la Place aux Huiles](/assets/img/feuille-arsenal-galeres.png "Représentation historique de la rive sud du Vieux-Port et des canaux de l'Arsenal.")
 
 ## De la Grande Darse de Louis XIV au canal marchant
 

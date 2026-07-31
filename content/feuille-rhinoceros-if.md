@@ -6,7 +6,7 @@ L'histoire du Château d'If est liée à un épisode singulier de 1515. Cette an
 
 Cette rencontre s'inscrit dans le contexte des ambitions méditerranéennes du roi de France. En 1516, François Iᵉʳ décide la construction du Château d'If afin de défendre la rade et l'entrée occidentale du royaume ; la forteresse est achevée en 1531.
 
-![Le Rhinocéros de 1515](/assets/img/soeur-rhinoceros-if.png "Gravure historique évoquant la halte légendaire sur l'île d'If.")
+![Le Rhinocéros de 1515](/assets/img/feuille-rhinoceros-if.png "Gravure historique évoquant la halte légendaire sur l'île d'If.")
 
 ## L'empreinte de Dürer et la mémoire graffitique
 

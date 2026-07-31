@@ -31,7 +31,7 @@ const { site, pages } = map;
 const templates = {
   mere: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-mere.html"), "utf8"),
   fille: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-fille.html"), "utf8"),
-  soeur: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-soeur.html"), "utf8"),
+  feuille: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-feuille.html"), "utf8"),
 };
 
 /* ---------------------------------------------------------------------- *
@@ -170,9 +170,11 @@ function renderChildrenCards(page) {
     const epoque     = EPOQUE_LABELS[i]   || (child.strate ? child.strate.epoque : "");
     const labelText  = child.strate && child.strate.label ? child.strate.label : `${roman} — ${child.strate.epoque}`;
     
+    // SEO: alt text descriptif basé sur le titre et la description de la page enfant
+    const childAlt = child.imageCaption || `${child.title} — ${child.metaDescription}`;
     // sizes : la carte occupe ~100vw sur mobile et ~600px en col desktop (pour strate) ou ~300px pour couche-card
     const picHtml = child.heroImage
-      ? renderPicture(child.heroImage, "", "", "lazy", 800, 600, page.type === 'mere' ? "(max-width:768px) 100vw, 600px" : "(max-width:768px) 100vw, 400px")
+      ? renderPicture(child.heroImage, childAlt, "", "lazy", 800, 600, page.type === 'mere' ? "(max-width:768px) 100vw, 600px" : "(max-width:768px) 100vw, 400px")
       : "";
 
     if (page.type === 'fille') {
@@ -232,9 +234,9 @@ function renderSiblingLinks(page) {
   return page.siblings
     .map((sibId) => {
       const sib = pages[sibId];
-      // alt="" : vignette décorative, le texte <span> du lien fournit le label accessible.
-      // sizes : vignette de navigation, jamais plus de 200px.
-      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, "", "sibling-thumb", "lazy", 200, 125, "200px")} ` : "";
+      // SEO: alt text descriptif pour les vignettes sœurs (navigation contextuelle)
+      const sibAlt = `Vignette : ${sib.title}`;
+      const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, sibAlt, "sibling-thumb", "lazy", 200, 125, "200px")} ` : "";
       return `<li><a href="${urlFor(sibId)}">${thumb}<span>${sib.title}</span></a></li>`;
     })
     .join("\n          ");
@@ -247,14 +249,70 @@ function schemaFor(pageId, page) {
     name: page.title,
     description: page.metaDescription,
     url: `${site.baseUrl}${urlFor(pageId)}`,
+    inLanguage: "fr",
+    isPartOf: {
+      "@type": "WebSite",
+      name: site.name,
+      url: site.baseUrl
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Massalia Archives",
+      url: site.baseUrl
+    }
   };
   if (page.heroImage) {
     base.image = `${site.baseUrl}${page.heroImage}`;
   }
   if (page.schemaType === "HistoricSite") {
     base.additionalType = "https://schema.org/LandmarksOrHistoricalBuildings";
+    base.address = {
+      "@type": "PostalAddress",
+      addressLocality: "Marseille",
+      addressRegion: "Provence-Alpes-Côte d'Azur",
+      addressCountry: "FR"
+    };
   }
   return JSON.stringify(base, null, 2);
+}
+
+/**
+ * Génère le JSON-LD BreadcrumbList pour les pages fille et feuille.
+ * Conforme à https://developers.google.com/search/docs/data-types/breadcrumb
+ */
+function breadcrumbJsonFor(pageId, page) {
+  const items = [
+    { "@type": "ListItem", position: 1, name: "Accueil", item: site.baseUrl + "/" }
+  ];
+
+  if (page.type === "fille") {
+    items.push({
+      "@type": "ListItem",
+      position: 2,
+      name: page.title,
+      item: `${site.baseUrl}${urlFor(pageId)}`
+    });
+  } else if (page.type === "feuille" && page.parent) {
+    const parent = pages[page.parent];
+    items.push({
+      "@type": "ListItem",
+      position: 2,
+      name: parent.title,
+      item: `${site.baseUrl}${urlFor(page.parent)}`
+    });
+    items.push({
+      "@type": "ListItem",
+      position: 3,
+      name: page.title,
+      item: `${site.baseUrl}${urlFor(pageId)}`
+    });
+  }
+
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items
+  }, null, 2);
 }
 
 /* ---------------------------------------------------------------------- *
@@ -334,15 +392,17 @@ for (const [pageId, page] of Object.entries(pages)) {
       parentTitle: parent.title,
       childrenCards: renderChildrenCards(page),
       strateIndicator: renderStrateIndicator(page),
+      breadcrumbJson: breadcrumbJsonFor(pageId, page),
     });
-  } else if (page.type === "soeur") {
+  } else if (page.type === "feuille") {
     const parent = pages[page.parent];
-    html = render(templates.soeur, {
+    html = render(templates.feuille, {
       ...commonVars,
       parentUrl: urlFor(page.parent),
       parentTitle: parent.title,
       siblingLinks: renderSiblingLinks(page),
       strateIndicator: renderStrateIndicator(page),
+      breadcrumbJson: breadcrumbJsonFor(pageId, page),
     });
   }
 
@@ -363,8 +423,17 @@ if (fs.existsSync(path.join(ROOT, "scripts"))) {
 }
 
 // Fichiers SEO générés à partir de la même source de vérité que les pages.
+const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+const PRIORITY_MAP = { mere: '1.0', fille: '0.8', feuille: '0.6' };
+const CHANGEFREQ_MAP = { mere: 'weekly', fille: 'monthly', feuille: 'monthly' };
+
 const sitemapUrls = Object.entries(pages)
-  .map(([pageId]) => `  <url><loc>${site.baseUrl}${urlFor(pageId)}</loc></url>`)
+  .map(([pageId, p]) => {
+    const loc = `${site.baseUrl}${urlFor(pageId)}`;
+    const priority = PRIORITY_MAP[p.type] || '0.5';
+    const changefreq = CHANGEFREQ_MAP[p.type] || 'monthly';
+    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  })
   .join("\n");
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`;
