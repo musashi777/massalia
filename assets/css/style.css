@@ -50,9 +50,9 @@
   --font-sans:  "Inter", system-ui, sans-serif;
 
   /* Type scale — desktop (mobile overridden via media query) */
-  --text-display:  80px;   /* display-lg */
-  --text-h1:       clamp(2rem, 10vw, 80px);
-  --text-h2:       clamp(2rem, 6vw,  48px);
+  --text-display:  56px;   /* display-lg */
+  --text-h1:       clamp(1.8rem, 5vw, 48px);
+  --text-h2:       clamp(1.5rem, 3.5vw, 36px);
   --text-h3:       32px;
   --text-body-lg:  18px;
   --text-body-md:  16px;
@@ -130,7 +130,7 @@ h1,h2,h3,h4 {
   display: flex; justify-content: space-between; align-items: center;
   border-bottom: 1px solid transparent;
 }
-.site-title { font: 900 28px/1 var(--font-serif); letter-spacing: -0.03em; text-transform: uppercase; }
+.site-title { font: 900 20px/1 var(--font-serif); letter-spacing: -0.02em; text-transform: uppercase; }
 .site-title a { color: #fff; }
 .site-tagline { font: 600 var(--text-label-sm)/1 var(--font-sans); letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
 
@@ -146,8 +146,8 @@ h1,h2,h3,h4 {
 .hero-eyebrow__label { font: 700 var(--text-label-sm)/1 var(--font-sans); letter-spacing: 0.5em; text-transform: uppercase; color: var(--color-accent); }
 
 .hero-poster h1 {
-  font-size: clamp(2.8rem, 12vw, 9.5rem);
-  line-height: .95; margin-bottom: var(--sp-lg);
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1.05; margin-bottom: var(--sp-md);
   overflow-wrap: break-word;
 }
 .hero-poster h1 em { font-style: italic; font-weight: 400; text-transform: lowercase; color: var(--color-accent); }
@@ -315,7 +315,7 @@ h1,h2,h3,h4 {
   background: var(--color-surface-low);
 }
 .footer-inner { max-width: var(--max-w); margin: 0 auto; }
-.footer-brand { font: 900 clamp(2.5rem, 8vw, 4rem)/1 var(--font-serif); letter-spacing: -0.03em; text-transform: uppercase; color: #fff; display: block; margin-bottom: var(--sp-xs); }
+.footer-brand { font: 900 clamp(1.8rem, 4vw, 2.5rem)/1 var(--font-serif); letter-spacing: -0.03em; text-transform: uppercase; color: #fff; display: block; margin-bottom: var(--sp-xs); }
 .footer-desc { font: 400 var(--text-body-md)/1.6 var(--font-sans); color: rgba(209,228,251,0.35); max-width: 30ch; text-transform: none; letter-spacing: 0; }
 .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-lg); margin-bottom: var(--sp-lg); flex-wrap: wrap; border-bottom: 1px solid var(--color-border-hard); padding-bottom: var(--sp-lg); }
 .footer-nav-group { display: flex; flex-direction: column; gap: var(--sp-sm); }
@@ -332,7 +332,7 @@ h1,h2,h3,h4 {
 .breadcrumb a { color: rgba(209,228,251,0.35); }
 .breadcrumb a:hover { color: var(--color-accent); }
 .breadcrumb-sep { opacity: .4; }
-.page-title { font-size: clamp(2.5rem, 8vw, 5rem); max-width: 16ch; margin-bottom: var(--sp-sm); }
+.page-title { font-size: clamp(1.8rem, 4.5vw, 3.2rem); max-width: 20ch; margin-bottom: var(--sp-sm); }
 .page-lede { font: italic 400 clamp(1.1rem, 2vw, 1.4rem)/1.55 var(--font-serif); text-transform: none; letter-spacing: 0; color: rgba(209,228,251,0.6); max-width: 52ch; }
 
 /* ---- Hero Media (article pages) ---- */
