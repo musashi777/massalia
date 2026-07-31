@@ -30,8 +30,15 @@
 <a class="skip-link" href="#main">Aller au contenu</a>
 
 <header class="site-header" role="banner">
-  <p class="site-title"><a href="/">MASSALIA</a></p>
-  <span class="site-tagline">Archives Ouvertes</span>
+  <div class="site-header__brand">
+    <p class="site-title"><a href="/">MASSALIA</a></p>
+    <span class="site-tagline">Archives Ouvertes</span>
+  </div>
+  <nav class="site-nav" aria-label="Navigation principale">
+    <a href="/#strates">Strates</a>
+    <a href="/a-propos.html">À Propos</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
 </header>
 
 <main id="main">
@@ -63,9 +70,32 @@
 
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">MASSALIA</p>
+        <p class="footer-desc">Dossier indépendant dédié à la préservation et à la diffusion du savoir historique sur la cité de Marseille.</p>
+      </div>
+      <div style="display:flex;gap:4rem;flex-wrap:wrap;">
+        <nav class="footer-nav-group" aria-label="Archives">
+          <span class="footer-nav-title">Archives</span>
+          <ul class="footer-nav-links">
+            <li><a href="/#strates">Chronologie</a></li>
+            <li><a href="/a-propos.html">À propos</a></li>
+            <li><a href="/plan-site.html">Plan du site</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-nav-group" aria-label="Société">
+          <span class="footer-nav-title">Société</span>
+          <ul class="footer-nav-links">
+            <li><a href="/mentions-legales.html">Mentions légales</a></li>
+            <li><a href="/politique-confidentialite.html">Confidentialité</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
     <div class="footer-bottom">
       <span class="footer-copy">© 2024 Massalia Archival Society</span>
-      <a href="/" style="color:rgba(209,228,251,0.25);font-size:0.65rem;font-weight:700;letter-spacing:0.4em;text-transform:uppercase;font-family:var(--font-sans);">Accueil</a>
     </div>
   </div>
 </footer>
