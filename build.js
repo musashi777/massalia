@@ -169,13 +169,28 @@ function renderChildrenCards(page) {
     const num        = STRATE_NUMERALS[i] || String(i + 1).padStart(2, "0");
     const epoque     = EPOQUE_LABELS[i]   || (child.strate ? child.strate.epoque : "");
     const labelText  = child.strate && child.strate.label ? child.strate.label : `${roman} — ${child.strate.epoque}`;
+    
+    // sizes : la carte occupe ~100vw sur mobile et ~600px en col desktop (pour strate) ou ~300px pour couche-card
+    const picHtml = child.heroImage
+      ? renderPicture(child.heroImage, "", "", "lazy", 800, 600, page.type === 'mere' ? "(max-width:768px) 100vw, 600px" : "(max-width:768px) 100vw, 400px")
+      : "";
+
+    if (page.type === 'fille') {
+      return `<article class="couche-card">
+  <div class="couche-card__thumb">
+    ${picHtml}
+  </div>
+  <div class="couche-card__body">
+    <p class="couche-card__index">${labelText}</p>
+    <h3><a href="${urlFor(childId)}">${child.title}</a></h3>
+    <p>${child.metaDescription}</p>
+  </div>
+</article>`;
+    }
+
+    // Comportement pour page.type === 'mere'
     const isReverse  = i % 2 === 1;
     const isLastBlock = i === page.children.length - 1;
-
-    // sizes : la carte occupe ~100vw sur mobile et ~600px en col desktop
-    const picHtml = child.heroImage
-      ? renderPicture(child.heroImage, "", "", "lazy", 800, 600, "(max-width:768px) 100vw, 600px")
-      : "";
 
     if (isLastBlock) {
       // Strate 04 : bloc inversé off-white pleine largeur
