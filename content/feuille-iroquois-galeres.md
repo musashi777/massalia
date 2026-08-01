@@ -24,6 +24,8 @@ Pour les captifs iroquois, ce voyage représenta une rupture géographique et cu
 
 Leur arrivée à Marseille les plaça au cœur du principal complexe naval consacré aux galères du Roi-Soleil.
 
+![Les guerriers Iroquois enchaînés lors de leur transfert aux galères de Marseille](/assets/img/iroquois-galeres-chaine.jpg "Les guerriers iroquois enchaînés lors de leur transfert vers le complexe naval des galères royales de Marseille en 1687.")
+
 ## L’étau de pierre du Roi-Soleil
 
 ### L’arsenal des galères
@@ -35,6 +37,8 @@ Les galériens y formaient une main-d’œuvre contrainte. Ils étaient affecté
 Les prisonniers iroquois furent ainsi absorbés par un appareil répressif conçu pour transformer des condamnés, des captifs et des opposants en ressources humaines au service de la puissance navale française.
 
 ### Les forts tournés vers Marseille
+
+![L'étau de pierre : le Fort Saint-Jean et le Fort Saint-Nicolas encadrant le Vieux-Port](/assets/img/etau-de-pierre-forts.jpg "L'étau de pierre du Roi-Soleil : la passe du Vieux-Port vue depuis un banc de galériens, encadrée par le Fort Saint-Jean et le Fort Saint-Nicolas.")
 
 La militarisation du Vieux-Port ne répondait pas uniquement à une menace extérieure. Après la soumission politique de Marseille en 1660, Louis XIV ordonna la construction de [fortifications et architectures militaires](/fortifications-et-architecture-militaire.html) destinées à contrôler l'entrée du port et à surveiller la population urbaine.
 
