@@ -227,6 +227,15 @@
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
+.strates-note {
+  font: 400 var(--text-body-sm)/1.6 var(--font-sans);
+  color: rgba(209, 228, 251, 0.45);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: var(--sp-xs);
+  max-width: 72ch;
+}
+
 /* Timeline verticale pour les strates */
 .strates-section::before {
   content: '';
@@ -1492,4 +1501,188 @@ figcaption {
 }
 
 
+/* ================================================================
+   STICKY IN-PAGE NAV (layout-fille.html)
+   Barre de navigation rapide collée sous le hero
+   ================================================================ */
+
+.sticky-toc {
+  position: sticky;
+  top: 60px; /* hauteur du site-header */
+  z-index: 90;
+  background: rgba(2, 21, 37, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(230, 126, 34, 0.25);
+  border-top: 1px solid rgba(230, 126, 34, 0.1);
+  padding: 10px var(--sp-margin);
+  animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.sticky-toc__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.sticky-toc__label {
+  font: 700 10px/1 var(--font-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(209, 228, 251, 0.4);
+}
+
+.sticky-toc__sep {
+  color: rgba(230, 126, 34, 0.4);
+  font-size: 1.1rem;
+}
+
+.sticky-toc__link {
+  font: 700 11px/1 var(--font-sans);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(209, 228, 251, 0.7);
+  padding: 4px 0;
+  position: relative;
+  transition: color 0.2s var(--ease);
+}
+
+.sticky-toc__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s var(--ease);
+}
+
+.sticky-toc__link:hover {
+  color: var(--color-accent);
+}
+
+.sticky-toc__link:hover::after {
+  width: 100%;
+}
+
+.sticky-toc__link--home {
+  color: rgba(230, 126, 34, 0.7);
+  margin-left: auto;
+}
+
+.sticky-toc__link--home:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+  .sticky-toc {
+    padding: 8px var(--sp-sm);
+  }
+  .sticky-toc__link--home {
+    margin-left: 0;
+  }
+}
+
+/* ================================================================
+   SECTION BIBLIOGRAPHIE / SOURCES STRATE (layout-fille.html)
+   ================================================================ */
+
+.strate-sources-section {
+  background: var(--color-surface-low);
+  border: 1px solid var(--color-border-hard);
+  border-left: 4px solid var(--color-accent);
+  padding: var(--sp-lg) var(--sp-xl);
+  margin-top: var(--sp-xl);
+}
+
+.strate-sources-section h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  color: #fff;
+  margin-bottom: var(--sp-md);
+}
+
+.strate-sources-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--sp-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.strate-sources-list li {
+  font: 400 var(--text-body-sm)/1.7 var(--font-sans);
+  color: rgba(209, 228, 251, 0.8);
+  padding: var(--sp-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.strate-sources-list li:last-child {
+  border-bottom: none;
+}
+
+.strate-sources-list a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s;
+}
+
+.strate-sources-list a:hover {
+  opacity: 0.8;
+}
+
+.sources-note {
+  font: 400 var(--text-body-sm)/1.6 var(--font-sans);
+  color: rgba(209, 228, 251, 0.55);
+  background: rgba(230, 126, 34, 0.05);
+  border: 1px solid rgba(230, 126, 34, 0.15);
+  padding: var(--sp-sm) var(--sp-md);
+  margin: 0;
+}
+
+.sources-note strong {
+  color: rgba(209, 228, 251, 0.8);
+}
+
+/* Styles identiques pour les sections academic-credits sur feuille */
+.academic-credits {
+  background: var(--color-surface-low);
+  border: 1px solid var(--color-border-hard);
+  border-left: 4px solid var(--color-accent);
+  padding: var(--sp-lg) var(--sp-xl);
+  margin-top: var(--sp-xl);
+  font: 400 var(--text-body-sm)/1.7 var(--font-sans);
+  color: rgba(209, 228, 251, 0.8);
+}
+
+.academic-credits h3 {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(209, 228, 251, 0.6);
+  margin: var(--sp-md) 0 var(--sp-sm);
+}
+
+.academic-credits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.academic-credits li {
+  padding: var(--sp-xs) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.academic-credits .author-block p {
+  margin: 0 0 6px;
+}
 

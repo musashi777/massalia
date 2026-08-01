@@ -97,10 +97,11 @@
         "feuille-sarcophages-saint-victor",
         "feuille-necropole-malaval"
       ],
+      "classement": "thematique",
       "strate": {
         "niveau": 1,
-        "label": "Couche III — Vᵉ siècle — XIXᵉ siècle",
-        "epoque": "Vᵉ siècle — XIXᵉ siècle"
+        "label": "Couche III — Thématique : Spiritualité (Ve – XIXe s.)",
+        "epoque": "Vᵉ — XIXᵉ siècle · Axe thématique transversal"
       }
     },
     "feuille-port-antique": {
@@ -408,10 +409,11 @@
         "feuille-commerce-amphores",
         "feuille-grotte-monnard"
       ],
+      "classement": "thematique",
       "strate": {
         "niveau": 1,
-        "label": "Couche IV — Milieux naturels & Archéologie sous-marine",
-        "epoque": "Milieux naturels & Archéologie sous-marine"
+        "label": "Couche IV — Thématique : Littoral & Patrimoine Englouti",
+        "epoque": "Du Paléolithique (-33 000 av. J.-C.) à aujourd'hui · Axe thématique transversal"
       }
     },
     "feuille-grotte-cosquer": {

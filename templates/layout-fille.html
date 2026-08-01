@@ -72,16 +72,42 @@
     {{heroBlock}}
   </figure>
 
+  <!-- Sticky in-page navigation (jump links) -->
+  <nav class="sticky-toc" id="sticky-toc" aria-label="Navigation rapide dans la strate">
+    <div class="sticky-toc__inner">
+      <span class="sticky-toc__label">Aller à :</span>
+      <a class="sticky-toc__link" href="#strate-intro">Introduction</a>
+      <span class="sticky-toc__sep" aria-hidden="true">·</span>
+      <a class="sticky-toc__link" href="#strate-dossiers">Dossiers</a>
+      <span class="sticky-toc__sep" aria-hidden="true">·</span>
+      <a class="sticky-toc__link" href="#strate-sources">Sources</a>
+      <span class="sticky-toc__sep" aria-hidden="true">·</span>
+      <a class="sticky-toc__link sticky-toc__link--home" href="/">↩ Accueil</a>
+    </div>
+  </nav>
+
   <div class="article-wrap">
     {{editorialMetaBlock}}
 
     {{tocBlock}}
 
-    <div class="article-body">{{contentHtml}}</div>
+    <div class="article-body" id="strate-intro">{{contentHtml}}</div>
 
-    <section class="couches-section" aria-label="Pages associées">
+    <section class="couches-section" id="strate-dossiers" aria-label="Pages associées">
       <h2 class="siblings-heading">Explorer les dossiers de cette strate</h2>
       <div class="couches">{{childrenCards}}</div>
+    </section>
+
+    <section class="strate-sources-section" id="strate-sources" aria-label="Sources et références de la strate">
+      <h2>Bibliographie &amp; Ressources</h2>
+      <ul class="strate-sources-list">
+        <li><strong>Musée d'Histoire de Marseille :</strong> <a href="https://musees.marseille.fr/musee-dhistoire-de-marseille-0" rel="noopener noreferrer" target="_blank">musees.marseille.fr</a> — collections archéologiques et rapports de fouilles.</li>
+        <li><strong>Inrap — Institut national de recherches archéologiques préventives :</strong> <a href="https://www.inrap.fr/recherche?query=marseille" rel="noopener noreferrer" target="_blank">inrap.fr</a> — rapports d'opérations préventives disponibles en ligne.</li>
+        <li><strong>Persée — Portail de revues scientifiques :</strong> <a href="https://www.persee.fr/search#q=Massalia+Marseille&dateMin=1970&dateMax=2024" rel="noopener noreferrer" target="_blank">persee.fr</a> — articles en archéologie et histoire médiévale.</li>
+        <li><strong>OpenEdition — Revues SHS :</strong> <a href="https://journals.openedition.org/?q=marseille+arch%C3%A9ologie" rel="noopener noreferrer" target="_blank">journals.openedition.org</a> — accès libre à des publications universitaires.</li>
+        <li>Bouiron, Marc &amp; Tréziny, Henri. <em>Marseille : trames et paysages urbains de Gyptis au roi René</em>. Édisud, 2001.</li>
+      </ul>
+      <p class="sources-note">⚠ Les couches III (Édifices Religieux) et IV (Littoral &amp; Patrimoine englouti) sont des <strong>axes thématiques transversaux</strong>, non strictement chronologiques : leurs dossiers couvrent des périodes qui se chevauchent. Cette organisation favorise la cohérence thématique plutôt que la linéarité chronologique.</p>
     </section>
 
     <a class="back-link" href="/">← Retour à l'accueil</a>
