@@ -74,6 +74,8 @@ Le Fort Saint-Jean est devenu l'un des principaux repères patrimoniaux de l'ent
 
 Le Fort Saint-Nicolas reste également un témoignage majeur de la reprise en main de Marseille par Louis XIV. Son architecture monumentale rappelle la fonction stratégique et politique des fortifications du XVIIe siècle.
 
+![Infographie : Synthèse historique Marseille, Citadelles et Chaînes du Roi-Soleil (1113 - 2013)](/assets/img/infographie-citadelles-roi-soleil.jpg "Synthèse chronologique : De la commanderie médiévale (1113) à l'implantation du MuCEM (2013) et l'épisode des galériens Iroquois sous Louis XIV.")
+
 ### La mémoire d’un système répressif
 
 L’histoire des galériens iroquois renouvelle la lecture de ces monuments. Les forts et l'arsenal ne furent pas seulement des ouvrages techniques destinés à la défense maritime. Ils appartenaient à un système reliant politique coloniale, justice royale, enfermement et contrôle militaire du territoire.
