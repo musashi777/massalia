@@ -70,7 +70,8 @@
       "children": [
         "feuille-rhinoceros-if",
         "feuille-arsenal-galeres",
-        "feuille-canal-douane"
+        "feuille-canal-douane",
+        "feuille-iroquois-galeres"
       ],
       "strate": {
         "niveau": 1,
@@ -220,7 +221,8 @@
       "anchorToParent": "Fortifications et Architecture Militaire",
       "siblings": [
         "feuille-arsenal-galeres",
-        "feuille-canal-douane"
+        "feuille-canal-douane",
+        "feuille-iroquois-galeres"
       ],
       "strate": {
         "niveau": 2,
@@ -242,7 +244,8 @@
       "anchorToParent": "Fortifications et Architecture Militaire",
       "siblings": [
         "feuille-rhinoceros-if",
-        "feuille-canal-douane"
+        "feuille-canal-douane",
+        "feuille-iroquois-galeres"
       ],
       "strate": {
         "niveau": 2,
@@ -264,12 +267,36 @@
       "anchorToParent": "Fortifications et Architecture Militaire",
       "siblings": [
         "feuille-rhinoceros-if",
-        "feuille-arsenal-galeres"
+        "feuille-arsenal-galeres",
+        "feuille-iroquois-galeres"
       ],
       "strate": {
         "niveau": 2,
         "label": "Niveau II — Strate fluviale & urbaine",
         "epoque": "1665 — 1927"
+      }
+    },
+    "feuille-iroquois-galeres": {
+      "type": "feuille",
+      "slug": "iroquois-galeres-marseille-fort-saint-jean",
+      "title": "Les Iroquois aux galères de Marseille",
+      "metaTitle": "Les Iroquois aux Galères de Marseille | Fort Saint-Jean & Louis XIV",
+      "metaDescription": "Déportation de 36 guerriers iroquois aux galères de Marseille en 1687 : Fort Saint-Jean, Arsenal royal et répression coloniale.",
+      "contentFile": "content/feuille-iroquois-galeres.md",
+      "heroImage": "/assets/img/hero-fortifications.png",
+      "imageCaption": "Le Fort Saint-Jean à l'entrée du Vieux-Port, élément clé du dispositif militaire et carcéral de Louis XIV.",
+      "schemaType": "HistoricSite",
+      "parent": "fille-fortifications",
+      "anchorToParent": "Fortifications et Architecture Militaire",
+      "siblings": [
+        "feuille-rhinoceros-if",
+        "feuille-arsenal-galeres",
+        "feuille-canal-douane"
+      ],
+      "strate": {
+        "niveau": 2,
+        "label": "Niveau II — Strate militaire & coloniale",
+        "epoque": "1687 — 1689"
       }
     },
     "feuille-crypte-saint-victor": {
