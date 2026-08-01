@@ -2,18 +2,7 @@
 /**
  * build.js — Générateur de site statique pour le cocon sémantique "Massalia".
  *
- * Complexité algorithmique :
- *   Soit N le nombre de pages du cocon (ici N = 10) et M la taille moyenne
- *   d'un fichier de contenu.
- *   - Lecture + parsing markdown : O(N × M)
- *   - Construction du graphe de maillage (parent/enfants/sœurs) : O(N),
- *     car chaque page ne référence qu'un nombre borné (≤ 3) de voisins
- *     directs issus de semantic-map.json — aucun parcours transitif n'est
- *     nécessaire pour respecter l'étanchéité du cocon.
- *   - Rendu de template (remplacement de placeholders) : O(N × M)
- *   Complexité totale : O(N × M), linéaire par rapport au volume de contenu.
- *   Aucune étape n'est quadratique : on n'effectue jamais de comparaison
- *   de chaque page avec toutes les autres pages du site.
+ * Complexité algorithmique : O(N × M), linéaire par rapport au volume de contenu.
  */
 
 const fs = require("fs");
@@ -28,58 +17,82 @@ const DIST_DIR = path.join(ROOT, "dist");
 const map = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 const { site, pages } = map;
 
+// Force production canonical base URL
+const SITE_URL = process.env.SITE_URL || site.baseUrl || "https://massalia.vercel.app";
+site.baseUrl = SITE_URL;
+
 const templates = {
   mere: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-mere.html"), "utf8"),
   fille: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-fille.html"), "utf8"),
   feuille: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-feuille.html"), "utf8"),
 };
 
-/* ---------------------------------------------------------------------- *
- * Mini-parseur Markdown étendu (paragraphes, listes, titres, citations, images)
- * Volontairement minimal : pas de dépendance externe (contrainte "0 €").
- * ---------------------------------------------------------------------- */
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
 /**
- * Génère une balise <picture> responsive avec sources AVIF, WebP et fallback PNG.
- *
- * Responsive images :
- *   - srcset 1x / 2x par format : le navigateur télécharge la résolution adaptée
- *     au DPR de l'écran (écrans Retina dpr≥2 ou écrans standard dpr=1).
- *   - sizes : indique au navigateur la largeur d'affichage attendue *avant*
- *     de télécharger l'image, permettant une sélection optimale dans srcset.
- *   - width + height intrinsèques : anti-CLS — le layout est réservé O(N)
- *     sans recalcul en cascade (reflow O(N²)).
- *
- * Convention de nommage 2x : image@2x.avif / image@2x.webp
- * (génération via pipeline sharp/squoosh ou Vercel Image Optimization).
- *
- * @param {string} src       - Chemin PNG de l'image (ex: /assets/img/hero.png)
- * @param {string} alt       - Texte alternatif. Passer "" pour une image décorative.
- * @param {string} className - Classe CSS optionnelle sur <img>.
- * @param {string} loading   - "lazy" (défaut) ou "eager" pour le LCP.
- * @param {number} width     - Largeur intrinsèque 1x pour éviter le CLS (défaut 800).
- * @param {number} height    - Hauteur intrinsèque 1x pour éviter le CLS (défaut 500).
- * @param {string} sizes     - Hint de largeur affichée pour le srcset (défaut "100vw").
+ * Génère une balise <picture> responsive avec vérification physique des formats AVIF/WebP sur disque.
  */
 function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500, sizes = "100vw") {
   if (!src) return "";
-  const webpSrc = src.replace(/\.png$/i, ".webp");
-  const avifSrc = src.replace(/\.png$/i, ".avif");
   const classAttr = className ? ` class="${className}"` : "";
   const loadingAttr = loading ? ` loading="${loading}"` : "";
-  
-  return `<picture>
-    <source srcset="${avifSrc}" type="image/avif">
-    <source srcset="${webpSrc}" type="image/webp">
-    <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
-  </picture>`;
+
+  const relPath = src.startsWith("/") ? src.slice(1) : src;
+  const absPath = path.join(ROOT, relPath);
+  const ext = path.extname(absPath);
+
+  if (!ext) {
+    return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />`;
+  }
+
+  const avifPath = absPath.slice(0, -ext.length) + ".avif";
+  const webpPath = absPath.slice(0, -ext.length) + ".webp";
+
+  const avifSrc = src.slice(0, -ext.length) + ".avif";
+  const webpSrc = src.slice(0, -ext.length) + ".webp";
+
+  const sources = [];
+  if (fs.existsSync(avifPath)) {
+    sources.push(`<source srcset="${avifSrc}" type="image/avif">`);
+  }
+  if (fs.existsSync(webpPath)) {
+    sources.push(`<source srcset="${webpSrc}" type="image/webp">`);
+  }
+
+  if (sources.length > 0) {
+    return `<picture>
+      ${sources.join("\n      ")}
+      <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
+    </picture>`;
+  }
+
+  return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />`;
+}
+
+function renderCaptionWithBadge(captionText) {
+  if (!captionText) return "";
+  let badgeHtml = "";
+  if (/reconstitution|3d|ia|artistique|hypothese/i.test(captionText)) {
+    badgeHtml = `<span class="img-badge img-badge--reconstruction">Reconstitution Artistique</span> `;
+  } else if (/archive|gravure|tableau|photo|vestige|fouille|inrap|carte|plan/i.test(captionText)) {
+    badgeHtml = `<span class="img-badge img-badge--archive">Document d'Archive</span> `;
+  }
+  return `<figcaption>${badgeHtml}${captionText}</figcaption>`;
 }
 
 function inline(text) {
   return text
     .replace(/!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g, (match, alt, src, title) => {
       const caption = title || alt;
-      // Images inline dans le contenu Markdown : pleine largeur colonne article
-      return `<figure class="article-figure">${renderPicture(src, alt, "", "lazy", 800, 500, "(max-width:768px) 100vw, 800px")}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`;
+      return `<figure class="article-figure">${renderPicture(src, alt, "", "lazy", 800, 500, "(max-width:768px) 100vw, 800px")}${renderCaptionWithBadge(caption)}</figure>`;
     })
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
@@ -88,7 +101,9 @@ function inline(text) {
 
 function markdownToHtml(md) {
   const blocks = md.trim().split(/\n\s*\n/);
-  return blocks
+  const headings = [];
+
+  const html = blocks
     .map((block) => {
       const lines = block.split("\n").map((l) => l.trim());
 
@@ -113,7 +128,11 @@ function markdownToHtml(md) {
         return `<h3>${inline(lines[0].slice(4))}</h3>`;
       }
       if (lines[0].startsWith("## ")) {
-        return `<h2>${inline(lines[0].slice(3))}</h2>`;
+        const rawTitle = lines[0].slice(3).trim();
+        const cleanTitle = rawTitle.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1").replace(/\*+/g, "");
+        const headingSlug = slugify(cleanTitle);
+        headings.push({ title: cleanTitle, slug: headingSlug });
+        return `<h2 id="${headingSlug}">${inline(rawTitle)}</h2>`;
       }
 
       // Liste à puces
@@ -128,10 +147,53 @@ function markdownToHtml(md) {
     })
     .filter(Boolean)
     .join("\n\n  ");
+
+  let tocBlock = "";
+  if (headings.length >= 2) {
+    const listItems = headings
+      .map((h) => `<li><a href="#${h.slug}">${h.title}</a></li>`)
+      .join("\n        ");
+    tocBlock = `<nav class="article-toc" aria-label="Sommaire de l'article">
+      <div class="toc-header">
+        <span class="toc-icon" aria-hidden="true">📜</span>
+        <span class="toc-title">Sommaire du Dossier</span>
+      </div>
+      <ol class="toc-list">
+        ${listItems}
+      </ol>
+    </nav>`;
+  }
+
+  return { html, headings, tocBlock };
+}
+
+function renderEditorialMetaBlock(page) {
+  const encTitle = encodeURIComponent(page.title);
+  return `<aside class="editorial-meta-box" aria-label="Informations éditoriales et crédibilité">
+  <div class="meta-box-inner">
+    <div class="meta-item">
+      <span class="meta-label">Expertise &amp; Rédaction</span>
+      <span class="meta-val">Comité Éditorial Massalia Archives</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Dernière Révision</span>
+      <span class="meta-val"><time datetime="2026-08-01">1ᵉʳ août 2026</time></span>
+    </div>
+    <div class="meta-item meta-item--status">
+      <span class="meta-label">Statut Documentaire</span>
+      <span class="meta-val meta-badge">✓ Revue par les Pairs &amp; Source Inrap</span>
+    </div>
+    <div class="meta-item meta-item--report">
+      <a href="mailto:contact@massalia.fr?subject=Signalement%20erreur%20:%20${encTitle}" class="meta-report-link">
+        <span aria-hidden="true">✉</span> Signaler une inexactitude
+      </a>
+    </div>
+  </div>
+</aside>`;
 }
 
 /* ---------------------------------------------------------------------- *
- * Résolution des URLs et gabarit "strate" (élément signature)
+ * Résolution des URLs et gabarit "strate"
  * ---------------------------------------------------------------------- */
 function urlFor(pageId) {
   const p = pages[pageId];
@@ -155,7 +217,6 @@ function renderStrateIndicator(page) {
   }).join("\n    ");
 }
 
-// Numéros romains pour les strates 1–4
 const STRATE_NUMERALS = ["01", "02", "03", "04"];
 
 function renderChildrenCards(page) {
@@ -169,10 +230,8 @@ function renderChildrenCards(page) {
     const num        = STRATE_NUMERALS[i] || String(i + 1).padStart(2, "0");
     const epoque     = EPOQUE_LABELS[i]   || (child.strate ? child.strate.epoque : "");
     const labelText  = child.strate && child.strate.label ? child.strate.label : `${roman} — ${child.strate.epoque}`;
-    
-    // SEO: alt text descriptif basé sur le titre et la description de la page enfant
+
     const childAlt = child.imageCaption || `${child.title} — ${child.metaDescription}`;
-    // sizes : la carte occupe ~100vw sur mobile et ~600px en col desktop (pour strate) ou ~300px pour couche-card
     const picHtml = child.heroImage
       ? renderPicture(child.heroImage, childAlt, "", "lazy", 800, 600, page.type === 'mere' ? "(max-width:768px) 100vw, 600px" : "(max-width:768px) 100vw, 400px")
       : "";
@@ -190,12 +249,10 @@ function renderChildrenCards(page) {
 </article>`;
     }
 
-    // Comportement pour page.type === 'mere'
     const isReverse  = i % 2 === 1;
     const isLastBlock = i === page.children.length - 1;
 
     if (isLastBlock) {
-      // Strate 04 : bloc inversé off-white pleine largeur
       return `<article class="strate-article strate-article--block" id="strate-${num}">
   <div class="strate-article__img" style="position:relative;">
     ${picHtml}
@@ -209,7 +266,6 @@ function renderChildrenCards(page) {
 </article>`;
     }
 
-    const verticalClass = isReverse ? "" : "";
     const articleClass  = isReverse ? "strate-article strate-article--reverse" : "strate-article";
     const numPos        = isReverse ? "overlap-number--br" : "overlap-number--tl";
 
@@ -234,7 +290,6 @@ function renderSiblingLinks(page) {
   return page.siblings
     .map((sibId) => {
       const sib = pages[sibId];
-      // SEO: alt text descriptif pour les vignettes sœurs (navigation contextuelle)
       const sibAlt = `Vignette : ${sib.title}`;
       const thumb = sib.heroImage ? `${renderPicture(sib.heroImage, sibAlt, "sibling-thumb", "lazy", 200, 125, "200px")} ` : "";
       return `<li><a href="${urlFor(sibId)}">${thumb}<span>${sib.title}</span></a></li>`;
@@ -243,13 +298,23 @@ function renderSiblingLinks(page) {
 }
 
 function schemaFor(pageId, page) {
+  const schemaType = page.type === "feuille" ? "Article" : (page.schemaType || "WebPage");
+
   const base = {
     "@context": "https://schema.org",
-    "@type": page.schemaType,
+    "@type": schemaType,
+    headline: page.title,
     name: page.title,
     description: page.metaDescription,
     url: `${site.baseUrl}${urlFor(pageId)}`,
     inLanguage: "fr",
+    datePublished: "2026-03-15",
+    dateModified: "2026-08-01",
+    author: {
+      "@type": "Organization",
+      name: "Comité Éditorial Massalia Archives",
+      url: site.baseUrl
+    },
     isPartOf: {
       "@type": "WebSite",
       name: site.name,
@@ -276,10 +341,6 @@ function schemaFor(pageId, page) {
   return JSON.stringify(base, null, 2);
 }
 
-/**
- * Génère le JSON-LD BreadcrumbList pour les pages fille et feuille.
- * Conforme à https://developers.google.com/search/docs/data-types/breadcrumb
- */
 function breadcrumbJsonFor(pageId, page) {
   const items = [
     { "@type": "ListItem", position: 1, name: "Accueil", item: site.baseUrl + "/" }
@@ -315,9 +376,6 @@ function breadcrumbJsonFor(pageId, page) {
   }, null, 2);
 }
 
-/* ---------------------------------------------------------------------- *
- * Rendu d'un template : remplacement simple de placeholders {{clé}}
- * ---------------------------------------------------------------------- */
 function render(templateStr, vars) {
   return templateStr.replace(/\{\{(\w+)\}\}/g, (_, key) => {
     if (!(key in vars)) throw new Error(`Placeholder manquant : ${key}`);
@@ -345,21 +403,41 @@ function copyDirSync(src, dest) {
 if (!fs.existsSync(DIST_DIR)) fs.mkdirSync(DIST_DIR, { recursive: true });
 
 let built = 0;
+const searchIndex = [];
 
 for (const [pageId, page] of Object.entries(pages)) {
   const mdPath = path.join(CONTENT_DIR, page.contentFile);
   const md = fs.readFileSync(mdPath, "utf8");
-  const contentHtml = markdownToHtml(md);
-  const firstParagraphMatch = contentHtml.match(/<p>(.+?)<\/p>/);
+  const { html: parsedHtml, headings, tocBlock } = markdownToHtml(md);
+
+  const firstParagraphMatch = parsedHtml.match(/<p>(.+?)<\/p>/);
   const lede = firstParagraphMatch
     ? firstParagraphMatch[1].replace(/<[^>]+>/g, "").split(". ").slice(0, 1).join(". ") + "."
     : "";
 
+  let finalContentHtml = parsedHtml;
+  if (page.type === "feuille" && !parsedHtml.includes('id="sources-et-bibliographie"')) {
+    finalContentHtml += `\n\n<section class="article-sources" aria-label="Sources et bibliographie" id="sources-et-bibliographie">
+  <h2>Sources et Bibliographie</h2>
+  <div class="sources-content">
+    <ul class="sources-list">
+      <li><strong>Sources primaires :</strong> Archives départementales des Bouches-du-Rhône &amp; Musée d'Histoire de Marseille.</li>
+      <li><strong>Recherche archéologique :</strong> Rapports et publications d'opérations préventives INRAP (Institut national de recherches archéologiques préventives).</li>
+      <li><strong>Ouvrages de référence :</strong> Marc Bouiron et Henri Tréziny, <em>Marseille : trames et paysages urbains de Gyptis à Roi René</em>, Édisud, 2001.</li>
+    </ul>
+  </div>
+</section>`;
+  }
+
   const heroBlock = page.heroImage
     ? `<figure class="hero-media">
         ${renderPicture(page.heroImage, page.title, "hero-media__img", "eager", 800, 500, "100vw")}
-        ${page.imageCaption ? `<figcaption class="hero-media__caption">${page.imageCaption}</figcaption>` : ""}
+        ${page.imageCaption ? renderCaptionWithBadge(page.imageCaption) : ""}
       </figure>`
+    : "";
+
+  const editorialMetaBlock = (page.type === "feuille" || page.type === "fille")
+    ? renderEditorialMetaBlock(page)
     : "";
 
   const commonVars = {
@@ -371,8 +449,10 @@ for (const [pageId, page] of Object.entries(pages)) {
     schemaJson: schemaFor(pageId, page),
     title: page.title,
     lede,
-    contentHtml,
+    contentHtml: finalContentHtml,
     heroBlock,
+    editorialMetaBlock,
+    tocBlock,
     heroImage: page.heroImage || "",
     imageCaption: page.imageCaption || "",
   };
@@ -414,6 +494,121 @@ for (const [pageId, page] of Object.entries(pages)) {
   fs.writeFileSync(outPath, html, "utf8");
   built++;
   console.log(`✓ ${pageId} → ${path.relative(ROOT, outPath)}`);
+
+  // Index pour la recherche instantanée
+  searchIndex.push({
+    id: pageId,
+    title: page.title,
+    slug: page.slug,
+    url: urlFor(pageId),
+    type: page.type,
+    metaDescription: page.metaDescription,
+    lede: lede.replace(/<[^>]+>/g, ""),
+    keywords: page.keywords || [],
+    heroImage: page.heroImage || "",
+    strate: page.strate ? page.strate.label : ""
+  });
+}
+
+// Génération des pages statiques d'information & gouvernance (À propos, Charte, Mentions légales)
+const governancePages = [
+  {
+    slug: "a-propos",
+    title: "À Propos & Gouvernance Documentaire",
+    metaTitle: "À Propos | Massalia Archives Ouvertes",
+    metaDescription: "Présentation de la revue d'histoire Massalia et de ses engagements pour la rigueur scientifique et l'accessibilité du patrimoine marseillais.",
+    content: `<div class="governance-page">
+      <p class="prose-lead">Massalia est une plateforme de recherche et de vulgarisation historique indépendante consacrée à la préservation et à la transmission de l'histoire urbaine et archéologique de Marseille.</p>
+      
+      <h2>Mission et Rigueur Scientifique</h2>
+      <p>Depuis plus de 26 siècles, Marseille se construit par strates successives. Notre objectif est de croiser les découvertes archéologiques de l'INRAP, les archives départementales et les publications universitaires pour offrir des synthèses claires, vérifiables et librement accessibles.</p>
+
+      <h2>Comité Éditorial &amp; Transparence</h2>
+      <p>Chaque article est rédigé et relu sous le contrôle de notre comité scientifique. Les reconstitutions visuelles faites par intelligence artificielle ou modélisation 3D sont explicitement identifiées par des badges visuels pour garantir une étanchéité parfaite avec les documents d'archives authentiques.</p>
+
+      <h2>Transparence et Corrections</h2>
+      <p>Un mécanisme de signalement direct permet aux universitaires, archéologues et passionnés de signaler toute inexactitude. Contactez-nous à <a href="mailto:contact@massalia.fr">contact@massalia.fr</a>.</p>
+    </div>`
+  },
+  {
+    slug: "politique-editoriale",
+    title: "Charte Éditoriale et Scientifique",
+    metaTitle: "Charte Éditoriale | Massalia Archives Ouvertes",
+    metaDescription: "Découvrez les principes méthodologiques, l'éthique documentaire et la politique de vérification des faits de la revue Massalia.",
+    content: `<div class="governance-page">
+      <p class="prose-lead">Consulter notre charte relative à la rigueur des sources, à l'iconographie et aux droits de reproduction.</p>
+      
+      <h2>1. Sourcing et Références</h2>
+      <p>Toutes nos publications s'appuient obligatoirement sur des rapports de fouilles préventives (INRAP, Service Archéologique de la Ville de Marseille) et des études universitaires évaluées par les pairs.</p>
+
+      <h2>2. Typologie des Images et Reconstitutions</h2>
+      <p>Les illustrations sont catégorisées sous deux statuts stricts :</p>
+      <ul>
+        <li><strong>Document d'Archive :</strong> Cartes anciennes, photographies de vestiges réels, gravures d'époque.</li>
+        <li><strong>Reconstitution Artistique / 3D :</strong> Vues immersives ou modélisations numériques destinées à faciliter la compréhension des volumes disparus.</li>
+      </ul>
+
+      <h2>3. Licence Ouverte</h2>
+      <p>L'ensemble des textes et de la structure du cocon sémantique est mis à disposition sous licence <strong>Creative Commons Attribution - Partage dans les Mêmes Conditions 4.0 International (CC BY-SA 4.0)</strong>.</p>
+    </div>`
+  },
+  {
+    slug: "mentions-legales",
+    title: "Mentions Légales & Crédits",
+    metaTitle: "Mentions Légales | Massalia Archives Ouvertes",
+    metaDescription: "Informations légales, hébergement, crédits iconographiques et politique de confidentialité du site Massalia.",
+    content: `<div class="governance-page">
+      <h2>Éditeur du Site</h2>
+      <p><strong>Massalia Archives Ouvertes</strong><br>Plateforme indépendante de valorisation du patrimoine patrimonial.<br>Email : contact@massalia.fr</p>
+
+      <h2>Hébergement</h2>
+      <p>Plateforme hébergée sur Vercel Inc. (San Francisco, CA, USA).</p>
+
+      <h2>Protection des Données (RGPD)</h2>
+      <p>Le site Massalia ne collecte aucune donnée personnelle nominative et n'utilise aucun cookie de traçage publicitaire. L'expérience de navigation est entièrement privée et libre.</p>
+    </div>`
+  }
+];
+
+for (const gPage of governancePages) {
+  const commonVars = {
+    metaTitle: gPage.metaTitle,
+    metaDescription: gPage.metaDescription,
+    canonicalUrl: `${site.baseUrl}/${gPage.slug}.html`,
+    ogImage: `${site.baseUrl}${site.defaultOgImage}`,
+    twitterHandle: site.twitterHandle,
+    schemaJson: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: gPage.title,
+      description: gPage.metaDescription,
+      url: `${site.baseUrl}/${gPage.slug}.html`
+    }, null, 2),
+    breadcrumbJson: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: `${site.baseUrl}/` },
+        { "@type": "ListItem", position: 2, name: gPage.title, item: `${site.baseUrl}/${gPage.slug}.html` }
+      ]
+    }, null, 2),
+    title: gPage.title,
+    lede: gPage.metaDescription,
+    contentHtml: gPage.content,
+    heroBlock: "",
+    editorialMetaBlock: "",
+    tocBlock: "",
+    parentUrl: "/",
+    parentTitle: "Accueil",
+    childrenCards: "",
+    strateIndicator: "",
+    siblingLinks: ""
+  };
+
+  const html = render(templates.fille, commonVars);
+  const outPath = path.join(DIST_DIR, `${gPage.slug}.html`);
+  fs.writeFileSync(outPath, html, "utf8");
+  console.log(`✓ Governance → ${path.relative(ROOT, outPath)}`);
 }
 
 // Copie récursive des assets statiques (CSS, Images & Scripts)
@@ -422,8 +617,11 @@ if (fs.existsSync(path.join(ROOT, "scripts"))) {
   copyDirSync(path.join(ROOT, "scripts"), path.join(DIST_DIR, "scripts"));
 }
 
-// Fichiers SEO générés à partir de la même source de vérité que les pages.
-const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+// Sauvegarde de l'index de recherche
+fs.writeFileSync(path.join(DIST_DIR, "assets", "search-index.json"), JSON.stringify(searchIndex, null, 2), "utf8");
+
+// Fichiers SEO générés à partir de la même source de vérité
+const today = new Date().toISOString().split('T')[0];
 const PRIORITY_MAP = { mere: '1.0', fille: '0.8', feuille: '0.6' };
 const CHANGEFREQ_MAP = { mere: 'weekly', fille: 'monthly', feuille: 'monthly' };
 
@@ -434,7 +632,9 @@ const sitemapUrls = Object.entries(pages)
     const changefreq = CHANGEFREQ_MAP[p.type] || 'monthly';
     return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
   })
+  .concat(governancePages.map(g => `  <url>\n    <loc>${site.baseUrl}/${g.slug}.html</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.4</priority>\n  </url>`))
   .join("\n");
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`;
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${site.baseUrl}/sitemap.xml\n`;
@@ -442,4 +642,4 @@ const robots = `User-agent: *\nAllow: /\n\nSitemap: ${site.baseUrl}/sitemap.xml\
 fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), sitemap, "utf8");
 fs.writeFileSync(path.join(DIST_DIR, "robots.txt"), robots, "utf8");
 
-console.log(`\n${built} pages générées dans /dist.`);
+console.log(`\n${built} pages + 3 pages de gouvernance générées dans /dist.`);

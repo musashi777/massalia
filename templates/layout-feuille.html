@@ -31,28 +31,40 @@
 </script>
 </head>
 <body>
-<a class="skip-link" href="#main">Aller au contenu</a>
+<a class="skip-link" href="#main" id="skip-link">Aller au contenu principal</a>
 
 <header class="site-header" role="banner">
   <div class="site-header__brand">
     <p class="site-title"><a href="/">MASSALIA</a></p>
     <span class="site-tagline">Archives Ouvertes</span>
   </div>
-  <nav class="site-nav" aria-label="Navigation principale">
+  <div class="site-header__actions">
+    <button type="button" class="nav-search-btn" id="search-open-btn" aria-label="Rechercher dans les archives" title="Rechercher (Ctrl+K)">
+      <span aria-hidden="true">🔍</span> <span class="search-btn-label">Rechercher</span>
+    </button>
+    <button type="button" class="nav-toggle" id="menu-toggle-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu de navigation">
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+    </button>
+  </div>
+  <nav class="site-nav" id="main-nav" aria-label="Navigation principale">
     <a href="/#strates">Strates</a>
-    <a href="/">Accueil</a>
+    <a href="/#chronologie">Chronologie</a>
+    <a href="/a-propos.html">À propos</a>
+    <a href="/politique-editoriale.html">Charte Éditoriale</a>
     <a href="mailto:contact@massalia.fr">Contact</a>
   </nav>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
   <div class="article-header">
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="/">Massalia</a>
       <span class="breadcrumb-sep" aria-hidden="true">→</span>
       <a href="{{parentUrl}}">{{parentTitle}}</a>
       <span class="breadcrumb-sep" aria-hidden="true">→</span>
-      <span class="current">{{title}}</span>
+      <span class="current" aria-current="page">{{title}}</span>
     </nav>
     <h1 class="page-title">{{title}}</h1>
     <p class="page-lede">{{lede}}</p>
@@ -61,6 +73,10 @@
   {{heroBlock}}
 
   <div class="article-wrap">
+    {{editorialMetaBlock}}
+
+    {{tocBlock}}
+
     <div class="article-body">{{contentHtml}}</div>
 
     <nav class="siblings" aria-label="Articles associés">
@@ -77,9 +93,9 @@
     <div class="footer-top">
       <div>
         <p class="footer-brand">MASSALIA</p>
-        <p class="footer-desc">Dossier indépendant dédié à la préservation et à la diffusion du savoir historique sur la cité de Marseille.</p>
+        <p class="footer-desc">Revue d'histoire et plateforme de recherche documentaire indépendante dédiée au patrimoine phocéen et marseillais.</p>
       </div>
-      <div style="display:flex;gap:4rem;flex-wrap:wrap;">
+      <div style="display:flex;gap:3rem;flex-wrap:wrap;">
         <nav class="footer-nav-group" aria-label="Strates historiques">
           <span class="footer-nav-title">Strates</span>
           <ul class="footer-nav-links">
@@ -89,21 +105,43 @@
             <li><a href="/littoral-calanques-et-commerce-maritime.html">Littoral et Commerce</a></li>
           </ul>
         </nav>
-        <nav class="footer-nav-group" aria-label="Informations">
+        <nav class="footer-nav-group" aria-label="Informations et Recherche">
           <span class="footer-nav-title">Informations</span>
           <ul class="footer-nav-links">
-            <li><a href="/#strates">Chronologie</a></li>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="mailto:contact@massalia.fr">Contact</a></li>
+            <li><a href="/#chronologie">Chronologie</a></li>
+            <li><a href="/a-propos.html">À propos &amp; Gouvernance</a></li>
+            <li><a href="/politique-editoriale.html">Charte Éditoriale</a></li>
+            <li><a href="/mentions-legales.html">Mentions Légales</a></li>
+            <li><a href="mailto:contact@massalia.fr">Contact &amp; Erreurs</a></li>
           </ul>
         </nav>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2026 Massalia — Archives Ouvertes</span>
+      <span class="footer-copy">© 2026 Massalia — Archives Ouvertes (CC BY-SA 4.0)</span>
     </div>
   </div>
 </footer>
+
+<!-- Search Modal -->
+<div id="search-modal" class="search-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+  <div class="search-modal__backdrop" id="search-backdrop"></div>
+  <div class="search-modal__container">
+    <div class="search-modal__header">
+      <h2 id="search-modal-title" class="sr-only">Rechercher dans les archives Massalia</h2>
+      <div class="search-input-wrap">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="search" id="search-input" class="search-input" placeholder="Rechercher un dossier, monument, période, événement..." autocomplete="off" spellcheck="false" />
+        <kbd class="search-kbd">ESC</kbd>
+      </div>
+      <button type="button" id="search-close-btn" class="search-close-btn" aria-label="Fermer la recherche">×</button>
+    </div>
+    <div id="search-results" class="search-results" aria-live="polite">
+      <p class="search-hint">Saisissez vos mots-clés (ex: <em>"Iroquois"</em>, <em>"Cosquer"</em>, <em>"Saint-Victor"</em>, <em>"Port Antique"</em>)...</p>
+    </div>
+  </div>
+</div>
+
 <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
