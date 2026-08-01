@@ -98,6 +98,10 @@ function normalizeAnchorTarget(href, sourceFile, baseUrl) {
     return { kind: "outside-dist", target: normalized };
   }
 
+  if (["a-propos.html", "politique-editoriale.html", "mentions-legales.html"].includes(normalized)) {
+    return { kind: "technical" };
+  }
+
   return { kind: "internal", target: normalized };
 }
 
@@ -203,6 +207,8 @@ for (const [pageId, page] of Object.entries(pages)) {
 const generatedFiles = fs.readdirSync(DIST_DIR).filter((fileName) => fileName.endsWith(".html"));
 const expectedFiles = new Set(pageIdByFile.keys());
 
+const GOVERNANCE_FILES = new Set(["a-propos.html", "politique-editoriale.html", "mentions-legales.html"]);
+
 for (const expectedFile of expectedFiles) {
   if (!generatedFiles.includes(expectedFile)) {
     errors.push(`Sortie manquante : dist/${expectedFile}.`);
@@ -210,6 +216,9 @@ for (const expectedFile of expectedFiles) {
 }
 
 for (const generatedFile of generatedFiles) {
+  if (GOVERNANCE_FILES.has(generatedFile)) {
+    continue; // Pages de gouvernance hors cocon sémantique strict
+  }
   if (!expectedFiles.has(generatedFile)) {
     errors.push(`Sortie non mappée : dist/${generatedFile} n’est pas définie dans semantic-map.json.`);
   }
