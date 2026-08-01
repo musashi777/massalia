@@ -19,7 +19,7 @@ const { site, pages } = map;
 
 // SITE_URL : source de vérité unique pour canonical <link>, og:url, sitemap.xml et robots.txt.
 // Priorité : variable d'environnement SITE_URL > site.baseUrl dans semantic-map.json > fallback.
-const SITE_URL = process.env.SITE_URL || site.baseUrl || "https://massalia.vercel.app";
+const SITE_URL = process.env.SITE_URL || site.baseUrl || "https://massalia-luh273w20-musashi777s-projects.vercel.app";
 site.baseUrl = SITE_URL;
 
 const templates = {
@@ -621,6 +621,9 @@ for (const gPage of governancePages) {
 
 // Copie récursive des assets statiques (CSS, Images & Scripts)
 copyDirSync(path.join(ROOT, "assets"), path.join(DIST_DIR, "assets"));
+if (fs.existsSync(path.join(ROOT, "public"))) {
+  copyDirSync(path.join(ROOT, "public"), DIST_DIR);
+}
 if (fs.existsSync(path.join(ROOT, "scripts"))) {
   copyDirSync(path.join(ROOT, "scripts"), path.join(DIST_DIR, "scripts"));
 }
