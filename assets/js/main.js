@@ -1,21 +1,24 @@
 /**
  * main.js — Interactivité, Menu Mobile & Recherche Instantanée pour Massalia Archives
+ * v2.1 — Ajouts : focus trap modal (WCAG AA), bouton retour haut, scroll reveal
  */
 (function () {
   'use strict';
 
   let searchData = null;
 
+  /* ---- Skip Link ---- */
   function initSkipLink() {
     const skipLink = document.getElementById('skip-link');
     const mainContent = document.getElementById('main');
     if (skipLink && mainContent) {
-      skipLink.addEventListener('click', function (e) {
+      skipLink.addEventListener('click', function () {
         mainContent.focus();
       });
     }
   }
 
+  /* ---- Menu Mobile ---- */
   function initMobileMenu() {
     const toggleBtn = document.getElementById('menu-toggle-btn');
     const nav = document.getElementById('main-nav');
@@ -44,6 +47,14 @@
     });
   }
 
+  /* ---- Récupère tous les éléments focusables d'un container ---- */
+  function getFocusableElements(container) {
+    return Array.from(container.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ));
+  }
+
+  /* ---- Modale Recherche (avec focus trap WCAG 2.1 AA) ---- */
   function initSearchModal() {
     const modal = document.getElementById('search-modal');
     const openBtn = document.getElementById('search-open-btn');
@@ -57,6 +68,7 @@
     function openModal() {
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; /* Bloquer le scroll derrière */
       input.focus();
       if (!searchData) {
         fetchSearchIndex();
@@ -66,27 +78,44 @@
     function closeModal() {
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
       if (openBtn) openBtn.focus();
     }
 
-    if (openBtn) {
-      openBtn.addEventListener('click', openModal);
-    }
-    if (closeBtn) {
-      closeBtn.addEventListener('click', closeModal);
-    }
-    if (backdrop) {
-      backdrop.addEventListener('click', closeModal);
-    }
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
 
+    /* Focus Trap — Tab reste à l'intérieur du dialog (WCAG SC 2.1.2) */
+    modal.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('is-open') || e.key !== 'Tab') return;
+
+      const focusable = getFocusableElements(modal);
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        /* Shift+Tab depuis le premier élément → aller au dernier */
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        /* Tab depuis le dernier élément → revenir au premier */
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    /* Ctrl+K pour ouvrir/fermer ; Escape pour fermer */
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        if (modal.classList.contains('is-open')) {
-          closeModal();
-        } else {
-          openModal();
-        }
+        modal.classList.contains('is-open') ? closeModal() : openModal();
       } else if (e.key === 'Escape' && modal.classList.contains('is-open')) {
         closeModal();
       }
@@ -100,9 +129,7 @@
 
   function fetchSearchIndex() {
     fetch('/assets/search-index.json')
-      .then(function (res) {
-        return res.json();
-      })
+      .then(function (res) { return res.json(); })
       .then(function (data) {
         searchData = data;
         const input = document.getElementById('search-input');
@@ -112,7 +139,7 @@
         }
       })
       .catch(function (err) {
-        console.error('Erreur lors du chargement de l index de recherche :', err);
+        console.error('Erreur lors du chargement de l\'index de recherche :', err);
       });
   }
 
@@ -121,19 +148,18 @@
       container.innerHTML = '<p class="search-hint">Saisissez vos mots-clés (ex: <em>"Iroquois"</em>, <em>"Cosquer"</em>, <em>"Saint-Victor"</em>, <em>"Port Antique"</em>)...</p>';
       return;
     }
-
     if (!searchData) {
-      container.innerHTML = '<p class="search-hint">Chargement de l index des archives...</p>';
+      container.innerHTML = '<p class="search-hint">Chargement de l\'index des archives...</p>';
       return;
     }
 
     const filtered = searchData.filter(function (item) {
-      const inTitle = item.title.toLowerCase().includes(query);
-      const inDesc = item.metaDescription.toLowerCase().includes(query);
-      const inLede = item.lede ? item.lede.toLowerCase().includes(query) : false;
-      const inKeywords = item.keywords ? item.keywords.some(function (k) { return k.toLowerCase().includes(query); }) : false;
-      const inStrate = item.strate ? item.strate.toLowerCase().includes(query) : false;
-      return inTitle || inDesc || inLede || inKeywords || inStrate;
+      const q = query;
+      return item.title.toLowerCase().includes(q)
+        || item.metaDescription.toLowerCase().includes(q)
+        || (item.lede && item.lede.toLowerCase().includes(q))
+        || (item.keywords && item.keywords.some(function (k) { return k.toLowerCase().includes(q); }))
+        || (item.strate && item.strate.toLowerCase().includes(q));
     });
 
     if (filtered.length === 0) {
@@ -141,8 +167,11 @@
       return;
     }
 
+    /* Harmonisation terminologique : "Couche" dans les badges de résultats */
     const itemsHtml = filtered.map(function (item) {
-      const badge = item.type === 'mere' ? 'Accueil &amp; Vue globale' : (item.type === 'fille' ? 'Strate Thémathique' : 'Dossier Spécifique');
+      const badge = item.type === 'mere'
+        ? 'Accueil &amp; Vue globale'
+        : (item.type === 'fille' ? 'Couche Thématique' : 'Dossier Spécifique');
       return '<a href="' + item.url + '" class="search-result-item">' +
         '<span class="search-result-badge">' + badge + (item.strate ? ' — ' + item.strate : '') + '</span>' +
         '<h3 class="search-result-title">' + highlightText(item.title, query) + '</h3>' +
@@ -161,17 +190,40 @@
 
   function escapeHtml(str) {
     return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
   }
 
   function escapeRegExp(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  /* ---- Bouton flottant "↑ Retour en haut" (visible après 600px de scroll) ---- */
+  function initBackToTop() {
+    let btn = document.getElementById('back-to-top');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'back-to-top';
+      btn.className = 'back-to-top-btn';
+      btn.setAttribute('aria-label', 'Revenir en haut de la page');
+      btn.setAttribute('title', 'Retour en haut');
+      btn.innerHTML = '&#8593;'; /* flèche ↑ */
+      document.body.appendChild(btn);
+    }
+
+    window.addEventListener('scroll', function () {
+      btn.classList.toggle('is-visible', window.scrollY > 600);
+    }, { passive: true });
+
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      /* Remettre le focus sur le skip-link (accessibilité clavier) */
+      const skipLink = document.getElementById('skip-link');
+      if (skipLink) skipLink.focus();
+    });
+  }
+
+  /* ---- Parallaxe ---- */
   function initParallax() {
     const parallaxImages = document.querySelectorAll('.strate-article__img img, .hero-img-wrap img');
     if (!parallaxImages.length) return;
@@ -180,21 +232,18 @@
 
     function updateParallax() {
       const windowHeight = window.innerHeight;
-
-      parallaxImages.forEach((img) => {
+      parallaxImages.forEach(function (img) {
         const parent = img.closest('.strate-article__img') || img.closest('.hero-img-wrap');
         if (!parent) return;
-
         const rect = parent.getBoundingClientRect();
         if (rect.top < windowHeight && rect.bottom > 0) {
           const centerY = rect.top + rect.height / 2;
           const viewportCenter = windowHeight / 2;
           const offsetRatio = (centerY - viewportCenter) / windowHeight;
           const translateY = Math.max(-30, Math.min(30, offsetRatio * 40));
-          img.style.transform = `translate3d(0, ${translateY}px, 0) scale(1.08)`;
+          img.style.transform = 'translate3d(0, ' + translateY + 'px, 0) scale(1.08)';
         }
       });
-
       ticking = false;
     }
 
@@ -210,11 +259,32 @@
     updateParallax();
   }
 
+  /* ---- Scroll Reveal (IntersectionObserver) ---- */
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    const elements = document.querySelectorAll('.scroll-reveal');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    elements.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ---- Point d'entrée ---- */
   function initAll() {
     initSkipLink();
     initMobileMenu();
     initSearchModal();
+    initBackToTop();
     initParallax();
+    initScrollReveal();
   }
 
   if (document.readyState === 'loading') {

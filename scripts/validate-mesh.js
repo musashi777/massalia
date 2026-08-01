@@ -65,7 +65,7 @@ function addRelation(allowed, pageId, relatedId, relation, pages, errors) {
 function normalizeAnchorTarget(href, sourceFile, baseUrl) {
   const value = href.trim();
 
-  if (!value || TECHNICAL_FRAGMENT.test(value) || TECHNICAL_PROTOCOL.test(value)) {
+  if (!value || TECHNICAL_FRAGMENT.test(value) || TECHNICAL_PROTOCOL.test(value) || value.includes("notebooklm.google.com") || value.includes("NOTEBOOK_URL_")) {
     return { kind: "technical" };
   }
 

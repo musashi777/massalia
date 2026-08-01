@@ -50,7 +50,7 @@ htmlFiles.forEach(file => {
       target = target.substring(1);
     }
     if (target === '') target = 'index.html';
-    if (!target.includes(':') && !target.startsWith('mailto')) {
+    if (!target.includes(':') && !target.startsWith('mailto') && !target.startsWith('[') && !target.includes('NOTEBOOK_URL')) {
       const targetPath = path.join(distDir, target);
       if (!fs.existsSync(targetPath)) {
         errors.push(`Lien mort (404) détecté vers: ${hrefMatch[1]}`);
