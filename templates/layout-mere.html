@@ -161,6 +161,7 @@
 </script>
 </head>
 <body>
+<div id="reading-progress-bar" class="reading-progress-bar" aria-hidden="true"></div>
 <a class="skip-link" href="#main" id="skip-link">Aller au contenu principal</a>
 
 <header class="site-header" role="banner">
@@ -261,56 +262,56 @@
       <h2>Chronologie</h2>
       <p class="chrono-subtitle">26 siècles en un regard</p>
       <ol class="chrono-timeline" role="list">
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="-0600">~600 av. J.-C.</time>
           <div class="chrono-body">
             <h3><a href="/mythe-fondation-protis-gyptis.html">Fondation de Massalia</a> <a href="/mythe-fondation-protis-gyptis.html" title="Lire le mythe fondateur" aria-label="Lire le mythe fondateur">🔍</a></h3>
             <p>~600 av. J.-C. — Des colons phocéens fondent Massalia. <a href="/mythe-fondation-protis-gyptis.html">→ Lire le mythe de Protis &amp; Gyptis</a></p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="-0540">~540 av. J.-C.</time>
           <div class="chrono-body">
             <h3>Bataille d'Alalia</h3>
             <p>Massalia accueille les réfugiés phocéens après la chute de Phocée face aux Perses. La cité renforce sa position de première puissance grecque d'Occident.</p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="-0350">IVᵉ — IIᵉ s. av. J.-C.</time>
           <div class="chrono-body">
             <h3><a href="/mur-de-crinas-systeme-defensif.html">Apogée hellénistique</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/b5160305-5fd8-442a-bb4e-4b644bc21e07" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
             <p>Construction des remparts monumentaux (mur de Crinas), développement du port antique et expansion du commerce de l'étain avec les Gaulois.</p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="-0049">49 av. J.-C.</time>
           <div class="chrono-body">
             <h3>Siège de César</h3>
             <p>Jules César assiège Massalia pour son soutien à Pompée. La cité perd son indépendance politique mais conserve son rayonnement culturel sous l'Empire romain.</p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="0415">Vᵉ siècle</time>
           <div class="chrono-body">
             <h3><a href="/crypte-abbaye-saint-victor.html">Fondation de Saint-Victor</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/d14d9930-03c8-4d88-988a-b0a9f7d282ae" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
             <p>Jean Cassien fonde l'abbaye Saint-Victor. La crypte conserve des sarcophages paléochrétiens parmi les plus anciens de Gaule.</p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="1515">1515</time>
           <div class="chrono-body">
             <h3><a href="/legende-rhinoceros-chateau-if.html">Le Rhinocéros du Château d'If</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/c59de659-4bf7-429f-9ef1-dc44f56f5f95" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
             <p>François Iᵉʳ visite l'île d'If où un rhinocéros offert par le roi du Portugal avait fait escale. Il ordonne la construction du château.</p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="1666">1666</time>
           <div class="chrono-body">
             <h3><a href="/arsenal-des-galeres.html">L'Arsenal des Galères</a></h3>
             <p>Louis XIV installe l'arsenal royal des galères à Marseille, faisant du port le cœur de la puissance navale du royaume en Méditerranée.</p>
           </div>
         </li>
-        <li class="chrono-item">
+        <li class="chrono-item reveal">
           <time class="chrono-date" datetime="1967">1967 — 1983</time>
           <div class="chrono-body">
             <h3><a href="/fouilles-port-antique.html">Fouilles du Port Antique</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/808decb3-fd8e-4446-8627-576318e81e0b" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
@@ -388,25 +389,60 @@
     <div class="faq-inner">
       <h2>Questions Fréquentes</h2>
       <dl class="faq-list">
-        <div class="faq-item">
-          <dt>Quelle est la plus ancienne ville de France ?</dt>
-          <dd>Marseille, fondée vers 600 avant J.-C. sous le nom de Massalia par des colons grecs venus de Phocée (Asie Mineure), est généralement considérée comme la plus ancienne ville de France. Des vestiges attestent même d'occupations humaines antérieures dans le bassin marseillais, remontant au Paléolithique moyen (-60 000 ans) et au Néolithique.</dd>
+        <div class="faq-item reveal">
+          <dt>
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-1">
+              <span>Quelle est la plus ancienne ville de France ?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd id="faq-ans-1" class="faq-answer" hidden>
+            <p>Marseille, fondée vers 600 avant J.-C. sous le nom de Massalia par des colons grecs venus de Phocée (Asie Mineure), est généralement considérée comme la plus ancienne ville de France. Des vestiges attestent même d'occupations humaines antérieures dans le bassin marseillais, remontant au Paléolithique moyen (-60 000 ans) et au Néolithique.</p>
+          </dd>
         </div>
-        <div class="faq-item">
-          <dt>Qui sont Protis et Gyptis dans l'histoire de Marseille ?</dt>
-          <dd>Protis est un marin phocéen et Gyptis la fille de Nannos, roi des Ségobriges (peuple celto-ligure local). Selon le mythe fondateur rapporté par Justin (d'après Trogue Pompée), Gyptis choisit Protis lors d'un banquet en lui tendant une coupe de vin, scellant ainsi l'alliance entre Grecs et autochtones. Ce récit symbolise la fondation pacifique de Massalia vers 600 av. J.-C.</dd>
+        <div class="faq-item reveal">
+          <dt>
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-2">
+              <span>Qui sont Protis et Gyptis dans l'histoire de Marseille ?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd id="faq-ans-2" class="faq-answer" hidden>
+            <p>Protis est un marin phocéen et Gyptis la fille de Nannos, roi des Ségobriges (peuple celto-ligure local). Selon le mythe fondateur rapporté par Justin (d'après Trogue Pompée), Gyptis choisit Protis lors d'un banquet en lui tendant une coupe de vin, scellant ainsi l'alliance entre Grecs et autochtones. Ce récit symbolise la fondation pacifique de Massalia vers 600 av. J.-C.</p>
+          </dd>
         </div>
-        <div class="faq-item">
-          <dt>Où voir les vestiges antiques à Marseille ?</dt>
-          <dd>Le principal site est le <a href="/jardin-des-vestiges.html">Jardin des Vestiges</a> (derrière le Centre Bourse), qui expose les remparts grecs et les quais du port antique. Le <a href="/fouilles-port-antique.html">Musée d'Histoire de Marseille</a> abrite une épave antique et des collections archéologiques. Les <a href="/caves-saint-sauveur-monument-souterrain.html">Caves Saint-Sauveur</a> sous la place de Lenche et la <a href="/crypte-abbaye-saint-victor.html">crypte de Saint-Victor</a> offrent des expériences souterraines uniques.</dd>
+        <div class="faq-item reveal">
+          <dt>
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-3">
+              <span>Où voir les vestiges antiques à Marseille ?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd id="faq-ans-3" class="faq-answer" hidden>
+            <p>Le principal site est le <a href="/jardin-des-vestiges.html">Jardin des Vestiges</a> (derrière le Centre Bourse), qui expose les remparts grecs et les quais du port antique. Le <a href="/fouilles-port-antique.html">Musée d'Histoire de Marseille</a> abrite une épave antique et des collections archéologiques. Les <a href="/caves-saint-sauveur-monument-souterrain.html">Caves Saint-Sauveur</a> sous la place de Lenche et la <a href="/crypte-abbaye-saint-victor.html">crypte de Saint-Victor</a> offrent des expériences souterraines uniques.</p>
+          </dd>
         </div>
-        <div class="faq-item">
-          <dt>Pourquoi Marseille est-elle appelée la cité phocéenne ?</dt>
-          <dd>Ce surnom fait référence à Phocée (en grec Phôkaia), la cité d'Ionie (actuelle Turquie) dont les marins ont fondé Massalia. Le gentilé « phocéen » distingue Marseille des autres colonies grecques de Méditerranée occidentale et rappelle les origines helléniques de la ville.</dd>
+        <div class="faq-item reveal">
+          <dt>
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-4">
+              <span>Pourquoi Marseille est-elle appelée la cité phocéenne ?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd id="faq-ans-4" class="faq-answer" hidden>
+            <p>Ce surnom fait référence à Phocée (en grec Phôkaia), la cité d'Ionie (actuelle Turquie) dont les marins ont fondé Massalia. Le gentilé « phocéen » distingue Marseille des autres colonies grecques de Méditerranée occidentale et rappelle les origines helléniques de la ville.</p>
+          </dd>
         </div>
-        <div class="faq-item">
-          <dt>Qu'est-ce que le Lacydon à Marseille ?</dt>
-          <dd>Le Lacydon est le nom antique de la calanque naturelle qui forme aujourd'hui le <a href="/evolution-lacydon-marseille.html">Vieux-Port de Marseille</a>. C'est dans cette anse abritée que les Phocéens ont fondé Massalia. Au fil des siècles, le Lacydon a été comblé, ses rives aménagées et sa morphologie profondément modifiée pour devenir le port que l'on connaît.</dd>
+        <div class="faq-item reveal">
+          <dt>
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-ans-5">
+              <span>Qu'est-ce que le Lacydon à Marseille ?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd id="faq-ans-5" class="faq-answer" hidden>
+            <p>Le Lacydon est le nom antique de la calanque naturelle qui forme aujourd'hui le <a href="/evolution-lacydon-marseille.html">Vieux-Port de Marseille</a>. C'est dans cette anse abritée que les Phocéens ont fondé Massalia. Au fil des siècles, le Lacydon a été comblé, ses rives aménagées et sa morphologie profondément modifiée pour devenir le port que l'on connaît.</p>
+          </dd>
         </div>
       </dl>
     </div>

@@ -251,9 +251,55 @@
     sections.forEach(function (s) { observer.observe(s.el); });
   }
 
+  /* ---- Barre de Progression de Lecture ---- */
+  function initReadingProgress() {
+    const bar = document.getElementById('reading-progress-bar');
+    if (!bar) return;
+
+    function updateProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (docHeight > 0) {
+        const progress = (scrollTop / docHeight) * 100;
+        bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+      }
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  /* ---- FAQ Accordéon Animé ---- */
+  function initFaqAccordion() {
+    const triggers = document.querySelectorAll('.faq-trigger');
+    if (!triggers.length) return;
+
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        const targetId = trigger.getAttribute('aria-controls');
+        const answer = document.getElementById(targetId);
+
+        trigger.setAttribute('aria-expanded', !expanded);
+
+        if (answer) {
+          if (expanded) {
+            answer.setAttribute('hidden', '');
+            answer.classList.remove('is-open');
+          } else {
+            answer.removeAttribute('hidden');
+            answer.classList.add('is-open');
+          }
+        }
+      });
+    });
+  }
+
   /* ---- Parallaxe ---- */
   function initParallax() {
-    const parallaxImages = document.querySelectorAll('.strate-article__img img, .hero-img-wrap img');
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const parallaxImages = document.querySelectorAll('.strate-article__img img, .hero-img-wrap img, .hero-media img');
     if (!parallaxImages.length) return;
 
     let ticking = false;
@@ -261,7 +307,7 @@
     function updateParallax() {
       const windowHeight = window.innerHeight;
       parallaxImages.forEach(function (img) {
-        const parent = img.closest('.strate-article__img') || img.closest('.hero-img-wrap');
+        const parent = img.closest('.strate-article__img') || img.closest('.hero-img-wrap') || img.closest('.hero-media');
         if (!parent) return;
         const rect = parent.getBoundingClientRect();
         if (rect.top < windowHeight && rect.bottom > 0) {
@@ -289,9 +335,13 @@
 
   /* ---- Scroll Reveal (IntersectionObserver) ---- */
   function initScrollReveal() {
-    if (!('IntersectionObserver' in window)) return;
-    const elements = document.querySelectorAll('.scroll-reveal');
+    const elements = document.querySelectorAll('.scroll-reveal, .reveal');
     if (!elements.length) return;
+
+    if (!('IntersectionObserver' in window) || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      elements.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
 
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -300,7 +350,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
     elements.forEach(function (el) { observer.observe(el); });
   }
@@ -312,6 +362,8 @@
     initSearchModal();
     initBackToTop();
     initStickySommaire();
+    initReadingProgress();
+    initFaqAccordion();
     initParallax();
     initScrollReveal();
   }

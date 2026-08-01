@@ -244,7 +244,7 @@ function renderChildrenCards(page) {
       : "";
 
     if (page.type === 'fille') {
-      return `<article class="couche-card">
+      return `<article class="couche-card reveal" data-numero="${num}">
   <div class="couche-card__thumb">
     ${picHtml}
   </div>
@@ -261,7 +261,7 @@ function renderChildrenCards(page) {
     const badgeHtml = childId === "littoral-calanques-et-commerce-maritime" || num === "04" || i === 3 ? '<span class="couche-badge">Axe thématique — Littoral &amp; Patrimoine englouti</span><br>' : '';
 
     if (isLastBlock) {
-      return `<article class="strate-article strate-article--block" id="strate-${num}">
+      return `<article class="strate-article strate-article--block reveal" id="strate-${num}" data-numero="${num}">
   <div class="strate-article__img" style="position:relative;">
     ${picHtml}
     <span class="overlap-number overlap-number--tl" aria-hidden="true">${num}</span>
@@ -274,10 +274,10 @@ function renderChildrenCards(page) {
 </article>`;
     }
 
-    const articleClass  = isReverse ? "strate-article strate-article--reverse" : "strate-article";
+    const articleClass  = isReverse ? "strate-article strate-article--reverse reveal" : "strate-article reveal";
     const numPos        = isReverse ? "overlap-number--br" : "overlap-number--tl";
 
-    return `<article class="${articleClass}" id="strate-${num}">
+    return `<article class="${articleClass}" id="strate-${num}" data-numero="${num}">
   <div class="strate-article__vertical" aria-hidden="true">${epoque}</div>
   <div class="strate-article__img" style="position:relative;">
     ${picHtml}
