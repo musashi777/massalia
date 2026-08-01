@@ -200,27 +200,55 @@
 
   /* ---- Bouton flottant "↑ Retour en haut" (visible après 600px de scroll) ---- */
   function initBackToTop() {
-    let btn = document.getElementById('back-to-top');
+    let btn = document.getElementById('btn-top') || document.getElementById('back-to-top');
     if (!btn) {
       btn = document.createElement('button');
-      btn.id = 'back-to-top';
-      btn.className = 'back-to-top-btn';
-      btn.setAttribute('aria-label', 'Revenir en haut de la page');
+      btn.id = 'btn-top';
+      btn.className = 'btn-top';
+      btn.setAttribute('aria-label', 'Retour en haut de page');
       btn.setAttribute('title', 'Retour en haut');
-      btn.innerHTML = '&#8593;'; /* flèche ↑ */
+      btn.innerHTML = '↑';
       document.body.appendChild(btn);
     }
 
     window.addEventListener('scroll', function () {
-      btn.classList.toggle('is-visible', window.scrollY > 600);
+      const show = window.scrollY > 600;
+      btn.classList.toggle('visible', show);
+      btn.classList.toggle('is-visible', show);
     }, { passive: true });
 
     btn.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      /* Remettre le focus sur le skip-link (accessibilité clavier) */
       const skipLink = document.getElementById('skip-link');
       if (skipLink) skipLink.focus();
     });
+  }
+
+  /* ---- Sommaire Sticky Scrollspy ---- */
+  function initStickySommaire() {
+    const links = document.querySelectorAll('.sommaire-sticky a');
+    if (!links.length) return;
+    const sections = [];
+
+    links.forEach(function (link) {
+      const id = link.getAttribute('data-section') || link.getAttribute('href').replace('#', '');
+      const el = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el, link: link });
+    });
+
+    if (!sections.length || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove('active'); });
+          const match = sections.find(function (s) { return s.el === entry.target; });
+          if (match) match.link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(function (s) { observer.observe(s.el); });
   }
 
   /* ---- Parallaxe ---- */
@@ -283,6 +311,7 @@
     initMobileMenu();
     initSearchModal();
     initBackToTop();
+    initStickySommaire();
     initParallax();
     initScrollReveal();
   }

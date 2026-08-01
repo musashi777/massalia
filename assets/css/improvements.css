@@ -1988,4 +1988,199 @@ sup.notebooklm-cite a:hover, sup.notebooklm-cite a:focus {
   transform: scale(1.25);
 }
 
+/* ═══ SECTION SOURCES ACADÉMIQUES & NOTEBOOKLM ═══ */
+.sources-section {
+  max-width: 1100px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+
+.sources-intro {
+  font-size: 1.05rem;
+  color: var(--color-slate, #555);
+  margin-bottom: 2rem;
+  max-width: 70ch;
+}
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.source-card {
+  border: 1px solid var(--color-border, #e0d5c5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: var(--color-warm-white, #fffdf9);
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.source-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.source-card--full {
+  grid-column: 1 / -1;
+}
+
+.source-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.source-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
+  color: var(--color-deep-blue, #2c1810);
+}
+
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  flex-grow: 1;
+}
+
+.source-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border-light, #f0e8dc);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.source-list li:last-child {
+  border-bottom: none;
+}
+
+.source-list a {
+  color: var(--color-terracotta, #8b4513);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.source-list a:hover {
+  text-decoration: underline;
+}
+
+.notebook-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #1a73e8;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+
+.notebook-link:hover {
+  background: #1557b0;
+  color: #fff;
+}
+
+/* ═══ SOMMAIRE STICKY ═══ */
+.sommaire-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 253, 249, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e0d5c5;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sommaire-sticky a {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b5744;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sommaire-sticky a:hover {
+  background: #f0e8dc;
+  color: #2c1810;
+}
+
+.sommaire-sticky a.active {
+  background: #8b4513;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .sommaire-sticky {
+    padding: 0.5rem 0.75rem;
+    gap: 0.15rem;
+  }
+  .sommaire-sticky a {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+/* ═══ BOUTON RETOUR EN HAUT (.btn-top / .back-to-top-btn) ═══ */
+.btn-top, .back-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #8b4513;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-top.visible, .btn-top.is-visible,
+.back-to-top-btn.visible, .back-to-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn-top:hover, .back-to-top-btn:hover {
+  transform: scale(1.1);
+  background: #6d360f;
+  color: #fff;
+}
+
+/* ═══ BADGE COUCHE IV (AXE THÉMATIQUE) ═══ */
+.couche-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #e8f0fe;
+  color: #1a56a8;
+  margin-bottom: 0.75rem;
+}
+
+
 

@@ -65,7 +65,7 @@ function addRelation(allowed, pageId, relatedId, relation, pages, errors) {
 function normalizeAnchorTarget(href, sourceFile, baseUrl) {
   const value = href.trim();
 
-  if (!value || TECHNICAL_FRAGMENT.test(value) || TECHNICAL_PROTOCOL.test(value) || value.includes("notebooklm.google.com") || value.includes("NOTEBOOK_URL_")) {
+  if (!value || TECHNICAL_FRAGMENT.test(value) || TECHNICAL_PROTOCOL.test(value) || value.includes("notebooklm.google.com") || value.includes("notebook.google.com") || value.includes("persee.fr") || value.includes("openedition.org") || value.includes("inrap.fr") || value.includes("hal.science") || value.includes("francearchives.gouv.fr") || value.includes("marseille.fr") || value.includes("culture.gouv.fr") || value.includes("cnrs.fr") || value.includes("cambridge.org") || value.includes("mmsh.fr") || value.includes("NOTEBOOK_URL_")) {
     return { kind: "technical" };
   }
 

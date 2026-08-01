@@ -258,6 +258,7 @@ function renderChildrenCards(page) {
 
     const isReverse  = i % 2 === 1;
     const isLastBlock = i === page.children.length - 1;
+    const badgeHtml = childId === "littoral-calanques-et-commerce-maritime" || num === 4 ? '<span class="couche-badge">Axe thématique — Pas de borne chronologique</span><br>' : '';
 
     if (isLastBlock) {
       return `<article class="strate-article strate-article--block" id="strate-${num}">
@@ -266,9 +267,9 @@ function renderChildrenCards(page) {
     <span class="overlap-number overlap-number--tl" aria-hidden="true">${num}</span>
   </div>
   <div class="strate-article__body">
-    <h3>${child.title}</h3>
+    ${badgeHtml}<h3>${child.title}</h3>
     <p>${child.metaDescription}</p>
-    <a class="strate-link" href="${urlFor(childId)}">Explorer la Strate</a>
+    <a class="strate-link" href="${urlFor(childId)}">Explorer la Couche</a>
   </div>
 </article>`;
     }
@@ -284,9 +285,9 @@ function renderChildrenCards(page) {
   </div>
   <div class="strate-article__body">
     <p class="couche-card__index">${labelText}</p>
-    <h3>${child.title}</h3>
+    ${badgeHtml}<h3>${child.title}</h3>
     <p>${child.metaDescription}</p>
-    <a class="strate-link" href="${urlFor(childId)}">Explorer la Strate</a>
+    <a class="strate-link" href="${urlFor(childId)}">Explorer la Couche</a>
   </div>
 </article>`;
   }).join("\n");
