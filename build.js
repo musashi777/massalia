@@ -17,7 +17,8 @@ const DIST_DIR = path.join(ROOT, "dist");
 const map = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 const { site, pages } = map;
 
-// Force production canonical base URL
+// SITE_URL : source de vérité unique pour canonical <link>, og:url, sitemap.xml et robots.txt.
+// Priorité : variable d'environnement SITE_URL > site.baseUrl dans semantic-map.json > fallback.
 const SITE_URL = process.env.SITE_URL || site.baseUrl || "https://massalia.vercel.app";
 site.baseUrl = SITE_URL;
 
@@ -142,6 +143,12 @@ function markdownToHtml(md) {
         return `<ul>\n    ${items}\n  </ul>`;
       }
 
+      // Blocs HTML natifs (aside, script, section, div, figure) — pas de <p> parasite
+      const BLOCK_TAGS = /^<(aside|script|section|div|figure|nav|header|footer|table|article|ul|ol|dl|form|blockquote)/i;
+      if (BLOCK_TAGS.test(lines[0])) {
+        return block; // passage brut, sans transformation
+      }
+
       // Paragraphe standard
       return `<p>${inline(lines.join(" "))}</p>`;
     })
@@ -181,7 +188,7 @@ function renderEditorialMetaBlock(page) {
     </div>
     <div class="meta-item meta-item--status">
       <span class="meta-label">Statut Documentaire</span>
-      <span class="meta-val meta-badge">✓ Revue par les Pairs &amp; Source Inrap</span>
+      <span class="meta-val meta-badge">✓ Sources primaires vérifiées</span>
     </div>
     <div class="meta-item meta-item--report">
       <a href="mailto:contact@massalia.fr?subject=Signalement%20erreur%20:%20${encTitle}" class="meta-report-link">
@@ -416,7 +423,7 @@ for (const [pageId, page] of Object.entries(pages)) {
     : "";
 
   let finalContentHtml = parsedHtml;
-  if (page.type === "feuille" && !parsedHtml.includes('id="sources-et-bibliographie"')) {
+  if (page.type === "feuille" && !parsedHtml.includes('id="sources-et-bibliographie"') && !parsedHtml.includes('academic-credits')) {
     finalContentHtml += `\n\n<section class="article-sources" aria-label="Sources et bibliographie" id="sources-et-bibliographie">
   <h2>Sources et Bibliographie</h2>
   <div class="sources-content">
