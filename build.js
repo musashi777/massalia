@@ -258,7 +258,7 @@ function renderChildrenCards(page) {
 
     const isReverse  = i % 2 === 1;
     const isLastBlock = i === page.children.length - 1;
-    const badgeHtml = childId === "littoral-calanques-et-commerce-maritime" || num === 4 ? '<span class="couche-badge">Axe thématique — Pas de borne chronologique</span><br>' : '';
+    const badgeHtml = childId === "littoral-calanques-et-commerce-maritime" || num === "04" || i === 3 ? '<span class="couche-badge">Axe thématique — Littoral &amp; Patrimoine englouti</span><br>' : '';
 
     if (isLastBlock) {
       return `<article class="strate-article strate-article--block" id="strate-${num}">
