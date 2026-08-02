@@ -70,9 +70,6 @@
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden'; /* Bloquer le scroll derrière */
       input.focus();
-      if (!searchData) {
-        fetchSearchIndex();
-      }
     }
 
     function closeModal() {
@@ -120,82 +117,6 @@
         closeModal();
       }
     });
-
-    input.addEventListener('input', function () {
-      const query = input.value.trim().toLowerCase();
-      renderSearchResults(query, resultsContainer);
-    });
-  }
-
-  function fetchSearchIndex() {
-    fetch('/assets/search-index.json')
-      .then(function (res) { return res.json(); })
-      .then(function (data) {
-        searchData = data;
-        const input = document.getElementById('search-input');
-        const resultsContainer = document.getElementById('search-results');
-        if (input && input.value.trim().length > 0 && resultsContainer) {
-          renderSearchResults(input.value.trim().toLowerCase(), resultsContainer);
-        }
-      })
-      .catch(function (err) {
-        console.error('Erreur lors du chargement de l\'index de recherche :', err);
-      });
-  }
-
-  function renderSearchResults(query, container) {
-    if (!query) {
-      container.innerHTML = '<p class="search-hint">Saisissez vos mots-clés (ex: <em>"Iroquois"</em>, <em>"Cosquer"</em>, <em>"Saint-Victor"</em>, <em>"Port Antique"</em>)...</p>';
-      return;
-    }
-    if (!searchData) {
-      container.innerHTML = '<p class="search-hint">Chargement de l\'index des archives...</p>';
-      return;
-    }
-
-    const filtered = searchData.filter(function (item) {
-      const q = query;
-      return item.title.toLowerCase().includes(q)
-        || item.metaDescription.toLowerCase().includes(q)
-        || (item.lede && item.lede.toLowerCase().includes(q))
-        || (item.keywords && item.keywords.some(function (k) { return k.toLowerCase().includes(q); }))
-        || (item.strate && item.strate.toLowerCase().includes(q));
-    });
-
-    if (filtered.length === 0) {
-      container.innerHTML = '<p class="search-hint">Aucun dossier ne correspond à "<strong>' + escapeHtml(query) + '</strong>".</p>';
-      return;
-    }
-
-    /* Harmonisation terminologique : "Couche" dans les badges de résultats */
-    const itemsHtml = filtered.map(function (item) {
-      const badge = item.type === 'mere'
-        ? 'Accueil &amp; Vue globale'
-        : (item.type === 'fille' ? 'Couche Thématique' : 'Dossier Spécifique');
-      return '<a href="' + item.url + '" class="search-result-item">' +
-        '<span class="search-result-badge">' + badge + (item.strate ? ' — ' + item.strate : '') + '</span>' +
-        '<h3 class="search-result-title">' + highlightText(item.title, query) + '</h3>' +
-        '<p class="search-result-desc">' + highlightText(item.metaDescription, query) + '</p>' +
-        '</a>';
-    }).join('');
-
-    container.innerHTML = itemsHtml;
-  }
-
-  function highlightText(text, query) {
-    if (!query) return escapeHtml(text);
-    const regex = new RegExp('(' + escapeRegExp(query) + ')', 'gi');
-    return escapeHtml(text).replace(regex, '<mark class="search-highlight">$1</mark>');
-  }
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-  }
-
-  function escapeRegExp(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   /* ---- Bouton flottant "↑ Retour en haut" (visible après 600px de scroll) ---- */

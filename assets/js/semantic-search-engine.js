@@ -221,7 +221,7 @@
           🔍 Carnets Académiques (NotebookLM)
         </button>
       `;
-      const header = searchModal.querySelector('.search-modal-header') || searchModal.querySelector('.search-header');
+      const header = searchModal.querySelector('.search-modal__header');
       if (header) {
         header.appendChild(modeTabs);
       }
