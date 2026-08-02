@@ -3,7 +3,7 @@
  * v3.0 — Cache-First (Assets Shell) & Stale-While-Revalidate (API v1 & GeoJSON)
  */
 
-const CACHE_NAME = 'massalia-cache-v3.3';
+const CACHE_NAME = 'massalia-cache-v3.4';
 
 const PRECACHE_ASSETS = [
   '/',
