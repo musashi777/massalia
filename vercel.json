@@ -2,8 +2,11 @@
   "version": 2,
   "buildCommand": "node build.js",
   "outputDirectory": "dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/((?!api/|assets/|data/|scripts/|.*\\.).*)", "destination": "/$1.html" }
+  ],
   "headers": [
     {
       "source": "/api/v1/(.*)",

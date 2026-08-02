@@ -3,7 +3,7 @@
  * v3.0 — Cache-First (Assets Shell) & Stale-While-Revalidate (API v1 & GeoJSON)
  */
 
-const CACHE_NAME = 'massalia-cache-v3.0';
+const CACHE_NAME = 'massalia-cache-v3.1';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -59,7 +59,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Ignorer les requêtes non-GET et externes hors tuiles/cdn
+  // Ignorer les requêtes non-GET
   if (event.request.method !== 'GET') return;
 
   // Requêtes API & GeoJSON -> Stale-While-Revalidate (SWR)
@@ -82,26 +82,46 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Assets statiques et HTML -> Cache-First avec Fallback Réseau
+  // Assets statiques et HTML -> Cache-First avec Fallback Réseau et résolution .html
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      let cachedResponse = await cache.match(event.request);
+
+      if (!cachedResponse) {
+        if (!url.pathname.includes('.')) {
+          // Essayer avec .html
+          cachedResponse = await cache.match(url.pathname + '.html');
+        } else if (url.pathname.endsWith('.html')) {
+          // Essayer sans .html
+          cachedResponse = await cache.match(url.pathname.slice(0, -5));
+        }
+      }
+
       if (cachedResponse) {
-        // Rafraîchissement en arrière-plan (SWR)
+        // Rafraîchissement SWR en arrière-plan
         fetch(event.request).then((networkResponse) => {
-          if (networkResponse.ok) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
+          if (networkResponse && networkResponse.ok) {
+            cache.put(event.request, networkResponse);
           }
-        }).catch(() => {/* Silencieux en mode hors-ligne */});
+        }).catch(() => {});
 
         return cachedResponse;
       }
 
-      return fetch(event.request).catch(() => {
-        // En cas d'échec réseau complet (mode hors-ligne)
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+      try {
+        const networkResponse = await fetch(event.request);
+        if (networkResponse && networkResponse.ok) {
+          cache.put(event.request, networkResponse.clone());
         }
-      });
-    })
+        return networkResponse;
+      } catch (err) {
+        if (event.request.mode === 'navigate') {
+          const fallback = (await cache.match('/index.html')) || (await cache.match('/'));
+          if (fallback) return fallback;
+        }
+        throw err;
+      }
+    })()
   );
 });
