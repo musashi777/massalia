@@ -62,9 +62,9 @@
   /* === SPACING (4px base) === */
   --sp-xs:  8px;
   --sp-sm:  16px;
-  --sp-md:  32px;
-  --sp-lg:  64px;
-  --sp-xl:  128px;
+  --sp-md:  24px;
+  --sp-lg:  48px;
+  --sp-xl:  80px;
   --sp-gutter: 24px;
   --sp-margin: clamp(16px, 5vw, 48px);
 
@@ -213,7 +213,7 @@ h1,h2,h3,h4 {
 }
 
 .strate-article__vertical {
-  writing-mode: vertical-rl; align-self: start; padding-top: 96px;
+  writing-mode: vertical-rl; align-self: start; padding-top: 32px;
   font: 700 11px/1 var(--font-sans); letter-spacing: 1em; text-transform: uppercase;
   color: rgba(230,126,34,0.3); white-space: nowrap;
 }
@@ -222,8 +222,8 @@ h1,h2,h3,h4 {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(212, 175, 55, 0.15);
-  aspect-ratio: 4/3;
-  max-height: 450px;
+  aspect-ratio: 16/9;
+  max-height: 320px;
   transition: border-color 0.4s var(--ease);
 }
 .strate-article:hover .strate-article__img {
@@ -248,7 +248,7 @@ h1,h2,h3,h4 {
 .overlap-number--br { bottom: -1.5rem; right: -2rem; }
 .overlap-number--tr { top: -1.5rem; right: -2rem; }
 
-.strate-article__body { padding-top: 96px; }
+.strate-article__body { padding-top: 32px; }
 .strate-article--reverse .strate-article__body { text-align: right; }
 
 .couche-card__index {
@@ -339,7 +339,7 @@ h1,h2,h3,h4 {
 .page-lede { font: italic 400 clamp(1.1rem, 2vw, 1.4rem)/1.55 var(--font-serif); text-transform: none; letter-spacing: 0; color: rgba(209,228,251,0.6); max-width: 52ch; }
 
 /* ---- Hero Media (article pages) ---- */
-.hero-media { max-height: 45vh; max-width: var(--max-w); margin: 0 auto; overflow: hidden; position: relative; }
+.hero-media { max-height: 35vh; max-width: var(--max-w); margin: 0 auto; overflow: hidden; position: relative; }
 .hero-media picture { display: contents; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .hero-media__caption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--sp-sm) var(--sp-margin); background: linear-gradient(transparent, rgba(2,21,37,0.85)); font: 700 11px/1 var(--font-sans); letter-spacing: 0.15em; text-transform: uppercase; color: rgba(209,228,251,0.5); }
