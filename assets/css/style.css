@@ -136,8 +136,8 @@ h1,h2,h3,h4 {
 
 /* ---- Hero Poster ---- */
 .hero-poster {
-  min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
-  padding-top: var(--sp-xl); padding-bottom: var(--sp-lg); overflow: hidden; position: relative;
+  min-height: 80vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding-top: var(--sp-lg); padding-bottom: var(--sp-lg); overflow: hidden; position: relative;
 }
 .hero-poster__inner { padding: 0 var(--sp-margin); max-width: var(--max-w); margin: 0 auto; width: 100%; position: relative; z-index: 2; }
 
@@ -222,6 +222,8 @@ h1,h2,h3,h4 {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(212, 175, 55, 0.15);
+  aspect-ratio: 4/3;
+  max-height: 450px;
   transition: border-color 0.4s var(--ease);
 }
 .strate-article:hover .strate-article__img {
@@ -337,7 +339,7 @@ h1,h2,h3,h4 {
 .page-lede { font: italic 400 clamp(1.1rem, 2vw, 1.4rem)/1.55 var(--font-serif); text-transform: none; letter-spacing: 0; color: rgba(209,228,251,0.6); max-width: 52ch; }
 
 /* ---- Hero Media (article pages) ---- */
-.hero-media { max-height: 60vh; max-width: var(--max-w); margin: 0 auto; overflow: hidden; position: relative; }
+.hero-media { max-height: 45vh; max-width: var(--max-w); margin: 0 auto; overflow: hidden; position: relative; }
 .hero-media picture { display: contents; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .hero-media__caption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--sp-sm) var(--sp-margin); background: linear-gradient(transparent, rgba(2,21,37,0.85)); font: 700 11px/1 var(--font-sans); letter-spacing: 0.15em; text-transform: uppercase; color: rgba(209,228,251,0.5); }
