@@ -627,9 +627,45 @@ if (fs.existsSync(path.join(ROOT, "public"))) {
 if (fs.existsSync(path.join(ROOT, "scripts"))) {
   copyDirSync(path.join(ROOT, "scripts"), path.join(DIST_DIR, "scripts"));
 }
+if (fs.existsSync(path.join(ROOT, "data"))) {
+  copyDirSync(path.join(ROOT, "data"), path.join(DIST_DIR, "data"));
+}
 
-// Sauvegarde de l'index de recherche
+if (fs.existsSync(path.join(ROOT, "public", "sw.js"))) {
+  fs.copyFileSync(path.join(ROOT, "public", "sw.js"), path.join(DIST_DIR, "sw.js"));
+}
+
+if (fs.existsSync(path.join(ROOT, "public", "manifest.json"))) {
+  fs.copyFileSync(path.join(ROOT, "public", "manifest.json"), path.join(DIST_DIR, "manifest.json"));
+}
+
+
+// Exposer l'API statique RESTful dans /dist/api/v1/
+const API_V1_DIR = path.join(DIST_DIR, "api", "v1");
+fs.mkdirSync(API_V1_DIR, { recursive: true });
+
+if (fs.existsSync(path.join(ROOT, "data", "geo", "vestiges.geojson"))) {
+  fs.copyFileSync(
+    path.join(ROOT, "data", "geo", "vestiges.geojson"),
+    path.join(API_V1_DIR, "vestiges.geojson")
+  );
+  fs.copyFileSync(
+    path.join(ROOT, "data", "geo", "vestiges.geojson"),
+    path.join(API_V1_DIR, "vestiges.json")
+  );
+}
+
+if (fs.existsSync(path.join(ROOT, "data", "timeline.json"))) {
+  fs.copyFileSync(
+    path.join(ROOT, "data", "timeline.json"),
+    path.join(API_V1_DIR, "timeline.json")
+  );
+}
+
+// Sauvegarde de l'index de recherche (Assets + API Statique RESTful v1)
 fs.writeFileSync(path.join(DIST_DIR, "assets", "search-index.json"), JSON.stringify(searchIndex, null, 2), "utf8");
+fs.writeFileSync(path.join(API_V1_DIR, "search-index.json"), JSON.stringify(searchIndex, null, 2), "utf8");
+
 
 // Fichiers SEO générés à partir de la même source de vérité
 const today = new Date().toISOString().split('T')[0];

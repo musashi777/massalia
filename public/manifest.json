@@ -1,0 +1,25 @@
+{
+  "name": "Massalia — Archives Ouvertes & Patrimoine de Marseille",
+  "short_name": "Massalia",
+  "description": "Plateforme interactive de référence sur l'histoire et l'archéologie de Marseille : cartographie GeoJSON, chronologie O(1) et moteur sémantique.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#021525",
+  "theme_color": "#e67e22",
+  "orientation": "any",
+  "categories": ["education", "history", "culture", "reference"],
+  "icons": [
+    {
+      "src": "/assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

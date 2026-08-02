@@ -7,6 +7,8 @@
 <title>Massalia — 2600 ans d'Histoire et Patrimoine de Marseille</title>
 <meta name="description" content="2600 ans d'histoire de Marseille, de la fondation phocéenne à la Grotte Cosquer. Chronologie interactive, cartographie et sources académiques.">
 <link rel="canonical" href="{{canonicalUrl}}">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#021525">
 
 <!-- ═══ OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ═══ -->
 <meta property="og:type" content="website">
@@ -28,8 +30,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/improvements.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="/assets/js/map-timeline-module.js" defer></script>
 <script type="application/ld+json">
 {{schemaJson}}
 </script>
@@ -261,61 +266,15 @@
     <div class="chrono-inner">
       <h2>Chronologie</h2>
       <p class="chrono-subtitle">26 siècles en un regard</p>
-      <ol class="chrono-timeline" role="list">
+
+      <div id="chrono-filter-bar" class="chrono-filter-bar"></div>
+
+      <ol id="chrono-timeline-list" class="chrono-timeline" role="list">
         <li class="chrono-item reveal">
           <time class="chrono-date" datetime="-0600">~600 av. J.-C.</time>
           <div class="chrono-body">
             <h3><a href="/mythe-fondation-protis-gyptis.html">Fondation de Massalia</a> <a href="/mythe-fondation-protis-gyptis.html" title="Lire le mythe fondateur" aria-label="Lire le mythe fondateur">🔍</a></h3>
             <p>~600 av. J.-C. — Des colons phocéens fondent Massalia. <a href="/mythe-fondation-protis-gyptis.html">→ Lire le mythe de Protis &amp; Gyptis</a></p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="-0540">~540 av. J.-C.</time>
-          <div class="chrono-body">
-            <h3>Bataille d'Alalia</h3>
-            <p>Massalia accueille les réfugiés phocéens après la chute de Phocée face aux Perses. La cité renforce sa position de première puissance grecque d'Occident.</p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="-0350">IVᵉ — IIᵉ s. av. J.-C.</time>
-          <div class="chrono-body">
-            <h3><a href="/mur-de-crinas-systeme-defensif.html">Apogée hellénistique</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/b5160305-5fd8-442a-bb4e-4b644bc21e07" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
-            <p>Construction des remparts monumentaux (mur de Crinas), développement du port antique et expansion du commerce de l'étain avec les Gaulois.</p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="-0049">49 av. J.-C.</time>
-          <div class="chrono-body">
-            <h3>Siège de César</h3>
-            <p>Jules César assiège Massalia pour son soutien à Pompée. La cité perd son indépendance politique mais conserve son rayonnement culturel sous l'Empire romain.</p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="0415">Vᵉ siècle</time>
-          <div class="chrono-body">
-            <h3><a href="/crypte-abbaye-saint-victor.html">Fondation de Saint-Victor</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/d14d9930-03c8-4d88-988a-b0a9f7d282ae" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
-            <p>Jean Cassien fonde l'abbaye Saint-Victor. La crypte conserve des sarcophages paléochrétiens parmi les plus anciens de Gaule.</p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="1515">1515</time>
-          <div class="chrono-body">
-            <h3><a href="/legende-rhinoceros-chateau-if.html">Le Rhinocéros du Château d'If</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/c59de659-4bf7-429f-9ef1-dc44f56f5f95" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
-            <p>François Iᵉʳ visite l'île d'If où un rhinocéros offert par le roi du Portugal avait fait escale. Il ordonne la construction du château.</p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="1666">1666</time>
-          <div class="chrono-body">
-            <h3><a href="/arsenal-des-galeres.html">L'Arsenal des Galères</a></h3>
-            <p>Louis XIV installe l'arsenal royal des galères à Marseille, faisant du port le cœur de la puissance navale du royaume en Méditerranée.</p>
-          </div>
-        </li>
-        <li class="chrono-item reveal">
-          <time class="chrono-date" datetime="1967">1967 — 1983</time>
-          <div class="chrono-body">
-            <h3><a href="/fouilles-port-antique.html">Fouilles du Port Antique</a><sup class="notebooklm-cite"><a href="https://notebooklm.google.com/notebook/808decb3-fd8e-4446-8627-576318e81e0b" target="_blank" rel="noopener noreferrer" title="Vérifier sur NotebookLM" aria-label="Vérifier la source sur NotebookLM">🔍</a></sup></h3>
-            <p>Première grande fouille archéologique urbaine de France. Mise au jour du Jardin des Vestiges et des fondations de la Massalia grecque.</p>
           </div>
         </li>
       </ol>
@@ -331,51 +290,18 @@
   <section class="map-section" aria-label="Cartographie des vestiges archéologiques" id="cartographie">
     <div class="map-inner">
       <h2>Cartographie des Vestiges</h2>
-      <p class="map-subtitle">Localisation des sites archéologiques et monuments majeurs du bassin marseillais</p>
+      <p class="map-subtitle">Localisation géospatiale dynamique des sites archéologiques du bassin marseillais (GeoJSON)</p>
       
-      <div class="map-container">
-        <svg class="map-svg" viewBox="0 0 800 500" aria-label="Carte schématique des sites archéologiques de Marseille antique et médiévale" role="img">
-          <!-- Fond Vieux-Port / Lacydon -->
-          <path d="M 0,250 C 200,240 320,220 420,260 C 500,290 550,380 600,420 C 650,450 750,480 800,500 L 800,500 L 0,500 Z" fill="#091d2e" stroke="#2c3e50" stroke-width="1.5" />
-          <path d="M 150,220 Q 300,200 450,270 Q 520,310 600,400" fill="none" stroke="#e67e22" stroke-width="1" stroke-dasharray="4,4" opacity="0.4" />
-          <text x="280" y="270" fill="rgba(209,228,251,0.3)" font-family="Inter, sans-serif" font-size="14" font-weight="700" letter-spacing="3">LACYDON (VIEUX-PORT)</text>
-          
-          <!-- Site 1: Jardin des Vestiges & Port Antique -->
-          <g class="map-point" transform="translate(480, 210)">
-            <circle r="8" fill="#e67e22" opacity="0.9" />
-            <circle r="16" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.5" />
-            <text x="22" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Port Antique &amp; Jardin des Vestiges</text>
-          </g>
-
-          <!-- Site 2: Caves Saint-Sauveur -->
-          <g class="map-point" transform="translate(360, 160)">
-            <circle r="8" fill="#ffb783" opacity="0.9" />
-            <circle r="16" fill="none" stroke="#ffb783" stroke-width="1.5" opacity="0.5" />
-            <text x="-190" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Caves Saint-Sauveur</text>
-          </g>
-
-          <!-- Site 3: Abbaye Saint-Victor -->
-          <g class="map-point" transform="translate(380, 360)">
-            <circle r="8" fill="#ffb783" opacity="0.9" />
-            <circle r="16" fill="none" stroke="#ffb783" stroke-width="1.5" opacity="0.5" />
-            <text x="22" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Abbaye Saint-Victor &amp; Crypte</text>
-          </g>
-
-          <!-- Site 4: Fort Saint-Jean / Mur de Crinas -->
-          <g class="map-point" transform="translate(240, 210)">
-            <circle r="8" fill="#e67e22" opacity="0.9" />
-            <circle r="16" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.5" />
-            <text x="-140" y="-15" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Mur de Crinas &amp; Fort Saint-Jean</text>
-          </g>
-
-          <!-- Site 5: Château d'If (Off-shore) -->
-          <g class="map-point" transform="translate(100, 380)">
-            <circle r="8" fill="#ffb783" opacity="0.9" />
-            <circle r="16" fill="none" stroke="#ffb783" stroke-width="1.5" opacity="0.5" />
-            <text x="22" y="5" fill="#d1e4fb" font-family="Inter, sans-serif" font-size="13" font-weight="700">Château d'If (Archipel du Frioul)</text>
-          </g>
-        </svg>
+      <div id="map-filter-bar" class="map-controls-bar" role="toolbar" aria-label="Filtrer la carte par couche historique">
+        <span class="filter-label">Couches :</span>
+        <button type="button" class="map-filter-btn active" data-strate="all" aria-pressed="true">Toutes</button>
+        <button type="button" class="map-filter-btn" data-strate="antiquite-et-fondations" aria-pressed="false">Antiquité</button>
+        <button type="button" class="map-filter-btn" data-strate="fortifications-et-architecture-militaire" aria-pressed="false">Fortifications</button>
+        <button type="button" class="map-filter-btn" data-strate="edifices-religieux-et-symboles" aria-pressed="false">Religieux</button>
+        <button type="button" class="map-filter-btn" data-strate="littoral-calanques-et-commerce-maritime" aria-pressed="false">Littoral</button>
       </div>
+
+      <div id="leaflet-map-container" class="leaflet-map-container" aria-label="Carte interactive des vestiges archéologiques de Marseille"></div>
 
       <div class="map-legend">
         <div class="legend-item"><span class="legend-dot dot-grec"></span> Vestiges Grecs &amp; Romains</div>
@@ -692,6 +618,7 @@
   </div>
 </div>
 
+<script src="/assets/js/semantic-search-engine.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
 </body>
 </html>

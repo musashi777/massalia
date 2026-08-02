@@ -144,9 +144,50 @@ results.coherence.badgeCoucheIV = hasCoucheIVBadge;
 const protisOccurrences = (indexHtml.match(/Protis/gi) || []).length;
 auditLog.push(`✓ Protis mention count on index.html: ${protisOccurrences}`);
 
+// 7. Check Data Architecture & Static RESTful API
+const hasGeoJSON = fs.existsSync(path.join(DIST_DIR, 'data', 'geo', 'vestiges.geojson'));
+const hasTimelineJSON = fs.existsSync(path.join(DIST_DIR, 'data', 'timeline.json'));
+const hasApiVestiges = fs.existsSync(path.join(DIST_DIR, 'api', 'v1', 'vestiges.geojson'));
+const hasApiTimeline = fs.existsSync(path.join(DIST_DIR, 'api', 'v1', 'timeline.json'));
+
+results.coherence.dataArchitecture = hasGeoJSON && hasTimelineJSON && hasApiVestiges && hasApiTimeline;
+auditLog.push(`✓ GeoJSON & Timeline Data files: dist/data/geo/vestiges.geojson (${hasGeoJSON}), dist/data/timeline.json (${hasTimelineJSON})`);
+auditLog.push(`✓ Static REST API v1: dist/api/v1/vestiges.geojson (${hasApiVestiges}), dist/api/v1/timeline.json (${hasApiTimeline})`);
+
+// 8. Check Axe 2 — Semantic Engine & NotebookLM API
+const hasSemanticScript = fs.existsSync(path.join(DIST_DIR, 'assets', 'js', 'semantic-search-engine.js'));
+const hasApiSearchIndex = fs.existsSync(path.join(DIST_DIR, 'api', 'v1', 'search-index.json'));
+
+results.coherence.semanticEngine = hasSemanticScript && hasApiSearchIndex;
+auditLog.push(`✓ Semantic Engine script: dist/assets/js/semantic-search-engine.js (${hasSemanticScript})`);
+auditLog.push(`✓ Static REST Search Index API v1: dist/api/v1/search-index.json (${hasApiSearchIndex})`);
+
+// 9. Check Axe 3 — PWA, Service Worker & Vercel Edge Config
+const hasServiceWorker = fs.existsSync(path.join(DIST_DIR, 'sw.js'));
+const hasManifest = fs.existsSync(path.join(DIST_DIR, 'manifest.json'));
+const hasVercelConfig = fs.existsSync(path.join(__dirname, '..', 'vercel.json'));
+
+results.coherence.pwaVercel = hasServiceWorker && hasManifest && hasVercelConfig;
+auditLog.push(`✓ PWA Service Worker: dist/sw.js (${hasServiceWorker})`);
+auditLog.push(`✓ Web App Manifest: dist/manifest.json (${hasManifest})`);
+auditLog.push(`✓ Vercel Edge Config: vercel.json (${hasVercelConfig})`);
+
 // Output summary
 console.log("\n=== QA AUDIT SUMMARY ===");
 console.log(`SEO checks passed: ${results.seo.titleLength && results.seo.metaDescLength && results.seo.openGraph && results.seo.canonical}`);
 console.log(`FAQ & Article JSON-LD: ${results.seo.faqJsonLd} / ${results.seo.articleJsonLd}`);
 console.log(`Couche IV Badge: ${results.coherence.badgeCoucheIV}`);
 console.log(`Protis & Gyptis mentions count: ${protisOccurrences}`);
+console.log(`Data Architecture & REST API v1 Verified: ${results.coherence.dataArchitecture}`);
+console.log(`Axe 2 Semantic Engine & NotebookLM Verified: ${results.coherence.semanticEngine}`);
+console.log(`Axe 3 PWA, Service Worker & Vercel Verified: ${results.coherence.pwaVercel}`);
+
+if (!results.coherence.dataArchitecture || !results.coherence.semanticEngine || !results.coherence.pwaVercel) {
+  console.error("❌ QA Audit Failed: Data architecture, Semantic Engine, or PWA/Vercel assets missing!");
+  process.exit(1);
+} else {
+  console.log("\n✅ ALL QA AUDIT CHECKS PASSED SUCCESSFULLY!");
+}
+
+
+

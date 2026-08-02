@@ -1,0 +1,151 @@
+{
+  "version": "1.0",
+  "strates": [
+    { "id": "couche-1-antiquite", "label": "Couche I — Antiquité & Fondations", "color": "#c89d5c" },
+    { "id": "couche-2-fortifications", "label": "Couche II — Architecture Militaire", "color": "#a85d38" },
+    { "id": "couche-3-religieux", "label": "Couche III — Édifices Religieux", "color": "#7a8b9e" },
+    { "id": "couche-4-littoral", "label": "Couche IV — Littoral & Patrimoine Englouti", "color": "#4a7c82" }
+  ],
+  "events": [
+    {
+      "id": "evt-cosquer-paleo",
+      "yearStart": -33000,
+      "yearEnd": -19000,
+      "displayDate": "~33 000 — 19 000 av. J.-C.",
+      "title": "Art paléolithique de la Grotte Cosquer",
+      "summary": "Mains négatives, pingouins, chevaux et bisons peints par les chasseurs-cueilleurs du Paléolithique supérieur.",
+      "strateId": "couche-4-littoral",
+      "slug": "grotte-cosquer-patrimoine-englouti"
+    },
+    {
+      "id": "evt-fondation-protis",
+      "yearStart": -600,
+      "yearEnd": -600,
+      "displayDate": "Vers 600 av. J.-C.",
+      "title": "Fondation Phocéenne de Massalia",
+      "summary": "Escale de Protis au Lacydon et banquet nuptial avec Gyptis, fille du roi ségobrige Nannos.",
+      "strateId": "couche-1-antiquite",
+      "slug": "mythe-fondation-protis-gyptis"
+    },
+    {
+      "id": "evt-commerce-etain",
+      "yearStart": -550,
+      "yearEnd": -200,
+      "displayDate": "VIᵉ — IIᵉ siècle av. J.-C.",
+      "title": "Massalia, comptoir central de la route de l'étain",
+      "summary": "Monopole commercial phocéen entre la Bretagne/Cornouailles et les cités grecques de Méditerranée.",
+      "strateId": "couche-1-antiquite",
+      "slug": "commerce-etain-massalia-gaulois"
+    },
+    {
+      "id": "evt-mur-crinas",
+      "yearStart": -200,
+      "yearEnd": -100,
+      "displayDate": "IIᵉ siècle av. J.-C.",
+      "title": "Édification du Mur de Crinas",
+      "summary": "Construction de la fortification hellénistique en blocs de calcaire rose pour défendre la porte de la cité.",
+      "strateId": "couche-1-antiquite",
+      "slug": "mur-de-crinas-systeme-defensif"
+    },
+    {
+      "id": "evt-siege-jules-cesar",
+      "yearStart": -49,
+      "yearEnd": -49,
+      "displayDate": "49 av. J.-C.",
+      "title": "Siège de Massalia par Jules César",
+      "summary": "Batailles navales et terrestres mettant fin à l'indépendance de la république grecque au profit de Rome.",
+      "strateId": "couche-1-antiquite",
+      "slug": "antiquite-et-fondations"
+    },
+    {
+      "id": "evt-saint-victor-fondation",
+      "yearStart": 415,
+      "yearEnd": 435,
+      "displayDate": "Vers 415 apr. J.-C.",
+      "title": "Fondation de l'Abbaye Saint-Victor",
+      "summary": "Jean Cassien érige le monastère au-dessus des sanctuaires et de la nécropole des martyrs.",
+      "strateId": "couche-3-religieux",
+      "slug": "crypte-abbaye-saint-victor"
+    },
+    {
+      "id": "evt-malaval-memoria",
+      "yearStart": 450,
+      "yearEnd": 500,
+      "displayDate": "Vᵉ siècle apr. J.-C.",
+      "title": "Édification de la Memoria de la Rue Malaval",
+      "summary": "Aménagement de la basilica funéraire et du dispositif de libation à l'huile sainte à la Joliette.",
+      "strateId": "couche-3-religieux",
+      "slug": "necropole-rue-malaval-huile-sainte"
+    },
+    {
+      "id": "evt-rhinoceros-if",
+      "yearStart": 1515,
+      "yearEnd": 1531,
+      "displayDate": "1515 — 1531",
+      "title": "Halte du Rhinocéros & Décision du Château d'If",
+      "summary": "Visite de François Ier découvrant le rhinocéros portugais et ordonnant l'édification de la citadelle insulaire.",
+      "strateId": "couche-2-fortifications",
+      "slug": "legende-rhinoceros-chateau-if"
+    },
+    {
+      "id": "evt-arsenal-galeres-louis14",
+      "yearStart": 1665,
+      "yearEnd": 1748,
+      "displayDate": "1665 — 1748",
+      "title": "Création de l'Arsenal des Galères par Louis XIV",
+      "summary": "Agrandissement de la ville (Plan Rascas) et installation du complexe naval royal au sud du Vieux-Port.",
+      "strateId": "couche-2-fortifications",
+      "slug": "arsenal-des-galeres"
+    },
+    {
+      "id": "evt-iroquois-galeres",
+      "yearStart": 1687,
+      "yearEnd": 1689,
+      "displayDate": "1687 — 1689",
+      "title": "Déportation des sachems Iroquois à Marseille",
+      "summary": "Transfert de 36 chefs iroquois capturés au Canada par Denonville vers les galères du Fort Saint-Jean.",
+      "strateId": "couche-2-fortifications",
+      "slug": "iroquois-galeres-marseille-fort-saint-jean"
+    },
+    {
+      "id": "evt-canal-douane-comblement",
+      "yearStart": 1927,
+      "yearEnd": 1927,
+      "displayDate": "1927",
+      "title": "Comblement du Canal de la Douane",
+      "summary": "Transformation des anciens bassins aux galères en cours Honoré-d'Estienne-d'Orves.",
+      "strateId": "couche-2-fortifications",
+      "slug": "canal-de-la-douane-metamorphose-arsenal"
+    },
+    {
+      "id": "evt-bonne-mere-erection",
+      "yearStart": 1853,
+      "yearEnd": 1864,
+      "displayDate": "1853 — 1864",
+      "title": "Construction de la Basilique Notre-Dame de la Garde",
+      "summary": "Érection de la basilique néo-byzantine par Henri Espérandieu couronnée de la statue dorée d'Eugène Lequesne.",
+      "strateId": "couche-3-religieux",
+      "slug": "statue-bonne-mere-ex-voto"
+    },
+    {
+      "id": "evt-fouilles-bourse-1967",
+      "yearStart": 1967,
+      "yearEnd": 1970,
+      "displayDate": "1967 — 1970",
+      "title": "Découverte des vestiges archéologiques de la Bourse",
+      "summary": "Mise au jour du port antique, de la coque de bateau romaine et création du Jardin des Vestiges.",
+      "strateId": "couche-1-antiquite",
+      "slug": "fouilles-port-antique"
+    },
+    {
+      "id": "evt-decouverte-cosquer-1985",
+      "yearStart": 1985,
+      "yearEnd": 1991,
+      "displayDate": "1985 — 1991",
+      "title": "Découverte et déclaration de la Grotte Cosquer",
+      "summary": "Découverte de la cavités immergée par le plongeur Henri Cosquer et authentification scientifique par l'DRASSM.",
+      "strateId": "couche-4-littoral",
+      "slug": "grotte-cosquer-patrimoine-englouti"
+    }
+  ]
+}

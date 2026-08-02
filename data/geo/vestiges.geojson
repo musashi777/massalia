@@ -1,0 +1,295 @@
+{
+  "type": "FeatureCollection",
+  "name": "MassaliaVestigesArcheologiques",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "jardin-des-vestiges",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3756, 43.2981]
+      },
+      "properties": {
+        "slug": "jardin-des-vestiges",
+        "title": "Le Jardin des Vestiges",
+        "strateId": "couche-1-antiquite",
+        "strateLabel": "Couche I — Antiquité",
+        "epoque": "IVᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Site archéologique à ciel ouvert présentant les remparts grecs et les quais romains du port antique.",
+        "url": "/jardin-des-vestiges.html",
+        "heroImage": "/assets/img/feuille-jardin-vestiges.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "caves-saint-sauveur",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3622, 43.2985]
+      },
+      "properties": {
+        "slug": "caves-saint-sauveur-monument-souterrain",
+        "title": "Les Caves Saint-Sauveur",
+        "strateId": "couche-1-antiquite",
+        "strateLabel": "Couche I — Antiquité & Souterrains",
+        "epoque": "150 av. J.-C. — 50 apr. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Réservoirs antiques et galeries voûtées en calcaire rose du cap Couronne sous la place de Lenche.",
+        "url": "/caves-saint-sauveur-monument-souterrain.html",
+        "heroImage": "/assets/img/feuille-caves-saint-sauveur.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "mur-de-crinas",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3751, 43.2982]
+      },
+      "properties": {
+        "slug": "mur-de-crinas-systeme-defensif",
+        "title": "Le Mur de Crinas et Remparts Grecs",
+        "strateId": "couche-1-antiquite",
+        "strateLabel": "Couche I — Antiquité",
+        "epoque": "IIᵉ siècle av. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Systeme défensif hellénistique constitué de blocs monumentaux en calcaire rose.",
+        "url": "/mur-de-crinas-systeme-defensif.html",
+        "heroImage": "/assets/img/feuille-mur-crinas.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "fouilles-port-antique",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3754, 43.2980]
+      },
+      "properties": {
+        "slug": "fouilles-port-antique",
+        "title": "Les fouilles du Port Antique",
+        "strateId": "couche-1-antiquite",
+        "strateLabel": "Couche I — Antiquité",
+        "epoque": "Vers 600 av. J.-C. — IIIe siècle apr. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Découverte majeure des quais grecs, bassins romains et de l'épave de la Bourse.",
+        "url": "/fouilles-port-antique.html",
+        "heroImage": "/assets/img/feuille-port-antique.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lacydon-protis-gyptis",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3680, 43.2950]
+      },
+      "properties": {
+        "slug": "mythe-fondation-protis-gyptis",
+        "title": "Le Lacydon & Fondation de Massalia",
+        "strateId": "couche-1-antiquite",
+        "strateLabel": "Couche I — Antiquité",
+        "epoque": "Vers 600 av. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Calanque originelle du Lacydon et union légendaire du Phocéen Protis et de la Celto-Ligure Gyptis.",
+        "url": "/mythe-fondation-protis-gyptis.html",
+        "heroImage": "/assets/img/hero-fondation-massalia.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "fort-saint-jean",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3619, 43.2968]
+      },
+      "properties": {
+        "slug": "iroquois-galeres-marseille-fort-saint-jean",
+        "title": "Fort Saint-Jean & Passage des Iroquois",
+        "strateId": "couche-2-fortifications",
+        "strateLabel": "Couche II — Fortifications",
+        "epoque": "1687 — 1689",
+        "category": "HistoricSite",
+        "summary": "Citadelle royale de Louis XIV et lieu d'arrivée des 36 sachems iroquois déportés aux galères.",
+        "url": "/iroquois-galeres-marseille-fort-saint-jean.html",
+        "heroImage": "/assets/img/iroquois-galeres-chaine.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "arsenal-galeres",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3718, 43.2923]
+      },
+      "properties": {
+        "slug": "arsenal-des-galeres",
+        "title": "L'Arsenal des Galères",
+        "strateId": "couche-2-fortifications",
+        "strateLabel": "Couche II — Fortifications",
+        "epoque": "1666 — 1748",
+        "category": "HistoricSite",
+        "summary": "Complexe naval militaire de la flotte royale de Méditerranée sous le règne de Louis XIV.",
+        "url": "/arsenal-des-galeres.html",
+        "heroImage": "/assets/img/feuille-arsenal-galeres.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "canal-douane",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3712, 43.2925]
+      },
+      "properties": {
+        "slug": "canal-de-la-douane-metamorphose-arsenal",
+        "title": "Le Canal de la Douane & Place aux Huiles",
+        "strateId": "couche-2-fortifications",
+        "strateLabel": "Couche II — Fortifications",
+        "epoque": "1665 — 1927",
+        "category": "HistoricSite",
+        "summary": "Voie navigable reliant le Vieux-Port aux bassins de l'Arsenal, métamorphosée au XXe siècle.",
+        "url": "/canal-de-la-douane-metamorphose-arsenal.html",
+        "heroImage": "/assets/img/feuille-canal-douane.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "chateau-if",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3267, 43.2800]
+      },
+      "properties": {
+        "slug": "legende-rhinoceros-chateau-if",
+        "title": "Le Château d'If & Halte du Rhinocéros",
+        "strateId": "couche-2-fortifications",
+        "strateLabel": "Couche II — Fortifications",
+        "epoque": "1515 — 1531",
+        "category": "HistoricSite",
+        "summary": "Fortresse insulaire défendant la rade, célèbre pour la halte du rhinocéros de François Ier en 1515.",
+        "url": "/legende-rhinoceros-chateau-if.html",
+        "heroImage": "/assets/img/feuille-rhinoceros-if.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "crypte-saint-victor",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3653, 43.2903]
+      },
+      "properties": {
+        "slug": "crypte-abbaye-saint-victor",
+        "title": "Crypte de l'Abbaye Saint-Victor",
+        "strateId": "couche-3-religieux",
+        "strateLabel": "Couche III — Édifices Religieux",
+        "epoque": "Vᵉ siècle apr. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Vestiges de l'ancienne carrière grecque transformée en nécropole chrétienne et abbaye monastique.",
+        "url": "/crypte-abbaye-saint-victor.html",
+        "heroImage": "/assets/img/feuille-crypte-saint-victor.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sarcophages-saint-victor",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3654, 43.2904]
+      },
+      "properties": {
+        "slug": "sarcophages-paleochretiens-saint-victor",
+        "title": "Sarcophages Paléochrétiens de Saint-Victor",
+        "strateId": "couche-3-religieux",
+        "strateLabel": "Couche III — Édifices Religieux",
+        "epoque": "IVᵉ — Vᵉ siècle apr. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Ensemble lapidaire majeur de marbre sculpté (Traditio Legis, Compagnons de Saint-Victor).",
+        "url": "/sarcophages-paleochretiens-saint-victor.html",
+        "heroImage": "/assets/img/feuille-sarcophages-saint-victor.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "necropole-malaval",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3688, 43.3032]
+      },
+      "properties": {
+        "slug": "necropole-rue-malaval-huile-sainte",
+        "title": "Nécropole de la Rue Malaval",
+        "strateId": "couche-3-religieux",
+        "strateLabel": "Couche III — Édifices Religieux",
+        "epoque": "Vᵉ siècle apr. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Memoria paléochrétienne et dispositif à l'huile sainte découverts lors des fouilles de la Joliette.",
+        "url": "/necropole-rue-malaval-huile-sainte.html",
+        "heroImage": "/assets/img/feuille-necropole-malaval.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bonne-mere-exvoto",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3714, 43.2840]
+      },
+      "properties": {
+        "slug": "statue-bonne-mere-ex-voto",
+        "title": "Notre-Dame de la Garde & Ex-Voto",
+        "strateId": "couche-3-religieux",
+        "strateLabel": "Couche III — Édifices Religieux",
+        "epoque": "XIXᵉ siècle",
+        "category": "HistoricSite",
+        "summary": "Basilique néo-byzantine dominant la cité et sa collection séculaire d'ex-voto marins.",
+        "url": "/statue-bonne-mere-ex-voto.html",
+        "heroImage": "/assets/img/feuille-bonne-mere-exvoto.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "grotte-cosquer",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4528, 43.2106]
+      },
+      "properties": {
+        "slug": "grotte-cosquer-patrimoine-englouti",
+        "title": "La Grotte Cosquer",
+        "strateId": "couche-4-littoral",
+        "strateLabel": "Couche IV — Littoral & Patrimoine Englouti",
+        "epoque": "33 000 — 19 000 ans av. J.-C.",
+        "category": "HistoricSite",
+        "summary": "Sanctuaire orné du Paléolithique supérieur aujourd'hui immergé sous 37 mètres de profondeur.",
+        "url": "/grotte-cosquer-patrimoine-englouti.html",
+        "heroImage": "/assets/img/feuille-grotte-cosquer.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "grotte-monnard",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4650, 43.3090]
+      },
+      "properties": {
+        "slug": "grotte-monnard-lac-fantome",
+        "title": "La Grotte Monnard & Le Lac Fantôme",
+        "strateId": "couche-4-littoral",
+        "strateLabel": "Couche IV — Hydrogéologie & Karst",
+        "epoque": "1848 — XXIᵉ siècle",
+        "category": "HistoricSite",
+        "summary": "Cavité karstique insatiable des Trois Lucs, percement du canal et saga hydrogéologique marseillaise.",
+        "url": "/grotte-monnard-lac-fantome.html",
+        "heroImage": "/assets/img/feuille-grotte-monnard.png"
+      }
+    }
+  ]
+}

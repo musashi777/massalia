@@ -355,6 +355,21 @@
     elements.forEach(function (el) { observer.observe(el); });
   }
 
+  /* ---- Service Worker PWA ---- */
+  function initServiceWorker() {
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function (reg) {
+            console.log('✓ Service Worker Massalia enregistré (Scope: ' + reg.scope + ')');
+          })
+          .catch(function (err) {
+            console.warn('⚠️ Échec enregistrement Service Worker :', err);
+          });
+      });
+    }
+  }
+
   /* ---- Point d'entrée ---- */
   function initAll() {
     initSkipLink();
@@ -366,6 +381,7 @@
     initFaqAccordion();
     initParallax();
     initScrollReveal();
+    initServiceWorker();
   }
 
   if (document.readyState === 'loading') {
@@ -374,3 +390,4 @@
     initAll();
   }
 })();
+
