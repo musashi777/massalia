@@ -646,7 +646,7 @@
 
 /* ---- NAVIGATION D'EN-TÊTE ET GLASSMORPHISM ENRICHI ---- */
 .site-header {
-  padding: var(--sp-sm) var(--sp-margin);
+  padding: var(--sp-sm) max(var(--sp-margin), calc((100vw - var(--max-w)) / 2));
   display: flex;
   justify-content: space-between;
   align-items: center;
