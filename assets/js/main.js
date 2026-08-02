@@ -147,32 +147,29 @@
 
   /* ---- Sommaire Sticky Scrollspy ---- */
   /**
-   * Synchronise les liens du sommaire avec la section visible à l'écran.
+   * Active dynamiquement l'ancre du sommaire selon la section visible.
    */
-  function initScrollSpy() {
+  function setupScrollSpy() {
+    const links = document.querySelectorAll('nav[aria-label="Sommaire de la page"] a');
     const sections = document.querySelectorAll('main section[id]');
-    const navLinks = document.querySelectorAll('nav[aria-label="Sommaire de la page"] a');
 
-    if (!sections.length || !navLinks.length) return;
+    if (!links.length || !sections.length) return;
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px -70% 0px', // Zone d'intersection préférentielle
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const activeId = entry.target.getAttribute('id');
-          navLinks.forEach((link) => {
-            const isActive = link.getAttribute('href') === `#${activeId}`;
-            link.classList.toggle('is-active', isActive);
-            link.setAttribute('aria-current', isActive ? 'true' : 'false');
-          });
-        }
-      });
-    }, observerOptions);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            links.forEach((link) => {
+              const isCurrent = link.getAttribute('href') === `#${id}`;
+              link.classList.toggle('active', isCurrent);
+              link.setAttribute('aria-current', isCurrent ? 'location' : 'false');
+            });
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+    );
 
     sections.forEach((section) => observer.observe(section));
   }
@@ -302,7 +299,7 @@
     initMobileMenu();
     initSearchModal();
     initBackToTop();
-    initScrollSpy();
+    setupScrollSpy();
     initReadingProgress();
     initFaqAccordion();
     initParallax();

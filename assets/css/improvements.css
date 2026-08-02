@@ -2422,7 +2422,7 @@ sup.notebooklm-cite a:hover, sup.notebooklm-cite a:focus {
 /* 7. TYPOGRAPHIE, ACCESSIBILITÉ & FOCUS-VISIBLE */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
+  scroll-padding-top: 5rem;
 }
 
 :focus-visible {
