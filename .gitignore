@@ -4,3 +4,5 @@ node_modules/
 *.log
 image_*.png
 
+.vercel
+.env*.local
