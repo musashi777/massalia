@@ -146,30 +146,35 @@
   }
 
   /* ---- Sommaire Sticky Scrollspy ---- */
-  function initStickySommaire() {
-    const links = document.querySelectorAll('.sommaire-sticky a');
-    if (!links.length) return;
-    const sections = [];
+  /**
+   * Synchronise les liens du sommaire avec la section visible à l'écran.
+   */
+  function initScrollSpy() {
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('nav[aria-label="Sommaire de la page"] a');
 
-    links.forEach(function (link) {
-      const id = link.getAttribute('data-section') || link.getAttribute('href').replace('#', '');
-      const el = document.getElementById(id);
-      if (el) sections.push({ id: id, el: el, link: link });
-    });
+    if (!sections.length || !navLinks.length) return;
 
-    if (!sections.length || !('IntersectionObserver' in window)) return;
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Zone d'intersection préférentielle
+      threshold: 0
+    };
 
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          links.forEach(function (l) { l.classList.remove('active'); });
-          const match = sections.find(function (s) { return s.el === entry.target; });
-          if (match) match.link.classList.add('active');
+          const activeId = entry.target.getAttribute('id');
+          navLinks.forEach((link) => {
+            const isActive = link.getAttribute('href') === `#${activeId}`;
+            link.classList.toggle('is-active', isActive);
+            link.setAttribute('aria-current', isActive ? 'true' : 'false');
+          });
         }
       });
-    }, { rootMargin: '-20% 0px -70% 0px' });
+    }, observerOptions);
 
-    sections.forEach(function (s) { observer.observe(s.el); });
+    sections.forEach((section) => observer.observe(section));
   }
 
   /* ---- Barre de Progression de Lecture ---- */
@@ -297,7 +302,7 @@
     initMobileMenu();
     initSearchModal();
     initBackToTop();
-    initStickySommaire();
+    initScrollSpy();
     initReadingProgress();
     initFaqAccordion();
     initParallax();
