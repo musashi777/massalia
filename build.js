@@ -44,14 +44,14 @@ function slugify(str) {
 function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500, sizes = "100vw") {
   if (!src) return "";
   const classAttr = className ? ` class="${className}"` : "";
-  const loadingAttr = loading ? ` loading="${loading}"` : "";
+  const loadingAttr = loading ? ` loading="${loading}" decoding="async"` : "";
 
   const relPath = src.startsWith("/") ? src.slice(1) : src;
   const absPath = path.join(ROOT, relPath);
   const ext = path.extname(absPath);
 
   if (!ext) {
-    return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />`;
+    return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
   }
 
   const avifPath = absPath.slice(0, -ext.length) + ".avif";
@@ -71,11 +71,11 @@ function renderPicture(src, alt, className = "", loading = "lazy", width = 800, 
   if (sources.length > 0) {
     return `<picture>
       ${sources.join("\n      ")}
-      <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
+      <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />
     </picture>`;
   }
 
-  return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />`;
+  return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
 }
 
 function renderCaptionWithBadge(captionText) {
