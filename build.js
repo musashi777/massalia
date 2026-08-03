@@ -619,8 +619,34 @@ for (const gPage of governancePages) {
   console.log(`✓ Governance → ${path.relative(ROOT, outPath)}`);
 }
 
+// Minification et bundle du CSS critique
+function bundleAndMinifyCSS() {
+  const cssDir = path.join(ROOT, "assets", "css");
+  const filesToBundle = ["style-v4.css", "improvements-v4.css"];
+
+  let bundledContent = "";
+  for (const file of filesToBundle) {
+    const filePath = path.join(cssDir, file);
+    if (fs.existsSync(filePath)) {
+      bundledContent += fs.readFileSync(filePath, "utf8") + "\n";
+    }
+  }
+
+  // Nettoyage sommaire des espaces et commentaires
+  const minifiedContent = bundledContent
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*([{}:;,])\s*/g, "$1");
+
+  const distCssDir = path.join(DIST_DIR, "assets", "css");
+  fs.mkdirSync(distCssDir, { recursive: true });
+  fs.writeFileSync(path.join(distCssDir, "main.min.css"), minifiedContent, "utf8");
+  console.log("✓ Bundle CSS généré : assets/css/main.min.css");
+}
+
 // Copie récursive des assets statiques (CSS, Images & Scripts)
 copyDirSync(path.join(ROOT, "assets"), path.join(DIST_DIR, "assets"));
+bundleAndMinifyCSS();
 if (fs.existsSync(path.join(ROOT, "public"))) {
   copyDirSync(path.join(ROOT, "public"), DIST_DIR);
 }
