@@ -12,17 +12,17 @@
     'grec': ['phocéen', 'phocée', 'massalia', 'hellénistique', 'ionien'],
     'phocéen': ['grec', 'phocée', 'massalia', 'protis'],
     'romain': ['gallo-romain', 'césar', 'empire', 'jules césar'],
-    'port': ['lacydon', 'vieux-port', 'quai', 'bassin', 'arsenal'],
+    'port': ['lacydon', 'vieux-port', 'quai', 'bassin', 'arsenal', 'port antique'],
     'vieux-port': ['lacydon', 'port antique', 'bassin', 'calanque'],
     'lacydon': ['vieux-port', 'port antique', 'calanque'],
     'rempart': ['mur de crinas', 'fortification', 'enceinte', 'bastion', 'défense'],
     'fortification': ['rempart', 'mur de crinas', 'fort saint-jean', 'arsenal', 'citadelle'],
     'abbaye': ['saint-victor', 'crypte', 'cassien', 'monastère', 'paléochrétien'],
-    'saint-victor': ['abbaye', 'crypte', 'sarcophage', 'cassien'],
+    'saint-victor': ['abbaye', 'crypte', 'sarcophage', 'cassien', 'religieux'],
     'grotte': ['cosquer', 'monnard', 'englouti', 'paléolithique', 'préhistoire'],
     'cosquer': ['grotte', 'patrimoine englouti', 'calanques', 'morgiou'],
     'galère': ['arsenal des galères', 'iroquois', 'louis xiv', 'bagne'],
-    'iroquois': ['galères', 'sachems', 'kondiaronk', 'fort saint-jean', 'nouvelle-france'],
+    'iroquois': ['galères', 'sachems', 'kondiaronk', 'fort saint-jean', 'nouvelle-france', 'louis xiv', 'déportation'],
     'sarcophage': ['saint-victor', 'malaval', 'nécropole', 'paléochrétien']
   };
 
@@ -114,11 +114,15 @@
 
       data.forEach((item, docIdx) => {
         const fields = [
-          { text: item.title, weight: 4 },
+          { text: item.title, weight: 5 },
+          { text: item.slug ? item.slug.replace(/-/g, ' ') : '', weight: 4 },
+          { text: (item.headings || []).join(' '), weight: 3.5 },
           { text: (item.keywords || []).join(' '), weight: 3 },
+          { text: item.category || item.type || '', weight: 2 },
           { text: item.strate || '', weight: 2 },
-          { text: item.metaDescription || '', weight: 1 },
-          { text: item.lede || '', weight: 1 }
+          { text: item.metaDescription || '', weight: 1.5 },
+          { text: item.lede || '', weight: 1.5 },
+          { text: item.contentSnippet || '', weight: 1 }
         ];
 
         fields.forEach(field => {
@@ -242,6 +246,9 @@
       renderCurrentSearch();
     });
 
+    // Chargement immédiat de l'index au chargement de la page et lors du focus/input
+    window.MassaliaSemanticEngine.loadIndex();
+
     if (openBtn) {
       openBtn.addEventListener('click', () => {
         window.MassaliaSemanticEngine.loadIndex().then(() => {
@@ -250,6 +257,10 @@
       });
     }
 
+    searchInput.addEventListener('focus', () => {
+      window.MassaliaSemanticEngine.loadIndex();
+    });
+
     searchInput.addEventListener('input', () => {
       renderCurrentSearch();
     });
@@ -257,6 +268,14 @@
     function renderCurrentSearch() {
       const query = searchInput.value.trim();
       const tab = window.MassaliaSemanticEngine.activeTab;
+
+      if (!window.MassaliaSemanticEngine.isLoaded) {
+        resultsContainer.innerHTML = `<p class="search-hint search-loading">⏳ <em>Chargement de l'index sémantique en cours...</em></p>`;
+        window.MassaliaSemanticEngine.loadIndex().then(() => {
+          renderCurrentSearch();
+        });
+        return;
+      }
 
       if (tab === 'archives') {
         renderArchivesResults(query);

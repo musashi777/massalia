@@ -503,18 +503,25 @@ for (const [pageId, page] of Object.entries(pages)) {
   built++;
   console.log(`✓ ${pageId} → ${path.relative(ROOT, outPath)}`);
 
-  // Index pour la recherche instantanée
+  // Extraire les textes de titres et un extrait du contenu pour l'indexation
+  const headingList = Array.isArray(headings) ? headings.map(h => typeof h === 'string' ? h : (h.text || '')) : [];
+  const rawTextContent = parsedHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+
+  // Index pour la recherche instantanée (23 pages du cocon)
   searchIndex.push({
     id: pageId,
     title: page.title,
     slug: page.slug,
     url: urlFor(pageId),
     type: page.type,
+    category: page.type,
     metaDescription: page.metaDescription,
     lede: lede.replace(/<[^>]+>/g, ""),
     keywords: page.keywords || [],
+    headings: headingList,
     heroImage: page.heroImage || "",
-    strate: page.strate ? page.strate.label : ""
+    strate: page.strate ? page.strate.label : "",
+    contentSnippet: rawTextContent.slice(0, 600)
   });
 }
 

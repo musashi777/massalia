@@ -293,6 +293,19 @@
     }
   }
 
+  /* ---- Stabilisateur de Défilement d'Ancre (Après chargement des images) ---- */
+  function initAnchorScrollStabilizer() {
+    if (!window.location.hash) return;
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
+    });
+  }
+
   /* ---- Point d'entrée ---- */
   function initAll() {
     initSkipLink();
@@ -305,6 +318,7 @@
     initParallax();
     initScrollReveal();
     initServiceWorker();
+    initAnchorScrollStabilizer();
   }
 
   if (document.readyState === 'loading') {

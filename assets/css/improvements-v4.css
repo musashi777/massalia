@@ -68,6 +68,11 @@
 
 /* ---- HEADER AMÉLIORÉ (Sticky + Glassmorphism) ---- */
 .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   backdrop-filter: blur(10px);
   background: rgba(2, 21, 37, 0.85);
   border-bottom: 1px solid rgba(230, 126, 34, 0.1);
@@ -2089,14 +2094,14 @@ sup.notebooklm-cite a:hover, sup.notebooklm-cite a:focus {
 /* ═══ SOMMAIRE STICKY ═══ */
 .sommaire-sticky {
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: var(--header-height, 77px);
+  z-index: 900;
   display: flex;
   gap: 0.25rem;
   padding: 0.6rem 1rem;
-  background: rgba(255, 253, 249, 0.94);
+  background: rgba(2, 21, 37, 0.92);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e0d5c5;
+  border-bottom: 1px solid rgba(230, 126, 34, 0.2);
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
@@ -2107,23 +2112,24 @@ sup.notebooklm-cite a:hover, sup.notebooklm-cite a:focus {
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #6b5744;
+  color: var(--color-on-surface, #d1e4fb);
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
 }
 
 .sommaire-sticky a:hover {
-  background: #f0e8dc;
-  color: #2c1810;
+  background: rgba(230, 126, 34, 0.15);
+  color: var(--color-accent, #e67e22);
 }
 
 .sommaire-sticky a.active {
-  background: #8b4513;
-  color: #fff;
+  background: var(--color-accent, #e67e22);
+  color: var(--color-deep-blue, #021525);
 }
 
 @media (max-width: 640px) {
   .sommaire-sticky {
+    top: 64px;
     padding: 0.5rem 0.75rem;
     gap: 0.15rem;
   }
@@ -2422,7 +2428,7 @@ sup.notebooklm-cite a:hover, sup.notebooklm-cite a:focus {
 /* 7. TYPOGRAPHIE, ACCESSIBILITÉ & FOCUS-VISIBLE */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+  scroll-padding-top: 130px;
 }
 
 :focus-visible {
@@ -2465,7 +2471,7 @@ textarea:focus-visible {
   .chrono-item:hover .chrono-body {
     transform: none !important;
   }
-
+}
 
 /* 8. CARTE LEAFLET ET FILTRES CHRONOLOGIQUES O(1) */
 .leaflet-map-container {
