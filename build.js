@@ -44,14 +44,14 @@ function slugify(str) {
 function renderPicture(src, alt, className = "", loading = "lazy", width = 800, height = 500, sizes = "100vw") {
   if (!src) return "";
   const classAttr = className ? ` class="${className}"` : "";
-  const loadingAttr = loading ? ` loading="${loading}"` : "";
+  const loadingAttr = loading ? ` loading="${loading}" decoding="async"` : "";
 
   const relPath = src.startsWith("/") ? src.slice(1) : src;
   const absPath = path.join(ROOT, relPath);
   const ext = path.extname(absPath);
 
   if (!ext) {
-    return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />`;
+    return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
   }
 
   const avifPath = absPath.slice(0, -ext.length) + ".avif";
@@ -71,11 +71,11 @@ function renderPicture(src, alt, className = "", loading = "lazy", width = 800, 
   if (sources.length > 0) {
     return `<picture>
       ${sources.join("\n      ")}
-      <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />
+      <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />
     </picture>`;
   }
 
-  return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" decoding="async" />`;
+  return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
 }
 
 function renderCaptionWithBadge(captionText) {
@@ -626,8 +626,34 @@ for (const gPage of governancePages) {
   console.log(`✓ Governance → ${path.relative(ROOT, outPath)}`);
 }
 
+// Minification et bundle du CSS critique
+function bundleAndMinifyCSS() {
+  const cssDir = path.join(ROOT, "assets", "css");
+  const filesToBundle = ["style-v4.css", "improvements-v4.css"];
+
+  let bundledContent = "";
+  for (const file of filesToBundle) {
+    const filePath = path.join(cssDir, file);
+    if (fs.existsSync(filePath)) {
+      bundledContent += fs.readFileSync(filePath, "utf8") + "\n";
+    }
+  }
+
+  // Nettoyage sommaire des espaces et commentaires
+  const minifiedContent = bundledContent
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*([{}:;,])\s*/g, "$1");
+
+  const distCssDir = path.join(DIST_DIR, "assets", "css");
+  fs.mkdirSync(distCssDir, { recursive: true });
+  fs.writeFileSync(path.join(distCssDir, "main.min.css"), minifiedContent, "utf8");
+  console.log("✓ Bundle CSS généré : assets/css/main.min.css");
+}
+
 // Copie récursive des assets statiques (CSS, Images & Scripts)
 copyDirSync(path.join(ROOT, "assets"), path.join(DIST_DIR, "assets"));
+bundleAndMinifyCSS();
 if (fs.existsSync(path.join(ROOT, "public"))) {
   copyDirSync(path.join(ROOT, "public"), DIST_DIR);
 }

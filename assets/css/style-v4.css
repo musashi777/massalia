@@ -387,3 +387,9 @@ h1,h2,h3,h4 {
 .sibling-thumb { width: 52px; height: 36px; object-fit: cover; flex-shrink: 0; }
 .back-link { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--sp-md); font: 700 var(--text-label-sm)/1 var(--font-sans); letter-spacing: 0.3em; text-transform: uppercase; color: rgba(209,228,251,0.35); transition: color .2s var(--ease); }
 .back-link:hover { color: var(--color-accent); }
+
+/* ---- WCAG 2.2 Focus Visible ---- */
+*:focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 3px !important;
+}

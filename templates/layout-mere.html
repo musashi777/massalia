@@ -30,9 +30,42 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="/assets/css/style-v4.css">
-<link rel="stylesheet" href="/assets/css/improvements-v4.css">
+<style>
+/* === CRITICAL CSS (Inline) === */
+:root {
+  --color-bg: #021525;
+  --color-surface: #021525;
+  --color-on-surface: #d1e4fb;
+  --color-primary: #ffb783;
+  --color-accent: #e67e22;
+  --color-deep-blue: #021525;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --max-w: 1200px;
+  --sp-margin: clamp(16px, 5vw, 48px);
+  --sp-lg: 48px;
+  --sp-md: 24px;
+  --sp-sm: 16px;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { background: var(--color-bg); color: var(--color-on-surface); font-family: var(--font-sans); line-height: 1.6; }
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; mix-blend-mode: difference; padding: var(--sp-sm) max(var(--sp-margin), calc((100vw - var(--max-w)) / 2)); display: flex; justify-content: space-between; align-items: center; }
+.site-title { font: 900 20px/1 var(--font-serif); text-transform: uppercase; }
+.site-title a { color: #fff; text-decoration: none; }
+.hero-poster { min-height: 80vh; display: flex; flex-direction: column; justify-content: flex-end; padding-top: var(--sp-lg); padding-bottom: var(--sp-lg); position: relative; }
+.hero-poster__inner { padding: 0 var(--sp-margin); max-width: var(--max-w); margin: 0 auto; width: 100%; }
+.hero-poster h1 { font-family: var(--font-serif); font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: 1.05; text-transform: uppercase; }
+.hero-poster h1 em { font-style: italic; font-weight: 400; text-transform: lowercase; color: var(--color-accent); }
+</style>
+<link rel="preload" href="/assets/css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+<noscript>
+  <link rel="stylesheet" href="/assets/css/main.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</noscript>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="/assets/js/map-timeline-module.js" defer></script>
 <script type="application/ld+json">
@@ -244,7 +277,7 @@
       </div>
       <div class="prose-media">
         <figure class="article-figure">
-          <img src="/assets/img/hero-fondation-massalia.jpg" alt="Illustration de la légende de Protis et Gyptis, marquant la fondation de Massalia vers 600 av. J.-C." loading="lazy" width="800" height="500">
+          <img src="/assets/img/hero-fondation-massalia.jpg" alt="Illustration de la légende de Protis et Gyptis, marquant la fondation de Massalia vers 600 av. J.-C." loading="lazy" decoding="async" width="800" height="500">
           <figcaption><span class="img-badge img-badge--reconstruction">Reconstitution Artistique</span> Illustration historique représentant l'arrivée des Phocéens.</figcaption>
         </figure>
       </div>
