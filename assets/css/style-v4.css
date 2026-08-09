@@ -389,7 +389,16 @@ h1,h2,h3,h4 {
 .back-link:hover { color: var(--color-accent); }
 
 /* ---- WCAG 2.2 Focus Visible ---- */
-*:focus-visible {
-  outline: 2px solid var(--color-accent) !important;
-  outline-offset: 3px !important;
+:where(
+  a[href],
+  button:not(:disabled),
+  input:not(:disabled),
+  textarea:not(:disabled),
+  select:not(:disabled),
+  summary,
+  [contenteditable="true"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
