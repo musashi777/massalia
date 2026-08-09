@@ -28,8 +28,8 @@ def run_cuj(page: Page, base_url: str, output_dir: Path) -> None:
 
     # Open the modal and wait for observable state changes.
     page.keyboard.press("Enter")
-    expect(search_modal).to_be_visible()
     expect(search_modal).to_have_attribute("aria-hidden", "false")
+    expect(search_modal).to_be_visible()
     expect(search_input).to_be_focused()
 
     screenshots_dir = output_dir / "screenshots"
@@ -38,8 +38,8 @@ def run_cuj(page: Page, base_url: str, output_dir: Path) -> None:
 
     # Close the modal and verify that focus returns to its trigger.
     page.keyboard.press("Escape")
-    expect(search_modal).to_be_hidden()
     expect(search_modal).to_have_attribute("aria-hidden", "true")
+    expect(search_modal).to_be_hidden()
     expect(search_button).to_be_focused()
 
 
