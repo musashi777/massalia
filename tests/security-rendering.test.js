@@ -4,6 +4,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const {
+  ALLOWED_STRATE_IDS,
   normalizeFeature,
   normalizeTimelineEvent,
   safeSitePath,
@@ -103,4 +104,27 @@ test('production renderer contains no direct HTML injection sinks', () => {
   assert.doesNotMatch(source, /document\.write\s*\(/);
   assert.match(source, /html:\s*pinElement/);
   assert.match(source, /bindPopup\(popupContent/);
+});
+
+test('map filter controls use the same allowlisted identifiers as published data', () => {
+  const templatePath = path.join(__dirname, '..', 'templates', 'layout-mere.html');
+  const template = fs.readFileSync(templatePath, 'utf8');
+  const filterIds = Array.from(
+    template.matchAll(/class="map-filter-btn[^"\n]*"[^>]*data-strate="([^"]+)"/g),
+    (match) => match[1]
+  ).filter((id) => id !== 'all');
+
+  assert.deepEqual(filterIds, ALLOWED_STRATE_IDS);
+});
+
+test('all published timeline and GeoJSON records pass normalization', () => {
+  const timelinePath = path.join(__dirname, '..', 'data', 'timeline.json');
+  const geojsonPath = path.join(__dirname, '..', 'data', 'geo', 'vestiges.geojson');
+  const timeline = JSON.parse(fs.readFileSync(timelinePath, 'utf8'));
+  const geojson = JSON.parse(fs.readFileSync(geojsonPath, 'utf8'));
+
+  assert.ok(Array.isArray(timeline.events));
+  assert.ok(Array.isArray(geojson.features));
+  assert.equal(timeline.events.map(normalizeTimelineEvent).filter(Boolean).length, timeline.events.length);
+  assert.equal(geojson.features.map(normalizeFeature).filter(Boolean).length, geojson.features.length);
 });
