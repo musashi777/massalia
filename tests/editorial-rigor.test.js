@@ -83,3 +83,14 @@ test('new caption and editorial fields are escaped before HTML rendering', () =>
   assert.match(buildSource, /escapeHtml\(page\.editorialStatus \|\| "Synthèse documentaire"\)/);
   assert.match(buildSource, /const safeAlt = escapeHtml\(alt \|\| ""\)/);
 });
+
+test('homepage presentation and FAQ do not turn editorial conventions into facts', () => {
+  const template = read('templates/layout-mere.html');
+
+  assert.match(template, /Aux origines<br>de Massalia/);
+  assert.match(template, /récit littéraire de fondation transmis bien après/);
+  assert.match(template, /ne constitue pas un classement archéologique absolu/);
+  assert.match(template, /ne sont pas attestés par l[’']archéologie/);
+  assert.doesNotMatch(template, /porte d'entrée de la culture hellénique|fondation pacifique de Massalia/);
+  assert.doesNotMatch(template, /est la plus ancienne ville de France\./);
+});
