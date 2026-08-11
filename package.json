@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "test": "node scripts/final-audit-runner.js"
+    "test": "npm run test:security && node scripts/final-audit-runner.js",
+    "test:security": "node --test tests/security-rendering.test.js"
   }
 }

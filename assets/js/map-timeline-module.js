@@ -1,52 +1,164 @@
 /**
  * map-timeline-module.js — Module Front-end d'Interactivité & Visualisation
- * 
- * 1. Leaflet Map Engine : Chargement asynchrone GeoJSON (/data/geo/vestiges.geojson)
- * 2. Timeline Engine : Indexation O(1) via Map<StrateId, Event[]>
+ *
+ * 1. Leaflet Map Engine : chargement asynchrone GeoJSON
+ * 2. Timeline Engine : indexation par strate
+ * 3. Safe Rendering : validation des données et construction DOM sans HTML injecté
  */
+
+const ALLOWED_STRATE_IDS = Object.freeze([
+  'couche-1-antiquite',
+  'couche-2-fortifications',
+  'couche-3-religieux',
+  'couche-4-littoral'
+]);
+
+const ALLOWED_STRATE_ID_SET = new Set(ALLOWED_STRATE_IDS);
+const SAFE_SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const MAX_TEXT_LENGTH = 500;
+
+function safeText(value, maxLength = MAX_TEXT_LENGTH) {
+  if (typeof value !== 'string') return '';
+  return value.trim().slice(0, maxLength);
+}
+
+function safeStrateId(value) {
+  return typeof value === 'string' && ALLOWED_STRATE_ID_SET.has(value) ? value : '';
+}
+
+function safeSlug(value) {
+  const slug = safeText(value, 120);
+  return SAFE_SLUG_PATTERN.test(slug) ? slug : '';
+}
+
+function safeSitePath(value) {
+  if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//')) {
+    return '';
+  }
+
+  try {
+    const baseOrigin = 'https://massalia.invalid';
+    const parsed = new URL(value, baseOrigin);
+    if (parsed.origin !== baseOrigin) return '';
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+  } catch {
+    return '';
+  }
+}
+
+function normalizeStrate(rawStrate) {
+  if (!rawStrate || typeof rawStrate !== 'object') return null;
+
+  const id = safeStrateId(rawStrate.id);
+  const label = safeText(rawStrate.label, 120);
+  if (!id || !label) return null;
+
+  return { id, label };
+}
+
+function normalizeTimelineEvent(rawEvent) {
+  if (!rawEvent || typeof rawEvent !== 'object') return null;
+
+  const strateId = safeStrateId(rawEvent.strateId);
+  const title = safeText(rawEvent.title, 180);
+  const displayDate = safeText(rawEvent.displayDate, 100);
+  if (!strateId || !title || !displayDate) return null;
+
+  return {
+    id: safeText(rawEvent.id, 120),
+    yearStart: Number.isFinite(rawEvent.yearStart) ? Math.trunc(rawEvent.yearStart) : null,
+    displayDate,
+    title,
+    summary: safeText(rawEvent.summary),
+    strateId,
+    slug: safeSlug(rawEvent.slug)
+  };
+}
+
+function normalizeFeature(rawFeature) {
+  if (!rawFeature || rawFeature.type !== 'Feature') return null;
+  if (!rawFeature.geometry || rawFeature.geometry.type !== 'Point') return null;
+
+  const coordinates = rawFeature.geometry.coordinates;
+  if (!Array.isArray(coordinates) || coordinates.length < 2) return null;
+
+  const [lng, lat] = coordinates;
+  if (!Number.isFinite(lng) || !Number.isFinite(lat)) return null;
+  if (lng < -180 || lng > 180 || lat < -90 || lat > 90) return null;
+
+  const rawProperties = rawFeature.properties;
+  if (!rawProperties || typeof rawProperties !== 'object') return null;
+
+  const strateId = safeStrateId(rawProperties.strateId);
+  const title = safeText(rawProperties.title, 180);
+  if (!strateId || !title) return null;
+
+  return {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [lng, lat]
+    },
+    properties: {
+      title,
+      strateId,
+      strateLabel: safeText(rawProperties.strateLabel, 120),
+      epoque: safeText(rawProperties.epoque, 120),
+      summary: safeText(rawProperties.summary),
+      url: safeSitePath(rawProperties.url),
+      heroImage: safeSitePath(rawProperties.heroImage)
+    }
+  };
+}
+
+function createTextElement(tagName, className, text) {
+  const element = document.createElement(tagName);
+  if (className) element.className = className;
+  element.textContent = text;
+  return element;
+}
 
 class TimelineEngine {
   constructor(containerId, filterBarId) {
     this.container = document.getElementById(containerId);
     this.filterBar = document.getElementById(filterBarId);
-    this.eventsMap = new Map(); // Indexation O(1) : Map<StrateId, Event[]>
+    this.eventsMap = new Map();
     this.allEvents = [];
+    this.strates = [];
     this.activeStrate = 'all';
   }
 
   async init() {
     if (!this.container) return;
+
     try {
       const response = await fetch('/data/timeline.json');
       if (!response.ok) throw new Error(`HTTP error ${response.status}`);
       const data = await response.json();
-      
+
       this.indexEvents(data);
-      this.renderFilterBar(data.strates);
+      this.renderFilterBar(this.strates);
       this.renderEvents(this.allEvents);
     } catch (err) {
-      console.error("❌ Échec du chargement de la chronologie:", err);
+      console.error('❌ Échec du chargement de la chronologie:', err);
     }
   }
 
   indexEvents(data) {
-    this.allEvents = data.events || [];
-    this.eventsMap.set('all', this.allEvents);
+    const rawStrates = Array.isArray(data?.strates) ? data.strates : [];
+    const rawEvents = Array.isArray(data?.events) ? data.events : [];
 
-    // Initialisation des listes dans la Map
-    if (data.strates) {
-      for (const strate of data.strates) {
-        this.eventsMap.set(strate.id, []);
-      }
+    this.strates = rawStrates.map(normalizeStrate).filter(Boolean);
+    this.allEvents = rawEvents.map(normalizeTimelineEvent).filter(Boolean);
+    this.eventsMap = new Map([['all', this.allEvents]]);
+
+    for (const strate of this.strates) {
+      this.eventsMap.set(strate.id, []);
     }
 
-    // Remplissage O(n) à l'initialisation unique
-    for (let i = 0; i < this.allEvents.length; i++) {
-      const evt = this.allEvents[i];
-      const list = this.eventsMap.get(evt.strateId);
-      if (list) {
-        list.push(evt);
-      }
+    for (const event of this.allEvents) {
+      const list = this.eventsMap.get(event.strateId);
+      if (list) list.push(event);
     }
   }
 
@@ -55,68 +167,93 @@ class TimelineEngine {
 
     const filterOptions = [
       { id: 'all', label: 'Toutes les strates' },
-      ...strates.map(s => ({ id: s.id, label: s.label.split('—')[0].trim() }))
+      ...strates.map((strate) => ({
+        id: strate.id,
+        label: strate.label.split('—')[0].trim()
+      }))
     ];
 
-    const buttonsHtml = filterOptions.map(opt => {
-      const activeClass = opt.id === this.activeStrate ? ' active' : '';
-      const pressed = opt.id === this.activeStrate ? 'true' : 'false';
-      return `<button type="button" class="chrono-filter-btn${activeClass}" data-strate="${opt.id}" aria-pressed="${pressed}">
-        ${opt.label}
-      </button>`;
-    }).join('');
+    const navigation = document.createElement('div');
+    navigation.className = 'chrono-filters-nav';
+    navigation.setAttribute('role', 'toolbar');
+    navigation.setAttribute('aria-label', 'Filtrer la chronologie par strate');
+    navigation.append(createTextElement('span', 'filter-label', 'Filtrer par couche :'));
 
-    this.filterBar.innerHTML = `<div class="chrono-filters-nav" role="toolbar" aria-label="Filtrer la chronologie par strate">
-      <span class="filter-label">Filtrer par couche :</span>
-      ${buttonsHtml}
-    </div>`;
+    for (const option of filterOptions) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'chrono-filter-btn';
+      button.dataset.strate = option.id;
+      button.textContent = option.label;
 
-    this.filterBar.addEventListener('click', (e) => {
-      const btn = e.target.closest('.chrono-filter-btn');
-      if (!btn) return;
-      const strateId = btn.getAttribute('data-strate');
+      const isActive = option.id === this.activeStrate;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      navigation.append(button);
+    }
+
+    this.filterBar.replaceChildren(navigation);
+    this.filterBar.addEventListener('click', (event) => {
+      const button = event.target.closest('.chrono-filter-btn');
+      if (!button || !this.filterBar.contains(button)) return;
+
+      const strateId = button.dataset.strate;
+      if (strateId !== 'all' && !ALLOWED_STRATE_ID_SET.has(strateId)) return;
       this.filterByStrate(strateId);
 
-      // Mise à jour de l'état des boutons
-      const allBtns = this.filterBar.querySelectorAll('.chrono-filter-btn');
-      allBtns.forEach(b => {
-        const isCurrent = b === btn;
-        b.classList.toggle('active', isCurrent);
-        b.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
+      this.filterBar.querySelectorAll('.chrono-filter-btn').forEach((candidate) => {
+        const isCurrent = candidate === button;
+        candidate.classList.toggle('active', isCurrent);
+        candidate.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
       });
     });
   }
 
-  // Accès direct O(1) lors des interactions de filtrage
   filterByStrate(strateId) {
     if (this.activeStrate === strateId) return;
     this.activeStrate = strateId;
-
-    const filtered = this.eventsMap.get(strateId) || [];
-    this.renderEvents(filtered);
+    this.renderEvents(this.eventsMap.get(strateId) || []);
   }
 
   renderEvents(events) {
     if (!this.container) return;
 
     if (events.length === 0) {
-      this.container.innerHTML = `<p class="chrono-empty">Aucun événement répertorié dans cette strate.</p>`;
+      this.container.replaceChildren(
+        createTextElement('p', 'chrono-empty', 'Aucun événement répertorié dans cette strate.')
+      );
       return;
     }
 
-    const html = events.map(evt => {
-      const linkHtml = evt.slug ? `<a href="/${evt.slug}.html" class="chrono-event-link" aria-label="Lire la fiche : ${evt.title}">🔍 Découvrir l'archive</a>` : '';
-      return `<li class="chrono-item reveal visible" data-strate="${evt.strateId}">
-        <time class="chrono-date" datetime="${evt.yearStart}">${evt.displayDate}</time>
-        <div class="chrono-body">
-          <h3>${evt.title}</h3>
-          <p>${evt.summary}</p>
-          ${linkHtml}
-        </div>
-      </li>`;
-    }).join('');
+    const fragment = document.createDocumentFragment();
 
-    this.container.innerHTML = html;
+    for (const event of events) {
+      const item = document.createElement('li');
+      item.className = 'chrono-item reveal visible';
+      item.dataset.strate = event.strateId;
+
+      const time = createTextElement('time', 'chrono-date', event.displayDate);
+      if (event.yearStart !== null) time.dateTime = String(event.yearStart);
+
+      const body = document.createElement('div');
+      body.className = 'chrono-body';
+      body.append(
+        createTextElement('h3', '', event.title),
+        createTextElement('p', '', event.summary)
+      );
+
+      if (event.slug) {
+        const link = createTextElement('a', 'chrono-event-link', '🔍 Découvrir l’archive');
+        link.href = `/${event.slug}.html`;
+        link.setAttribute('aria-label', `Lire la fiche : ${event.title}`);
+        body.append(link);
+      }
+
+      item.append(time, body);
+      fragment.append(item);
+    }
+
+    this.container.replaceChildren(fragment);
   }
 }
 
@@ -127,20 +264,17 @@ class MassaliaMap {
     this.map = null;
     this.markersGroup = null;
     this.allFeatures = [];
-    this.activeStrate = 'all';
   }
 
   async init() {
     const container = document.getElementById(this.containerId);
     if (!container) return;
 
-    // Vérification de la présence de la bibliothèque Leaflet
     if (typeof L === 'undefined') {
-      console.warn("⚠️ Leaflet JS non chargé.");
+      console.warn('⚠️ Leaflet JS non chargé.');
       return;
     }
 
-    // Initialisation de la carte Leaflet centrée sur Marseille / Vieux-Port
     this.map = L.map(this.containerId, {
       center: [43.2965, 5.3698],
       zoom: 14,
@@ -148,7 +282,6 @@ class MassaliaMap {
       scrollWheelZoom: false
     });
 
-    // Tuiles CartoDB Positron légères et élégantes
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd',
@@ -164,12 +297,17 @@ class MassaliaMap {
       const response = await fetch('/data/geo/vestiges.geojson');
       if (!response.ok) throw new Error(`HTTP error ${response.status}`);
       const geojson = await response.json();
-      this.allFeatures = geojson.features || [];
+      const rawFeatures = Array.isArray(geojson?.features) ? geojson.features : [];
+
+      this.allFeatures = rawFeatures.map(normalizeFeature).filter(Boolean);
+      if (this.allFeatures.length !== rawFeatures.length) {
+        console.warn('⚠️ Certaines entités GeoJSON invalides ont été ignorées.');
+      }
 
       this.renderMarkers(this.allFeatures);
       this.initMapFilters();
     } catch (err) {
-      console.error("❌ Échec du chargement du GeoJSON cartographique:", err);
+      console.error('❌ Échec du chargement du GeoJSON cartographique:', err);
     }
   }
 
@@ -177,23 +315,26 @@ class MassaliaMap {
     if (!this.markersGroup) return;
     this.markersGroup.clearLayers();
 
-    features.forEach(feature => {
+    for (const feature of features) {
       const [lng, lat] = feature.geometry.coordinates;
       const marker = this.createCustomMarker(feature, [lat, lng]);
       this.bindAccessiblePopup(feature, marker);
       this.markersGroup.addLayer(marker);
-    });
+    }
   }
 
   createCustomMarker(feature, latlng) {
-    const strateId = feature.properties.strateId;
-    const title = feature.properties.title;
-    const pinHtml = `<div class="massalia-map-pin pin-${strateId}" title="${title}">
-      <span class="pin-inner"></span>
-    </div>`;
+    const { strateId, title } = feature.properties;
+    const pinElement = document.createElement('div');
+    pinElement.classList.add('massalia-map-pin', `pin-${strateId}`);
+    pinElement.title = title;
+
+    const pinInner = document.createElement('span');
+    pinInner.className = 'pin-inner';
+    pinElement.append(pinInner);
 
     const customIcon = L.divIcon({
-      html: pinHtml,
+      html: pinElement,
       className: 'massalia-custom-icon',
       iconSize: [32, 32],
       iconAnchor: [16, 32],
@@ -204,51 +345,94 @@ class MassaliaMap {
   }
 
   bindAccessiblePopup(feature, layer) {
-    const p = feature.properties;
-    const imgHtml = p.heroImage ? `<div class="popup-img-wrap"><img src="${p.heroImage}" alt="${p.title}" loading="lazy" width="260" height="140" /></div>` : '';
-    
-    const popupContent = `
-      <article class="map-popup-card">
-        ${imgHtml}
-        <span class="badge-strate badge-${p.strateId}">${p.strateLabel}</span>
-        <h4 class="popup-title">${p.title}</h4>
-        <p class="popup-epoque"><time>${p.epoque}</time></p>
-        <p class="popup-summary">${p.summary}</p>
-        <a href="${p.url}" class="popup-link">Consulter l'archive &rarr;</a>
-      </article>
-    `;
-    layer.bindPopup(popupContent, { maxWidth: 280, className: 'massalia-leaflet-popup' });
+    const properties = feature.properties;
+    const popupContent = document.createElement('article');
+    popupContent.className = 'map-popup-card';
+
+    if (properties.heroImage) {
+      const imageWrapper = document.createElement('div');
+      imageWrapper.className = 'popup-img-wrap';
+
+      const image = document.createElement('img');
+      image.src = properties.heroImage;
+      image.alt = properties.title;
+      image.loading = 'lazy';
+      image.width = 260;
+      image.height = 140;
+      imageWrapper.append(image);
+      popupContent.append(imageWrapper);
+    }
+
+    const badge = createTextElement('span', 'badge-strate', properties.strateLabel);
+    badge.classList.add(`badge-${properties.strateId}`);
+
+    const period = document.createElement('p');
+    period.className = 'popup-epoque';
+    period.append(createTextElement('time', '', properties.epoque));
+
+    popupContent.append(
+      badge,
+      createTextElement('h4', 'popup-title', properties.title),
+      period,
+      createTextElement('p', 'popup-summary', properties.summary)
+    );
+
+    if (properties.url) {
+      const link = createTextElement('a', 'popup-link', 'Consulter l’archive →');
+      link.href = properties.url;
+      popupContent.append(link);
+    }
+
+    layer.bindPopup(popupContent, {
+      maxWidth: 280,
+      className: 'massalia-leaflet-popup'
+    });
   }
 
   initMapFilters() {
     const filterContainer = document.getElementById(this.filterBarId);
     if (!filterContainer) return;
 
-    filterContainer.addEventListener('click', (e) => {
-      const btn = e.target.closest('.map-filter-btn');
-      if (!btn) return;
-      const strateId = btn.getAttribute('data-strate');
+    filterContainer.addEventListener('click', (event) => {
+      const button = event.target.closest('.map-filter-btn');
+      if (!button || !filterContainer.contains(button)) return;
 
-      filterContainer.querySelectorAll('.map-filter-btn').forEach(b => {
-        const isCurrent = b === btn;
-        b.classList.toggle('active', isCurrent);
-        b.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
+      const strateId = button.dataset.strate;
+      if (strateId !== 'all' && !ALLOWED_STRATE_ID_SET.has(strateId)) return;
+
+      filterContainer.querySelectorAll('.map-filter-btn').forEach((candidate) => {
+        const isCurrent = candidate === button;
+        candidate.classList.toggle('active', isCurrent);
+        candidate.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
       });
 
-      if (strateId === 'all') {
-        this.renderMarkers(this.allFeatures);
-      } else {
-        const filtered = this.allFeatures.filter(f => f.properties.strateId === strateId);
-        this.renderMarkers(filtered);
-      }
+      const features = strateId === 'all'
+        ? this.allFeatures
+        : this.allFeatures.filter((feature) => feature.properties.strateId === strateId);
+      this.renderMarkers(features);
     });
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const mapEngine = new MassaliaMap('leaflet-map-container', 'map-filter-bar');
-  mapEngine.init();
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const mapEngine = new MassaliaMap('leaflet-map-container', 'map-filter-bar');
+    mapEngine.init();
 
-  const timelineEngine = new TimelineEngine('chrono-timeline-list', 'chrono-filter-bar');
-  timelineEngine.init();
-});
+    const timelineEngine = new TimelineEngine('chrono-timeline-list', 'chrono-filter-bar');
+    timelineEngine.init();
+  });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    ALLOWED_STRATE_IDS,
+    normalizeFeature,
+    normalizeStrate,
+    normalizeTimelineEvent,
+    safeSitePath,
+    safeSlug,
+    safeStrateId,
+    safeText
+  };
+}
