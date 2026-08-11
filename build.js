@@ -28,6 +28,15 @@ const templates = {
   feuille: fs.readFileSync(path.join(TEMPLATES_DIR, "layout-feuille.html"), "utf8"),
 };
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function slugify(str) {
   return str
     .toLowerCase()
@@ -45,13 +54,15 @@ function renderPicture(src, alt, className = "", loading = "lazy", width = 800, 
   if (!src) return "";
   const classAttr = className ? ` class="${className}"` : "";
   const loadingAttr = loading ? ` loading="${loading}" decoding="async"` : "";
+  const safeSrc = escapeHtml(src);
+  const safeAlt = escapeHtml(alt || "");
 
   const relPath = src.startsWith("/") ? src.slice(1) : src;
   const absPath = path.join(ROOT, relPath);
   const ext = path.extname(absPath);
 
   if (!ext) {
-    return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
+    return `<img src="${safeSrc}" alt="${safeAlt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
   }
 
   const avifPath = absPath.slice(0, -ext.length) + ".avif";
@@ -62,31 +73,44 @@ function renderPicture(src, alt, className = "", loading = "lazy", width = 800, 
 
   const sources = [];
   if (fs.existsSync(avifPath)) {
-    sources.push(`<source srcset="${avifSrc}" type="image/avif">`);
+    sources.push(`<source srcset="${escapeHtml(avifSrc)}" type="image/avif">`);
   }
   if (fs.existsSync(webpPath)) {
-    sources.push(`<source srcset="${webpSrc}" type="image/webp">`);
+    sources.push(`<source srcset="${escapeHtml(webpSrc)}" type="image/webp">`);
   }
 
   if (sources.length > 0) {
     return `<picture>
       ${sources.join("\n      ")}
-      <img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />
+      <img src="${safeSrc}" alt="${safeAlt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />
     </picture>`;
   }
 
-  return `<img src="${src}" alt="${alt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
+  return `<img src="${safeSrc}" alt="${safeAlt}"${classAttr}${loadingAttr} width="${width}" height="${height}" />`;
+}
+
+function parseImageCaption(captionText) {
+  const rawCaption = String(captionText || "");
+  const isReconstruction = /^\[Reconstitution artistique\]\s*/i.test(rawCaption);
+  const isArchive = /^\[Document d['’]archive\]\s*/i.test(rawCaption);
+  const text = rawCaption
+    .replace(/^\[(?:Reconstitution artistique|Document d['’]archive)\]\s*/i, "");
+
+  return { isReconstruction, isArchive, text };
 }
 
 function renderCaptionWithBadge(captionText) {
   if (!captionText) return "";
+  const { isReconstruction, isArchive, text } = parseImageCaption(captionText);
+
   let badgeHtml = "";
-  if (/reconstitution|3d|ia|artistique|hypothese/i.test(captionText)) {
-    badgeHtml = `<span class="img-badge img-badge--reconstruction">Reconstitution Artistique</span> `;
-  } else if (/archive|gravure|tableau|photo|vestige|fouille|inrap|carte|plan/i.test(captionText)) {
-    badgeHtml = `<span class="img-badge img-badge--archive">Document d'Archive</span> `;
+  if (isReconstruction) {
+    badgeHtml = `<span class="img-badge img-badge--reconstruction">Reconstitution artistique</span> `;
+  } else if (isArchive) {
+    badgeHtml = `<span class="img-badge img-badge--archive">Document d’archive</span> `;
   }
-  return `<figcaption>${badgeHtml}${captionText}</figcaption>`;
+
+  return `<figcaption>${badgeHtml}${escapeHtml(text)}</figcaption>`;
 }
 
 function inline(text) {
@@ -176,19 +200,20 @@ function markdownToHtml(md) {
 
 function renderEditorialMetaBlock(page) {
   const encTitle = encodeURIComponent(page.title);
+  const editorialStatus = escapeHtml(page.editorialStatus || "Synthèse documentaire");
   return `<aside class="editorial-meta-box" aria-label="Informations éditoriales et crédibilité">
   <div class="meta-box-inner">
     <div class="meta-item">
-      <span class="meta-label">Expertise &amp; Rédaction</span>
-      <span class="meta-val">Comité Éditorial Massalia Archives</span>
+      <span class="meta-label">Nature de la publication</span>
+      <span class="meta-val">Massalia Archives — projet éditorial indépendant</span>
     </div>
     <div class="meta-item">
-      <span class="meta-label">Dernière Révision</span>
-      <span class="meta-val"><time datetime="2026-08-01">1ᵉʳ août 2026</time></span>
+      <span class="meta-label">Méthode</span>
+      <span class="meta-val">Faits, récits et hypothèses distingués</span>
     </div>
     <div class="meta-item meta-item--status">
-      <span class="meta-label">Statut Documentaire</span>
-      <span class="meta-val meta-badge">✓ Sources primaires vérifiées</span>
+      <span class="meta-label">Statut des connaissances</span>
+      <span class="meta-val meta-badge">${editorialStatus}</span>
     </div>
     <div class="meta-item meta-item--report">
       <a href="mailto:contact@massalia.fr?subject=Signalement%20erreur%20:%20${encTitle}" class="meta-report-link">
@@ -238,7 +263,9 @@ function renderChildrenCards(page) {
     const epoque     = EPOQUE_LABELS[i]   || (child.strate ? child.strate.epoque : "");
     const labelText  = child.strate && child.strate.label ? child.strate.label : `${roman} — ${child.strate.epoque}`;
 
-    const childAlt = child.imageCaption || `${child.title} — ${child.metaDescription}`;
+    const childAlt = child.imageCaption
+      ? parseImageCaption(child.imageCaption).text
+      : `${child.title} — ${child.metaDescription}`;
     const picHtml = child.heroImage
       ? renderPicture(child.heroImage, childAlt, "", "lazy", 800, 600, page.type === 'mere' ? "(max-width:768px) 100vw, 600px" : "(max-width:768px) 100vw, 400px")
       : "";
@@ -316,11 +343,9 @@ function schemaFor(pageId, page) {
     description: page.metaDescription,
     url: `${site.baseUrl}${urlFor(pageId)}`,
     inLanguage: "fr",
-    datePublished: "2026-03-15",
-    dateModified: "2026-08-01",
     author: {
       "@type": "Organization",
-      name: "Comité Éditorial Massalia Archives",
+      name: "Massalia Archives",
       url: site.baseUrl
     },
     isPartOf: {
@@ -423,19 +448,7 @@ for (const [pageId, page] of Object.entries(pages)) {
     ? firstParagraphMatch[1].replace(/<[^>]+>/g, "").split(". ").slice(0, 1).join(". ") + "."
     : "";
 
-  let finalContentHtml = parsedHtml;
-  if (page.type === "feuille" && !parsedHtml.includes('id="sources-et-bibliographie"') && !parsedHtml.includes('academic-credits')) {
-    finalContentHtml += `\n\n<section class="article-sources" aria-label="Sources et bibliographie" id="sources-et-bibliographie">
-  <h2>Sources et Bibliographie</h2>
-  <div class="sources-content">
-    <ul class="sources-list">
-      <li><strong>Sources primaires :</strong> Archives départementales des Bouches-du-Rhône &amp; Musée d'Histoire de Marseille.</li>
-      <li><strong>Recherche archéologique :</strong> Rapports et publications d'opérations préventives INRAP (Institut national de recherches archéologiques préventives).</li>
-      <li><strong>Ouvrages de référence :</strong> Marc Bouiron et Henri Tréziny, <em>Marseille : trames et paysages urbains de Gyptis à Roi René</em>, Édisud, 2001.</li>
-    </ul>
-  </div>
-</section>`;
-  }
+  const finalContentHtml = parsedHtml;
 
   const heroBlock = page.heroImage
     ? `<figure class="hero-media">
@@ -538,8 +551,8 @@ const governancePages = [
       <h2>Mission et Rigueur Scientifique</h2>
       <p>Depuis plus de 26 siècles, Marseille se construit par strates successives. Notre objectif est de croiser les découvertes archéologiques de l'INRAP, les archives départementales et les publications universitaires pour offrir des synthèses claires, vérifiables et librement accessibles.</p>
 
-      <h2>Comité Éditorial &amp; Transparence</h2>
-      <p>Chaque article est rédigé et relu sous le contrôle de notre comité scientifique. Les reconstitutions visuelles faites par intelligence artificielle ou modélisation 3D sont explicitement identifiées par des badges visuels pour garantir une étanchéité parfaite avec les documents d'archives authentiques.</p>
+      <h2>Responsabilité éditoriale &amp; Transparence</h2>
+      <p>Massalia est un projet éditorial indépendant et ne revendique ni comité scientifique ni validation institutionnelle. Les articles distinguent les faits attestés, les récits transmis et les hypothèses. Un badge iconographique n’est affiché que lorsque la nature de l’image a été explicitement qualifiée.</p>
 
       <h2>Transparence et Corrections</h2>
       <p>Un mécanisme de signalement direct permet aux universitaires, archéologues et passionnés de signaler toute inexactitude. Contactez-nous à <a href="mailto:contact@massalia.fr">contact@massalia.fr</a>.</p>
@@ -554,10 +567,10 @@ const governancePages = [
       <p class="prose-lead">Consulter notre charte relative à la rigueur des sources, à l'iconographie et aux droits de reproduction.</p>
       
       <h2>1. Sourcing et Références</h2>
-      <p>Toutes nos publications s'appuient obligatoirement sur des rapports de fouilles préventives (INRAP, Service Archéologique de la Ville de Marseille) et des études universitaires évaluées par les pairs.</p>
+      <p>Les affirmations historiques doivent être reliées, lorsque cela est possible, à des sources antiques identifiées, à des rapports archéologiques, à des publications universitaires ou à des ressources institutionnelles. L’absence de référence ou le caractère discuté d’une interprétation doit être signalé explicitement.</p>
 
-      <h2>2. Typologie des Images et Reconstitutions</h2>
-      <p>Les illustrations sont catégorisées sous deux statuts stricts :</p>
+      <h2>2. Typologie des contenus et des images</h2>
+      <p>Les contenus distinguent trois niveaux : fait attesté, récit littéraire et hypothèse. Les images explicitement qualifiées utilisent l’un des deux statuts suivants :</p>
       <ul>
         <li><strong>Document d'Archive :</strong> Cartes anciennes, photographies de vestiges réels, gravures d'époque.</li>
         <li><strong>Reconstitution Artistique / 3D :</strong> Vues immersives ou modélisations numériques destinées à faciliter la compréhension des volumes disparus.</li>

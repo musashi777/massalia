@@ -1,10 +1,26 @@
 {
   "version": "1.0",
   "strates": [
-    { "id": "couche-1-antiquite", "label": "Couche I — Antiquité & Fondations", "color": "#c89d5c" },
-    { "id": "couche-2-fortifications", "label": "Couche II — Architecture Militaire", "color": "#a85d38" },
-    { "id": "couche-3-religieux", "label": "Couche III — Édifices Religieux", "color": "#7a8b9e" },
-    { "id": "couche-4-littoral", "label": "Couche IV — Littoral & Patrimoine Englouti", "color": "#4a7c82" }
+    {
+      "id": "couche-1-antiquite",
+      "label": "Couche I — Antiquité & Fondations",
+      "color": "#c89d5c"
+    },
+    {
+      "id": "couche-2-fortifications",
+      "label": "Couche II — Architecture Militaire",
+      "color": "#a85d38"
+    },
+    {
+      "id": "couche-3-religieux",
+      "label": "Couche III — Édifices Religieux",
+      "color": "#7a8b9e"
+    },
+    {
+      "id": "couche-4-littoral",
+      "label": "Couche IV — Littoral & Patrimoine Englouti",
+      "color": "#4a7c82"
+    }
   ],
   "events": [
     {
@@ -22,8 +38,8 @@
       "yearStart": -600,
       "yearEnd": -600,
       "displayDate": "Vers 600 av. J.-C.",
-      "title": "Fondation Phocéenne de Massalia",
-      "summary": "Escale de Protis au Lacydon et banquet nuptial avec Gyptis, fille du roi ségobrige Nannos.",
+      "title": "Installation phocéenne et récit de fondation",
+      "summary": "L’archéologie atteste une implantation grecque au début du VIᵉ siècle av. J.-C. ; le banquet de Protis et Gyptis relève d’une tradition littéraire.",
       "strateId": "couche-1-antiquite",
       "slug": "mythe-fondation-protis-gyptis"
     },
@@ -32,8 +48,8 @@
       "yearStart": -550,
       "yearEnd": -200,
       "displayDate": "VIᵉ — IIᵉ siècle av. J.-C.",
-      "title": "Massalia, comptoir central de la route de l'étain",
-      "summary": "Monopole commercial phocéen entre la Bretagne/Cornouailles et les cités grecques de Méditerranée.",
+      "title": "Massalia dans les réseaux d’échanges",
+      "summary": "La cité participe aux échanges entre Méditerranée et Gaule ; son rôle exact dans les circuits de l’étain demeure discuté.",
       "strateId": "couche-1-antiquite",
       "slug": "commerce-etain-massalia-gaulois"
     },
@@ -143,7 +159,7 @@
       "yearEnd": 1991,
       "displayDate": "1985 — 1991",
       "title": "Découverte et déclaration de la Grotte Cosquer",
-      "summary": "Découverte de la cavités immergée par le plongeur Henri Cosquer et authentification scientifique par l'DRASSM.",
+      "summary": "Découverte de la cavité immergée par le plongeur Henri Cosquer, puis déclaration et authentification scientifique avec l’intervention de la DRASSM.",
       "strateId": "couche-4-littoral",
       "slug": "grotte-cosquer-patrimoine-englouti"
     }
