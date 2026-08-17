@@ -33,7 +33,7 @@
       "slug": "antiquite-et-fondations",
       "title": "Antiquité et Fondations",
       "metaTitle": "Massalia grecque et romaine | Antiquité et Fondations de Marseille",
-      "metaDescription": "De la fondation par les Phocéens vers 600 av. J.-C. jusqu'aux vestiges urbains du port antique.",
+      "metaDescription": "L’implantation phocéenne au début du VIᵉ siècle av. J.-C., les sociétés locales, les récits de fondation et les vestiges de la ville antique.",
       "contentFile": "content/fille-antiquite.md",
       "heroImage": "/assets/img/hero-antiquite.png",
       "imageCaption": "Arrivée d'une galère phocéenne dans la calanque du Lacydon (actuel Vieux-Port) vers 600 avant notre ere.",
@@ -53,7 +53,8 @@
         "niveau": 1,
         "label": "Couche I — VIᵉ siècle av. J.-C. — Vᵉ siècle apr. J.-C.",
         "epoque": "<time datetime=\"-0600\">VIᵉ siècle av. J.-C.</time> — Vᵉ siècle apr. J.-C."
-      }
+      },
+      "editorialStatus": "Synthèse — faits, récits et hypothèses distingués"
     },
     "fille-fortifications": {
       "type": "fille",
@@ -487,10 +488,10 @@
       "slug": "mythe-fondation-protis-gyptis",
       "title": "Le Mythe de Protis et Gyptis",
       "metaTitle": "Le Mythe de Protis et Gyptis | Fondation de Massalia",
-      "metaDescription": "L'union légendaire de Protis et Gyptis scellant la fondation pacifique de la cité de Massalia vers 600 av. J.-C.",
+      "metaDescription": "Analyse critique des traditions littéraires de Protis et Gyptis, confrontées aux données archéologiques sur l’implantation de Massalia.",
       "contentFile": "content/feuille-mythe-protis.md",
       "heroImage": "/assets/img/hero-fondation-massalia.jpg",
-      "imageCaption": "Illustration de la légende de Protis et Gyptis.",
+      "imageCaption": "[Reconstitution artistique] Évocation du récit de Protis et Gyptis ; la scène n’est pas un document antique.",
       "schemaType": "Article",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
@@ -506,7 +507,8 @@
         "niveau": 2,
         "label": "Niveau II — Récits fondateurs",
         "epoque": "Vers 600 av. J.-C."
-      }
+      },
+      "editorialStatus": "Récit fondateur — historicité non établie"
     },
     "feuille-evolution-lacydon": {
       "type": "feuille",
@@ -539,10 +541,10 @@
       "slug": "commerce-etain-massalia-gaulois",
       "title": "Le commerce de l'étain avec les Gaulois",
       "metaTitle": "Le commerce de l'étain à Massalia | Échanges avec les Gaulois",
-      "metaDescription": "Le rôle géopolitique et économique de Massalia dans la route de l'étain à l'âge du Fer.",
+      "metaDescription": "Analyse du rôle possible de Massalia dans les réseaux antiques de l’étain, en distinguant les échanges attestés des itinéraires hypothétiques.",
       "contentFile": "content/feuille-commerce-etain-gaulois.md",
       "heroImage": "/assets/img/feuille-commerce-etain-gaulois.png",
-      "imageCaption": "Échanges commerciaux en Méditerranée.",
+      "imageCaption": "[Reconstitution artistique] Évocation d’échanges commerciaux antiques ; la cargaison représentée n’est pas documentée.",
       "schemaType": "Article",
       "parent": "fille-antiquite",
       "anchorToParent": "Antiquité et Fondations",
@@ -558,7 +560,8 @@
         "niveau": 2,
         "label": "Niveau II — Géopolitique et commerce",
         "epoque": "VIᵉ siècle - IIᵉ siècle av. J.-C."
-      }
+      },
+      "editorialStatus": "Hypothèse historique — rôle exact discuté"
     }
   }
 }

@@ -1,17 +1,25 @@
-Le développement de Massalia ne repose pas seulement sur l'exportation de produits méditerranéens (vin, huile, céramique), mais aussi sur son rôle de plaque tournante pour des matières premières stratégiques. Parmi celles-ci, l'étain tient une place prépondérante. Son commerce illustre la puissance de la diplomatie commerciale phocéenne avec les peuples gaulois de l'arrière-pays et au-delà.
+Massalia participe à des réseaux reliant la Méditerranée, la Gaule méridionale et des régions plus éloignées. L’étain, nécessaire à la fabrication du bronze, a pu emprunter une partie de ces circuits. Les sources disponibles ne permettent toutefois pas de reconstituer une route unique, continue et contrôlée par la cité phocéenne.
 
-> "Maîtriser la route de l'étain, c'était contrôler la production du bronze : Massalia s'est imposée comme le pivot de cet axe commercial continental."
+> **Statut documentaire — hypothèse discutée :** le rôle commercial de Massalia est bien attesté, notamment par les amphores, les céramiques, les monnaies et les épaves. Son contrôle d’une « route de l’étain » reliant directement la Méditerranée à la Cornouailles ne l’est pas.
 
-## L'importance de l'étain dans l'Antiquité
+## Un métal stratégique, des provenances multiples
 
-L'étain (cassitérite) est indispensable, allié au cuivre, pour la fabrication du bronze (armes, outils, vaisselle, parures). Le bassin méditerranéen en étant relativement dépourvu, les Grecs, les Romains et les Étrusques cherchaient cet approvisionnement loin vers le Nord, notamment en Cornouailles (les îles Cassitérides) et en Armorique. Massalia a su capter ce flux indispensable.
+Allié au cuivre, l’étain entre dans la fabrication du bronze. Ses sources et ses itinéraires antiques sont cependant difficiles à établir : le métal pouvait être refondu, fractionné et transmis par une succession d’intermédiaires. Les auteurs anciens évoquent des régions atlantiques productrices, mais leurs descriptions ne suffisent pas à tracer un parcours commercial précis jusqu’à Massalia.
 
-![Le commerce de l'étain](/assets/img/feuille-commerce-amphores.png "Représentation symbolique des échanges sur les navires de Massalia.")
+![Le commerce de l’étain](/assets/img/feuille-commerce-amphores.png "[Reconstitution artistique] Évocation d’échanges maritimes antiques ; l’image ne restitue pas une cargaison documentée.")
 
-## L'axe Rhône-Saône-Seine
+## Des réseaux plutôt qu’un axe unique
 
-Pour acheminer l'étain depuis le nord-ouest de l'Europe jusqu'à la Méditerranée, les marchands massaliètes utilisaient un vaste réseau d'alliances avec les tribus celtes et gauloises. La vallée du Rhône constituait l'artère principale de ce commerce. L'étain, transporté par voie fluviale puis terrestre, rejoignait la côte méditerranéenne en échange de vin, d'huile et d'objets manufacturés grecs ou étrusques, transportés dans les amphores massaliètes.
+La vallée du Rhône constitue un corridor majeur entre la Méditerranée et l’intérieur de la Gaule, sans être le seul. Les biens circulent par étapes entre ports, habitats et relais contrôlés par différentes communautés. Les découvertes d’amphores et de céramiques massaliètes loin du littoral attestent des échanges ; elles ne prouvent ni que des marchands de Massalia parcouraient l’ensemble du trajet, ni que la cité imposait un monopole.
 
-## L'étanchéité d'un réseau commercial
+Les sociétés locales sont des actrices de ces réseaux. Elles organisent leurs propres productions et redistribuent les biens selon leurs intérêts. Parler d’« échanges avec les Gaulois » ne doit donc pas effacer la diversité des groupes ni réduire leurs relations avec Massalia à une diplomatie pilotée par les seuls Grecs.
 
-La capacité de Massalia à maintenir un monopole de fait sur ce commerce résidait dans sa fine connaissance diplomatique des peuples gaulois (notamment les Ségobriges, les Salyens, puis les Éduens). Les comptoirs (emporia) fondés par Marseille le long des côtes ou dans l'arrière-pays n'étaient pas des colonies militaires, mais des points de relais sécurisant ce réseau commercial exceptionnel face à la concurrence des Carthaginois ou des Étrusques.
+## Ce qui est solidement documenté
+
+L’archéologie maritime et terrestre documente plus directement la production et la diffusion du vin, des amphores, des céramiques et des monnaies massaliètes. Pour l’étain, la formulation rigoureuse consiste à parler d’une participation possible à des réseaux de longue distance, dont l’organisation et les acteurs restent discutés.
+
+## Repères documentaires
+
+- [Centre Camille Jullian — *Marseille grecque et la Gaule*, Études massaliètes 3](https://ccj.cnrs.fr/spip.php?article379=), notamment les études consacrées aux échanges maritimes, aux relais indigènes et à la voie rhodanienne.
+- [Inrap — Atlas archéologique de Marseille : commerce et vestiges portuaires](https://multimedia.inrap.fr/atlas/marseille/la-ville-marseille).
+
