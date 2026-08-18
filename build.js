@@ -19,7 +19,7 @@ const { site, pages } = map;
 
 // SITE_URL : source de vérité unique pour canonical <link>, og:url, sitemap.xml et robots.txt.
 // Priorité : variable d'environnement SITE_URL > site.baseUrl dans semantic-map.json > fallback.
-const SITE_URL = process.env.SITE_URL || site.baseUrl || "https://massalia-luh273w20-musashi777s-projects.vercel.app";
+const SITE_URL = process.env.SITE_URL || site.baseUrl || "https://massalia-puce.vercel.app";
 site.baseUrl = SITE_URL;
 
 const templates = {

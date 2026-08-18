@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "test": "npm run test:security && npm run test:editorial && npm run test:design && node scripts/final-audit-runner.js",
+    "test": "npm run test:security && npm run test:editorial && npm run test:design && npm run test:seo && node scripts/final-audit-runner.js",
     "test:security": "node --test tests/security-rendering.test.js",
     "test:editorial": "node --test tests/editorial-rigor.test.js",
-    "test:design": "node --test tests/design-consistency.test.js"
+    "test:design": "node --test tests/design-consistency.test.js",
+    "test:seo": "node --test tests/production-seo.test.js",
+    "test:seo:live": "node scripts/verify-production-seo.js"
   }
 }
