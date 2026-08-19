@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "Massalia — Histoire et Monuments de Marseille",
-    "baseUrl": "https://massalia-luh273w20-musashi777s-projects.vercel.app",
+    "baseUrl": "https://massalia-puce.vercel.app",
     "defaultOgImage": "/og-image.jpg",
     "twitterHandle": "@massalia_histoire"
   },
